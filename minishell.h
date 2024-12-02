@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:27:58 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/11/25 19:54:34 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/02 14:34:10 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,11 @@
 
 # define _GNU_SOURCE
 # include <unistd.h>
+# include <stdlib.h>
 # include <signal.h>
+#include <stdio.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 
 # define BOLD "\e[1m"
 # define RESET "\e[0m"
@@ -24,6 +28,9 @@
 typedef enum e_token_type
 {
 	TOKEN_WORD, // For commands and arguments
+	// TOKEN_CMD,
+	// TOKEN_ARG,
+	// TOKEN_FILE,
 	TOKEN_PIPE, // For '|'
 	TOKEN_REDIR_IN, // For '<'
 	TOKEN_REDIR_OUT, // For '>'
@@ -47,6 +54,20 @@ typedef struct s_ast_node
 	struct s_ast_node	*left;
 	struct s_ast_node	*right;
 }	t_ast_node;
+
+typedef struct s_env
+{
+	char			*key;
+	char			*value;
+	struct s_env	*next;
+}	t_env;
+
+/*typedef struct s_env
+{
+	char	**key;
+	char	**value;
+	// int		nb_value;
+}	t_env;*/
 
 int	syntax_checker(void);
 
