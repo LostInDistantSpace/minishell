@@ -6,7 +6,7 @@
 #    By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/10 16:41:52 by bmouhib           #+#    #+#              #
-#    Updated: 2024/12/02 19:26:25 by bmouhib          ###   ########.fr        #
+#    Updated: 2024/12/02 19:44:33 by bmouhib          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,11 +42,8 @@ LIBFT_INCLUDES	:=	$(LIBFT_DIR)$(INCLUDES)
 LIBFT			:=	$(LIBFT_DIR)$(LIBFT_NAME)
 
 
-RL_INCLUDE		:=	$(shell brew --prefix readline)/include
-RL_LIB			:=	$(shell brew --prefix readline)/lib
 INCLUDES_FLAGS	:=	-I $(INCLUDES)
 INCLUDES_FLAGS	+=	-I $(LIBFT_INCLUDES)
-INCLUDES_FLAGS	+=	-I $(RL_INCLUDE)
 
 SRCS_DIR		:=	srcs/
 SRCS			:=	$(addprefix $(SRCS_DIR), $(SRC))
@@ -117,7 +114,7 @@ $(LIBFT):
 
 $(NAME): 			$(OBJS) $(LIBFT) 
 					@$(COMP_OBJS)
-					@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LIBFT_FLAGS)
+					@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -lreadline $(LIBFT_FLAGS)
 					@$(COMP_NAME)
 
 
