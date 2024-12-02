@@ -1,41 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenization.c                                     :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/25 19:43:30 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/11/25 19:47:30 by bmouhib          ###   ########.fr       */
+/*   Created: 2024/05/22 10:49:51 by bmouhib           #+#    #+#             */
+/*   Updated: 2024/05/22 16:18:52 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-/*
- Iterates through the input, creating tokens for words separated by spaces.
-*/
-void	tokenize_input(char *input)
+char	*ft_strdup(const char *s)
 {
-}
+	size_t	len;
+	char	*str;
 
-/*
-Handles the special characters in the input string.
-*/
-void	handle_special_chars(void)
-{
-}
-
-/*
-Handles the words in the input string.
-*/
-void	handle_word(void)
-{
-}
-
-/*
-Prints the tokens to verify the tokenization process.
-*/
-void	print_tokens(void)
-{
+	len = ft_strlen(s);
+	str = malloc(sizeof(char) * (len + 1));
+	if (!str)
+		return (NULL);
+	ft_memmove(str, s, len);
+	str[len] = '\0';
+	return (str);
 }

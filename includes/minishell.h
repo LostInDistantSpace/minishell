@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:27:58 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/02 14:34:10 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/02 19:09:26 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,14 @@
 # define MINISHELL_H
 
 # define _GNU_SOURCE
+# include "colors.h"
+# include "libft.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <signal.h>
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-
-# define BOLD "\e[1m"
-# define RESET "\e[0m"
+# include <stdio.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 // Token type enumeration
 typedef enum e_token_type
@@ -69,6 +68,8 @@ typedef struct s_env
 	// int		nb_value;
 }	t_env;*/
 
-int	syntax_checker(void);
+int			syntax_checker(char *line);
+t_token		*tokenize_input(char *input);
+t_ast_node	*parse_tokens(t_token *token);
 
 #endif

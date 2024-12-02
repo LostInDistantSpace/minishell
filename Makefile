@@ -6,7 +6,7 @@
 #    By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/10 16:41:52 by bmouhib           #+#    #+#              #
-#    Updated: 2024/11/11 18:26:10 by bmouhib          ###   ########.fr        #
+#    Updated: 2024/12/02 19:26:25 by bmouhib          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,24 +14,14 @@
 #                                  VARIABLES                                   #
 # ---------------------------------------------------------------------------- #
 
-NAME		:=	fdf
+NAME		:=	minishell
 
 # --------------------------------- SOURCES ---------------------------------- #
 
-SRC				:=	fdf.c
-SRC				+=	mlx_helpers.c
-SRC				+=	mouse_hook.c
-SRC				+=	mini_maths.c
-SRC				+=	map_utils.c
-SRC				+=	map_init.c
-SRC				+=	parsing.c
-SRC				+=	points.c
-SRC				+=	hooks.c
-SRC				+=	error.c
-SRC				+=	color.c
-SRC				+=	frees.c
-SRC				+=	draw.c
-SRC				+=	init.c
+SRC			:=	minishell.c
+SRC			+=	parsing.c
+SRC			+=	syntax.c
+SRC			+=	tokenization.c
 
 # --------------------------------- COMMANDS --------------------------------- #
 
@@ -43,24 +33,20 @@ MKDIR			:=	mkdir -p
 # ----------------------------------- FILES ---------------------------------- #
 
 INCLUDES		:=	includes/
-INCLUDE_FILE	:=	fdf.h
+INCLUDE_FILES	:=	colors.h
+INCLUDE_FILES	+=	minishell.h
 
 LIBFT_DIR		:=	libft/
 LIBFT_NAME		:=	libft.a
 LIBFT_INCLUDES	:=	$(LIBFT_DIR)$(INCLUDES)
 LIBFT			:=	$(LIBFT_DIR)$(LIBFT_NAME)
 
-MLX_DIR			:=	minilibx-linux/
-MLX_NAME		:=	libmlx_Linux.a
-MLX				:=	$(MLX_DIR)$(MLX_NAME)
-MLX_FILE		:=	libmlx.a
-MLX_FLAG		:=	-lX11 -lXext
-MLX_LIB			:=	$(addprefix $(MLX_DIR), $(MLX_FILE))
-MLX_CLONE		:=	https://github.com/42Paris/minilibx-linux.git
 
+RL_INCLUDE		:=	$(shell brew --prefix readline)/include
+RL_LIB			:=	$(shell brew --prefix readline)/lib
 INCLUDES_FLAGS	:=	-I $(INCLUDES)
-INCLUDES_FLAGS	+=	 -I $(LIBFT_INCLUDES)
-INCLUDES_FLAGS	+=	 -I $(MLX_DIR)
+INCLUDES_FLAGS	+=	-I $(LIBFT_INCLUDES)
+INCLUDES_FLAGS	+=	-I $(RL_INCLUDE)
 
 SRCS_DIR		:=	srcs/
 SRCS			:=	$(addprefix $(SRCS_DIR), $(SRC))
@@ -77,12 +63,8 @@ CFLAGS			+=	-Wextra
 CFLAGS			+=	-Werror
 CFLAGS			+=	-g3
 
-LIB_FLAGS		:=	-L$(LIBFT_DIR)
-LIB_FLAGS		+=	-lft
-LIB_FLAGS		+=	-L$(MLX_DIR)
-LIB_FLAGS		+=	-lm
-LIB_FLAGS		+=	-lmlx_Linux
-LIB_FLAGS		+=	-L/usr/lib -Imlx_linux -lXext -lX11
+LIBFT_FLAGS		:=	-L$(LIBFT_DIR)
+LIBFT_FLAGS		+=	-lft
 
 MAKE_NO_PRINT	:=	--no-print-directory
 MAKE_FLAGS		:=	$(MAKE_NO_PRINT)
@@ -109,64 +91,38 @@ ECHO			:=	echo
 DELETION		:=	$(RED)Deletion$(NO_STYLE) of
 CREATION		:=	$(GREEN)Creation$(NO_STYLE) of
 OBJ_FILES		:=	$(BLUE)object files$(NO_STYLE)
-MLX_FILES		:=	$(BLUE)mlx$(NO_STYLE)
 DEPS_FILES		:=	$(BLUE)dependencies files$(NO_STYLE)
 AND				:=	and
 COMPLETE		:=	complete
-TO_UPPER		:=	tr '[:lower:]' '[:upper:]'
-PROJECT			:=	$(shell $(ECHO) $(NAME) | $(TO_UPPER))
-PROJECT_NAME	:=	$(WHITE)$(PROJECT)$(NO_STYLE)
 NAME_FILE		:=	$(BLUE)$(NAME)$(NO_STYLE)
 
-COMP_OBJS		:=	$(ECHO) $(CREATION) $(PROJECT_NAME) $(OBJ_FILES) $(AND) $(DEPS_FILES) $(COMPLETE)
-COMP_MLX		:=	$(ECHO) $(CREATION) $(PROJECT_NAME) $(MLX_FILES) $(COMPLETE)
-COMP_NAME		:=	$(ECHO) $(CREATION) $(PROJECT_NAME) $(NAME_FILE) $(COMPLETE)
-COMP_CLEAN		:=	$(ECHO) $(DELETION) $(PROJECT_NAME) $(OBJ_FILES) $(AND) $(DEPS_FILES) $(COMPLETE)
-COMP_FCLEAN		:=	$(ECHO) $(DELETION) $(PROJECT_NAME) $(NAME_FILE) $(COMPLETE)
-
-define HELP_MSG
-Usage: make [TARGET]
-		all         - Create the archive file(s)
-		clean       - Remove object file(s)
-		fclean      - Remove object file(s) and archive file(s)
-		re          - Recreate the archive file(s)
-		help        - Display this help message
-endef
-export HELP_MSG
-
-HELP			:=	@$(ECHO) "$$HELP_MSG"
+COMP_OBJS		:=	$(ECHO) $(CREATION) $(OBJ_FILES) $(AND) $(DEPS_FILES) $(COMPLETE)
+COMP_MLX		:=	$(ECHO) $(CREATION) $(MLX_FILES) $(COMPLETE)
+COMP_NAME		:=	$(ECHO) $(CREATION) $(NAME_FILE) $(COMPLETE)
+COMP_CLEAN		:=	$(ECHO) $(DELETION) $(OBJ_FILES) $(AND) $(DEPS_FILES) $(COMPLETE)
+COMP_FCLEAN		:=	$(ECHO) $(DELETION) $(NAME_FILE) $(COMPLETE)
 
 # ---------------------------------------------------------------------------- #
 #                                    RULES                                     #
 # ---------------------------------------------------------------------------- #
 
-$(OBJS_DIR)%.o:		$(SRCS_DIR)%.c $(INCLUDES)$(INCLUDE_FILE)
+$(OBJS_DIR)%.o:		$(SRCS_DIR)%.c
 					@$(MKDIR) $(dir $@)
-					@$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDES_FLAGS)
+					@$(CC) $(CFLAGS) $(INCLUDES_FLAGS) -c $< -o $@
 
 all:				$(NAME)
 
 $(LIBFT):
 					@$(MAKE) $(MAKE_FLAGS) $(LIBFT_DIR)
 
-$(NAME): 			$(LIBFT) $(MLX_LIB) $(OBJS)
+$(NAME): 			$(OBJS) $(LIBFT) 
 					@$(COMP_OBJS)
-					@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LIB_FLAGS)
+					@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LIBFT_FLAGS)
 					@$(COMP_NAME)
 
-$(MLX_LIB):
-					@if [ ! -d "$(MLX_DIR)" ]; then \
-						git clone -q $(MLX_CLONE); \
-						echo "\033[1;32m$(MLX_DIR) created"; \
-					else \
-						echo "\033[1;32mRepository already exists."; \
-					fi
-					@make -sC $(MLX_DIR)
-					
 
 clean_project:
 					@$(RM) $(OBJS_DIR)
-					@$(RM) $(MLX_DIR)
 					@$(COMP_CLEAN)
 
 clean:				clean_project
