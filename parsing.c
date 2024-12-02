@@ -6,14 +6,16 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:49:05 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/11/25 19:51:51 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/02 14:54:53 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
-Iterates through the tokens, building an abstract syntax tree (AST) that represents the input string.
+Iterates through the tokens, 
+building an abstract syntax tree (AST) 
+that represents the input string.
 */
 void	parse_tokens(char *token)
 {
