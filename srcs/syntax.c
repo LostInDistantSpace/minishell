@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:35:28 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/11/25 19:40:56 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/02 19:22:16 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@
 * checking for syntax errors and 
 * reporting them if found.
 */
-int	syntax_checker(void)
+int	syntax_checker(char *line)
 {
+	(void)line;
 	return (0);
 }
 
@@ -39,6 +40,7 @@ int	has_invalid_redirections(void)
 {
 	return (0);
 }
+
 /*
 Detects misplaced pipes and redirections.
 */

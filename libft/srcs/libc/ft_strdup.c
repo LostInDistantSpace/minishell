@@ -1,41 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/25 16:27:25 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/11/25 19:44:28 by bmouhib          ###   ########.fr       */
+/*   Created: 2024/05/22 10:49:51 by bmouhib           #+#    #+#             */
+/*   Updated: 2024/05/22 16:18:52 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	ft_prompt(char *current_dir)
+char	*ft_strdup(const char *s)
 {
-	if (current_dir)
-	{
-		printf(BOLD "%s >" RESET, current_dir);
-	}
-}
+	size_t	len;
+	char	*str;
 
-int	main(int argc, char **argv)
-{
-	int					end_signal;
-	char				*current_dir;
-	struct sigaction	sa;
-
-	end_signal = 0;
-	if (argc != 1)
-		return (1);
-	signal_handling(&sa);
-	while (!end_signal)
-	{
-		ft_prompt(current_dir);
-		syntax_checker();
-		tokenize();
-		do_stuff();
-	}
-	return (0);
+	len = ft_strlen(s);
+	str = malloc(sizeof(char) * (len + 1));
+	if (!str)
+		return (NULL);
+	ft_memmove(str, s, len);
+	str[len] = '\0';
+	return (str);
 }
