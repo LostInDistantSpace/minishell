@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:27:25 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/04 21:27:43 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/04 21:48:33 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ char	*get_dir(void)
 	home = getenv("HOME");
 	home_len = ft_strlen(home);
 	cwd = getcwd(NULL, 0);
-	printf("CWD  : %s\n", cwd);
 	if (!ft_strncmp(cwd, home, home_len))
 	{
 		gwd = malloc(ft_strlen(cwd) - home_len + 2 * sizeof(char));
@@ -68,29 +67,44 @@ char	*get_dir(void)
 	return (ft_double_join(BOLD, cwd, RESET_COLOR));
 }
 
+char	*prompt(void)
+{
+	char	*dir;
+	char	*tmp;
+	char	*prompt;
+
+	dir = get_dir();
+	prompt = ft_double_join(GREEN, BOLD, getenv("USER"));
+	tmp = ft_double_join(prompt, "@", getenv("NAME"));
+	free(prompt);
+	prompt = ft_double_join(tmp, " ", BLUE);
+	free(tmp);
+	tmp = ft_double_join(prompt, dir, "$ ");
+	prompt = ft_strjoin(tmp, RESET_COLOR);
+	return (free(tmp), free(dir), prompt);
+}
+
 int	main(int argc, char **argv)
 {
-	// int			end_signal;
-// 	char		*line;
-// 	t_ast_node	*ast;
+	int			end_signal;
+	char		*line;
+	// t_ast_node	*ast;
 	// struct sigaction	sa;
 
 	(void)argv;
 	if (argc != 1)
 		return (1);
+	end_signal = 0;
 	// signal_handling(&sa);
-	// get_env_var(env);
-	// end_signal = 0;
-	printf("%s\n", get_dir());
-	// while (!end_signal)
-	// {
-		// line = readline(get_dir(getenv("USER")));
-	// 	if (!line)
-	// 		end_signal = 1;
-	// 	syntax_checker(line);
-	// 	ast = parse_tokens(tokenize_input(line));
-	// 	free(ast);
-	// 	free(line);
-	// }
+	while (!end_signal)
+	{
+		line = readline(prompt());
+		if (!line)
+			end_signal = 1;
+		// syntax_checker(line);
+		// ast = parse_tokens(tokenize_input(line));
+		// free(ast);
+		free(line);
+	}
 	return (0);
 }
