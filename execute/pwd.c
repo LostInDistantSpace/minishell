@@ -1,21 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.h                                             :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/26 17:38:11 by lemarian          #+#    #+#             */
-/*   Updated: 2024/12/04 14:49:22 by lemarian         ###   ########.fr       */
+/*   Created: 2024/12/04 14:51:39 by lemarian          #+#    #+#             */
+/*   Updated: 2024/12/04 15:42:47 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXEC_H
-# define EXEC_H
+#include "exec.h"
 
-# include "../includes/minishell.h"
+void	pwd(void)//idk if i need parameters
+{
+	char	*dir;
+	size_t	size;
 
-void	env(t_ast_node *node);
-void	echo(t_ast_node *node);
+	dir = NULL;
+	size = 0;
+	printf("%s\n", getcwd(dir, size));
+}
 
-#endif
+/*int	main(void)
+{
+	pwd();
+	return (0);
+}*/

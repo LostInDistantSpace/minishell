@@ -1,21 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.h                                             :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/26 17:38:11 by lemarian          #+#    #+#             */
-/*   Updated: 2024/12/04 14:49:22 by lemarian         ###   ########.fr       */
+/*   Created: 2024/12/04 14:28:58 by lemarian          #+#    #+#             */
+/*   Updated: 2024/12/04 14:48:36 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXEC_H
-# define EXEC_H
+#include "exec.h"
 
-# include "../includes/minishell.h"
+void	echo(t_ast_node *node)
+{
+	int	i;
 
-void	env(t_ast_node *node);
-void	echo(t_ast_node *node);
-
-#endif
+	if (!(ft_strncmp(node->args[1], "-n", 2)))
+	{
+		i = 2;
+		while (node->args[i])
+		{
+			printf("%s", node->args[i]);
+			i++;
+		}
+	}
+	else
+	{
+		i = 1;
+		while (node->args[i])
+		{
+			printf("%s", node->args[i]);
+			i++;
+		}
+		printf("\n");
+	}
+	exit(EXIT_SUCCESS);
+}

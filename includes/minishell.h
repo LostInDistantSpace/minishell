@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:27:58 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/02 19:09:26 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/04 15:10:21 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # define _GNU_SOURCE
 # include "colors.h"
-# include "libft.h"
+# include "../libft/includes/libft.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <signal.h>

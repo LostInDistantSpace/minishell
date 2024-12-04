@@ -6,49 +6,70 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 13:32:45 by lemarian          #+#    #+#             */
-/*   Updated: 2024/11/27 16:35:07 by lemarian         ###   ########.fr       */
+/*   Updated: 2024/12/04 15:43:00 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
 
-/*void	exec(t_ast_node head)
+/*
+about redirections: if it's << it redirects input to a heredoc,
+if it's >> it redirects output to a file and it appends, doesn't truncate.
+
+void	exec(t_ast_node **head)
 {
-	if (head == word) ->should be a command
+	if (head == word) -> should be a command
 	{
-		if (head->right == word) -> should be a file
-		{
-			check_file;
-			redirect input;
-		}
 		if (word == built-in)
-			exec (built-in)
+			exec(built-in)
 		else
 		{
-			search_path(word)
-			if (not found)
-				print("Command not found")
+			if (!search_path(word))
+				error(command not found);
 			else
-				exec(command)
+				exec(path, cmd);(in child process)
 		}
+	}
+	if (head == redirection) -> not good, several redirections?
+	{
+		go->right;
+		if (not word)
+			go->left;
+		if (still not word)
+			error(no valid file name for redirection);
+		else
+			redirect(args[0]);
+		if (args[1] != command)
+			error(command not found);
 	}
 	if (head == pipe)
 	{
-		create pipe;
-		fork;
-		redirect_output;
-		while (node != word)
-			traverse->left;
-		if (word->right == word)
+		if (head->left == NULL)
+			error(no command);
+		fork();
+		pipe();
+		while (node->left != NULL)
 		{
-			check_file;
-			redirect_input;
+			if (node == redirection)
+				redirect(node->right(args[0]));
+			go->left;
 		}
-		if (built_in)
-			exec;
+		if (node != word)
+			error(no command);
+		if (word == built-in)
+			exec(built-in);
 		else
-			search and exec;
+		{
+			if (!search_path(word))
+				error(command not found);
+			else
+				exec(command);(in child process)
+		}
+		go->right;
+		if (pipe)
+			fork;
+		etc;
 	}
 }
 */

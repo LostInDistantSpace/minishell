@@ -1,21 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.h                                             :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/26 17:38:11 by lemarian          #+#    #+#             */
-/*   Updated: 2024/12/04 14:49:22 by lemarian         ###   ########.fr       */
+/*   Created: 2024/12/04 14:42:04 by lemarian          #+#    #+#             */
+/*   Updated: 2024/12/04 15:24:40 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXEC_H
-# define EXEC_H
+#include "exec.h"
 
-# include "../includes/minishell.h"
+void	env(t_ast_node *node)
+{
 
-void	env(t_ast_node *node);
-void	echo(t_ast_node *node);
-
-#endif
+}
