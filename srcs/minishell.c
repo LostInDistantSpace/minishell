@@ -6,30 +6,13 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:27:25 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/04 22:55:39 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/04 23:46:24 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int	g_signal;
-
-char	*prompt(void)
-{
-	char	*dir;
-	char	*tmp;
-	char	*prompt;
-
-	dir = get_dir();
-	prompt = ft_double_join(GREEN, BOLD, getenv("USER"));
-	tmp = ft_double_join(prompt, "@", getenv("NAME"));
-	free(prompt);
-	prompt = ft_double_join(tmp, " ", BLUE);
-	free(tmp);
-	tmp = ft_double_join(prompt, dir, "$ ");
-	prompt = ft_strjoin(tmp, RESET_COLOR);
-	return (free(tmp), free(dir), prompt);
-}
 
 int	main(int argc, char **argv)
 {
@@ -48,15 +31,7 @@ int	main(int argc, char **argv)
 	{
 		line = readline(prompt());
 		if (!line)
-		{
-			write(STDERR_FILENO, "exit\n", 5);
-			exit(0);
-		}
-		if (!ft_strcmp(line, "exit")) //to remove (tests)
-		{
-			free(line);
-			exit(0);
-		}
+			exit(write(STDOUT_FILENO, "exit\n", 5)); // need exit function
 		// syntax_checker(line);
 		// ast = parse_tokens(tokenize_input(line));
 		g_signal = 0;

@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:27:58 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/04 22:19:38 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/04 23:02:16 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ typedef struct s_env
 }	t_env;*/
 
 extern int	g_signal;
+
+char				*prompt(void);
 
 struct sigaction	sa_init(void);
 
