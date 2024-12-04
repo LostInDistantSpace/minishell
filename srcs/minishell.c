@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:27:25 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/02 20:08:09 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/04 21:27:43 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,34 +47,25 @@ char	*get_var(t_env *env, char *key)
 }
 
 
-char	*get_dir(char *user)
+char	*get_dir(void)
 {
 	int		home_len;
 	char	*home;
+	char	*cwd;
 	char	*gwd;
 
-	if (user)
+	home = getenv("HOME");
+	home_len = ft_strlen(home);
+	cwd = getcwd(NULL, 0);
+	printf("CWD  : %s\n", cwd);
+	if (!ft_strncmp(cwd, home, home_len))
 	{
-		home_len = ft_strlen("/home/") + ft_strlen(user);
-		home = malloc(home_len * sizeof(char));
-		home = ft_strjoin("/home/", user);
-		printf("User : %s\nHOME : %s (%d)\n", user, home, home_len);
-		gwd = getcwd(NULL, 0);
-		printf("CWD  : %s\n", gwd);
-		if (!ft_strncmp(gwd, home, home_len))
-			printf("Starts with home babe\n");
-		return (gwd);
-		// if (!ft_strncmp(buf, home, home_len))
-		// {
-		// 	free(buf);
-		// 	buf = malloc(ft_strlen(gwd) - home_len + 1 * sizeof(char));
-		// 	buf = ft_strjoin("~", gwd + home_len);
-		// 	free(gwd);
-		// 	gwd = buf;
-		// }
+		gwd = malloc(ft_strlen(cwd) - home_len + 2 * sizeof(char));
+		gwd = ft_strjoin("~", cwd + home_len);
+		free(cwd);
+		return (ft_double_join(BOLD, gwd, RESET_COLOR));
 	}
-	gwd = NULL;
-	return (ft_double_join(BOLD, gwd, RESET_COLOR));
+	return (ft_double_join(BOLD, cwd, RESET_COLOR));
 }
 
 int	main(int argc, char **argv)
@@ -90,7 +81,7 @@ int	main(int argc, char **argv)
 	// signal_handling(&sa);
 	// get_env_var(env);
 	// end_signal = 0;
-	printf("%s\n", get_dir(getenv("USER")));
+	printf("%s\n", get_dir());
 	// while (!end_signal)
 	// {
 		// line = readline(get_dir(getenv("USER")));
