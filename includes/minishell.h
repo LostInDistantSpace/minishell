@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:27:58 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/02 19:09:26 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/04 22:19:38 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,18 @@ typedef struct s_env
 	// int		nb_value;
 }	t_env;*/
 
-int			syntax_checker(char *line);
-t_token		*tokenize_input(char *input);
-t_ast_node	*parse_tokens(t_token *token);
+extern int	g_signal;
+
+struct sigaction	sa_init(void);
+
+int					syntax_checker(char *line);
+t_token				*tokenize_input(char *input);
+t_ast_node			*parse_tokens(t_token *token);
+
+int					ft_strcmp(char *s1, char *s2);
+char				*ft_double_join(char *left, char *middle, char *right);
+
+char				*get_var(t_env *env, char *key);
+char				*get_dir(void);
 
 #endif
