@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 23:00:40 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/05 15:19:25 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/05 16:36:15 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*get_dir(void)
 	home = getenv("HOME");
 	home_len = ft_strlen(home);
 	cwd = getcwd(NULL, 0);
-	if (!ft_strncmp(cwd, home, home_len))
+	if (home && !ft_strncmp(cwd, home, home_len))
 	{
 		gwd = malloc(ft_strlen(cwd) - home_len + 2 * sizeof(char));
 		gwd = ft_strjoin(BLUE BOLD "~", cwd + home_len);
