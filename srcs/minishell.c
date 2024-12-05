@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:27:25 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/05 15:21:00 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/05 19:55:56 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,11 @@ int	main(int argc, char **argv)
 		line = readline(prompt());
 		if (!line)
 			exit(write(STDOUT_FILENO, "exit\n", 5)); // need exit function
-		// syntax_checker(line);
+		if (syntax_checker(line))
+		{
+			free(line);
+			exit(write(STDOUT_FILENO, "exit\n", 5)); // need exit function
+		}
 		// ast = parse_tokens(tokenize_input(line));
 		g_signal = 0;
 		free(line);

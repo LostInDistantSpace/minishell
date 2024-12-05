@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:27:58 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/04 23:02:16 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/05 19:54:35 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,12 @@ char				*prompt(void);
 struct sigaction	sa_init(void);
 
 int					syntax_checker(char *line);
+int					syntax_init(char **line, int *p, char *q, int *i);
 t_token				*tokenize_input(char *input);
 t_ast_node			*parse_tokens(t_token *token);
 
 int					ft_strcmp(char *s1, char *s2);
-char				*ft_double_join(char *left, char *middle, char *right);
+char				*ft_double_join(char *l, char *m, char *r);
 
 char				*get_var(t_env *env, char *key);
 char				*get_dir(void);

@@ -6,7 +6,7 @@
 #    By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/10 16:41:52 by bmouhib           #+#    #+#              #
-#    Updated: 2024/12/04 23:02:44 by bmouhib          ###   ########.fr        #
+#    Updated: 2024/12/05 19:54:51 by bmouhib          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,11 +25,12 @@ SRC			+=	prompt.c
 SRC			+=	signals.c
 SRC			+=	str_utils.c
 SRC			+=	syntax.c
+SRC			+=	syntax_utils.c
 SRC			+=	tokenization.c
 
 # --------------------------------- COMMANDS --------------------------------- #
 
-CC				:=	gcc
+CC				:=	cc
 RM				:=	rm -rf
 AR				:=	ar -rc
 MKDIR			:=	mkdir -p

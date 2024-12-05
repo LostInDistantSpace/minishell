@@ -6,54 +6,78 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:35:28 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/02 19:22:16 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/05 19:57:56 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* 
-* Iterates through the input string, 
-* checking for syntax errors and 
-* reporting them if found.
+int	check_parenthesis(char c, int parenthesis)
+{
+	if (c == '(')
+		return (parenthesis + 1);
+	if (c == ')')
+		return (parenthesis - 1);
+}
+
+char	check_quote(char c, char quote)
+{
+	if (quote && c == quote)
+		return (0);
+	else if (!quote)
+		return (c);
+}
+
+int	check_redir(char *line, int *pos)
+{
+	char	redir;
+
+	redir = line[*pos];
+	*pos++;
+	if (line[*pos] == redir)
+		pos++;
+	while (line[*pos] && ft_iswhitespace(line[*pos]))
+		pos++;
+	if (!line[*pos] || line[*pos] == '<' || line[*pos] == '>')
+		return (1);
+	if (line[*pos] == '|' || line[*pos] == '&')
+		return (1);
+	return (0);
+}
+
+int	check_pipe(char *line, int *pos)
+{
+	*pos++;
+	while (line[*pos] && ft_iswhitespace(line[*pos]))
+		*pos++;
+	if (!line[*pos] || line[*pos] == '|')
+		return (1);
+	return (0);
+}
+
+/*
 */
 int	syntax_checker(char *line)
 {
-	(void)line;
-	return (0);
-}
+	int		i;
+	int		parenthesis;
+	char	quote;
 
-/*
-Function: Checks for unclosed quotes in the input string.
-*/
-int	has_unclosed_quotes(void)
-{
-	return (0);
-}
-
-/*
-Detects invalid redirections, 
-such as multiple consecutive redirections or 
-redirections at the start or end of the input.
-*/
-int	has_invalid_redirections(void)
-{
-	return (0);
-}
-
-/*
-Detects misplaced pipes and redirections.
-*/
-int	has_misplaced_operators(void)
-{
-	return (0);
-}
-
-/* 
-Detects logical operators such as && and || 
-and reports them as not supported.
-*/
-int	has_logical_operators(void)
-{
+	if (syntax_init(&line, &parenthesis, &quote, &i))
+		return (1);
+	while (line[i])
+	{
+		if (line[i] == '\'' || line[i] == '\"')
+			quote = check_quote(line[i], quote);
+		if (!quote && (line[i] == '(' || line[i] == ')'))
+			parenthesis = check_parenthesis(line[i], parenthesis);
+		if (!quote && line[i] == '<' || line[i] == '>' && check_redir(line, &i))
+			return (1);
+		if (!quote && line[i] == '|' && check_pipe(line, &i))
+			return (1);
+		i++;
+	}
+	if (quote || parenthesis)
+		return (2);
 	return (0);
 }
