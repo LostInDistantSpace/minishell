@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:27:25 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/05 19:55:56 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/05 20:08:14 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,9 @@ int	main(int argc, char **argv)
 			exit(write(STDOUT_FILENO, "exit\n", 5)); // need exit function
 		if (syntax_checker(line))
 		{
-			free(line);
-			exit(write(STDOUT_FILENO, "exit\n", 5)); // need exit function
+			printf("Incorrect line\n");
+			// free(line);
+			// exit(write(STDOUT_FILENO, "exit\n", 5)); // need exit function
 		}
 		// ast = parse_tokens(tokenize_input(line));
 		g_signal = 0;
