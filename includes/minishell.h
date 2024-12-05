@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:27:58 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/05 13:43:26 by lemarian         ###   ########.fr       */
+/*   Updated: 2024/12/05 15:12:04 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,14 @@
 
 # define _GNU_SOURCE
 # include "colors.h"
-# include "../libft/includes/libft.h"
+# include "../libft/includes/libft.h"//change?
 # include <unistd.h>
 # include <stdlib.h>
 # include <signal.h>
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <sys/wait.h>
 
 // Token type enumeration
 typedef enum e_token_type
@@ -35,7 +36,7 @@ typedef enum e_token_type
 	TOKEN_REDIR_OUT, // For '>'
 	TOKEN_REDIR_APPEND, // For '>>'
 	TOKEN_REDIR_HEREDOC, // For '<<'
-	TOKEN_ENV_VAR, // For environment variables
+	//TOKEN_ENV_VAR, delete
 }	t_token_type;
 
 // Token structure
