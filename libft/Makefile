@@ -6,7 +6,7 @@
 #    By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/02 18:13:50 by bmouhib           #+#    #+#              #
-#    Updated: 2024/10/30 17:01:25 by bmouhib          ###   ########.fr        #
+#    Updated: 2024/12/09 23:05:19 by bmouhib          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -95,6 +95,7 @@ SRC				+=	$(SRC_ADD)ft_hasprefix.c
 SRC				+=	$(SRC_ADD)ft_atoi_base.c
 SRC				+=	$(SRC_ADD)ft_isdigit_base.c
 SRC				+=	$(SRC_ADD)ft_iswhitespace.c
+SRC				+=	$(SRC_ADD)ft_minmax.c
 
 # ------------------------------------ ADD ----------------------------------- #
 

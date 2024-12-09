@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:27:25 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/09 18:39:10 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/09 23:43:36 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,15 @@
 
 int	g_signal;
 
-int	main(int argc, char **argv)
+int	main(void)
 {
 	char				*line;
 	struct sigaction	sa;
-	// t_ast_node	*ast;
+	t_token				*token_list;
+	// t_ast				*ast_root;
 
-	(void)argv;
-	if (argc != 1)
-		return (1);
 	g_signal = 0;
-	sa = sa_init();
-	sigaction(SIGINT, &sa, NULL);
-	sigaction(EOF, &sa, NULL);
+	sa_init(&sa);
 	while (!g_signal)
 	{
 		line = readline(prompt());
@@ -34,9 +30,11 @@ int	main(int argc, char **argv)
 			exit(write(STDOUT_FILENO, "exit\n", 5)); // need exit function
 		if (ft_strlen(line))
 			add_history(line);
-		if (syntax_checker(line))
+		if (syntax_checker(line)) //NEED TO CHECK FOR UNSUPPORTED CHAR
 			printf("Incorrect line\n");
-		// ast = parse_tokens(tokenize_input(line));
+		token_list = tokenize_input(line);
+		print_tokens(token_list);
+		// ast_root = parse_tokens(token_list);
 		g_signal = 0;
 		free(line);
 		// free(ast);

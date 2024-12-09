@@ -6,21 +6,21 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:49:05 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/02 19:21:18 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/09 23:21:19 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_ast_node	*new_node(void)
+t_ast	*new_node(void)
 {
-	t_ast_node	*node;
+	t_ast	*node;
 
 	node = malloc(sizeof(node));
 	node->left = NULL;
 	node->right = NULL;
 	node->args = NULL;
-	node->type = TOKEN_WORD;
+	node->type = WORD;
 	return (node);
 }
 
@@ -29,10 +29,14 @@ Iterates through the tokens,
 building an abstract syntax tree (AST) 
 that represents the input string.
 */
-t_ast_node	*parse_tokens(t_token *token)
+t_ast	*parse_tokens(t_token *token)
 {
 	while (token->next)
+	{
+		// heredoc_reader();
+		// transom token into node -> expand variables as needed, remove quotes
 		token = token->next;
+	}
 	return (new_node());
 }
 

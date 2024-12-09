@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:35:28 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/05 20:14:16 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/09 22:14:49 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ int	check_parenthesis(char c)
 	return (0);
 }
 
-char	check_quote(char c, char quote)
+char	check_quote(char c, char open_quote)
 {
-	if (quote && c == quote)
+	if (open_quote && c == open_quote)
 		return (0);
-	else if (!quote)
+	else if (!open_quote)
 		return (c);
-	return (quote);
+	return (open_quote);
 }
 
 int	check_redir(char *line, int pos)
@@ -38,11 +38,13 @@ int	check_redir(char *line, int pos)
 	pos++;
 	if (line[pos] == redir)
 		pos++;
+	else if (line[pos] == '<' || line[pos] == '>')
+		return (1);
 	while (line[pos] && ft_iswhitespace(line[pos]))
 		pos++;
 	if (!line[pos] || line[pos] == '<' || line[pos] == '>')
 		return (1);
-	if (line[pos] == '|' || line[pos] == '&')
+	else if (line[pos] == '|' || line[pos] == '&')
 		return (1);
 	return (0);
 }
@@ -63,15 +65,15 @@ int	syntax_checker(char *line)
 {
 	int		i;
 	int		parenthesis;
-	char	quote;
+	char	open_quote;
 
-	if (syntax_init(&line, &parenthesis, &quote, &i))
+	if (syntax_init(&line, &parenthesis, &open_quote, &i))
 		return (1);
 	while (line[i])
 	{
 		if (line[i] == '\'' || line[i] == '\"')
-			quote = check_quote(line[i], quote);
-		if (!quote)
+			open_quote = check_quote(line[i], open_quote);
+		if (!open_quote)
 		{
 			if (line[i] == '(' || line[i] == ')')
 				parenthesis += check_parenthesis(line[i]);
@@ -82,7 +84,7 @@ int	syntax_checker(char *line)
 		}
 		i++;
 	}
-	if (quote || parenthesis)
+	if (open_quote || parenthesis)
 		return (2);
 	return (0);
 }

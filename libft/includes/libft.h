@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 12:29:17 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/02 18:57:38 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/09 23:04:44 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ int		ft_isnumber(char *str, int base);
 int		ft_isdigit_base(char c, int base);
 int		ft_atoi_base(const char *str, int base);
 int		ft_has_prefix(const char *str, int base);
+long	ft_min(long a, long b);
+long	ft_max(long a, long b);
 
 /***********************/
 /****** FT_PRINTF ******/

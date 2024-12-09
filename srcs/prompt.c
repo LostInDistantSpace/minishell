@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 23:00:40 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/05 16:42:43 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/09 23:41:43 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,9 @@ char	*prompt(void)
 		tmp = ft_double_join(user, " ", dir);
 		prompt = ft_strjoin(tmp, RESET_COLOR "$ ");
 		free(tmp);
+		free(user);
 	}
 	else
 		prompt = ft_strjoin(dir, RESET_COLOR "$ ");
-	return (free(dir), free(user), prompt);
+	return (free(dir), prompt);
 }

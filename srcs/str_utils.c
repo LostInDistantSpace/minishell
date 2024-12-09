@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 22:04:20 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/05 15:20:41 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/09 23:28:39 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,13 @@ int	ft_strcmp(char *s1, char *s2)
 		s2++;
 	}
 	return (*s1 - *s2);
+}
+
+int	is_special_char(char c)
+{
+	if (c == '<' || c == '>' || c == '|')
+		return (1);
+	return (0);
 }
 
 char	*ft_double_join(char *left, char *middle, char *right)
