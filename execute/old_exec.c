@@ -5,19 +5,27 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/09 14:06:25 by lemarian          #+#    #+#             */
-/*   Updated: 2024/12/09 18:39:50 by lemarian         ###   ########.fr       */
+/*   Created: 2024/12/04 17:24:59 by lemarian          #+#    #+#             */
+/*   Updated: 2024/12/09 13:54:00 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-void	change_input(t_ast_node *node, t_data *data)
+void	change_input(t_ast_node *node, t_data *data)//need to close pipe if there is one
 {
-	if (node->right->type == TOKEN_REDIR_IN || node->right->type == TOKEN_REDIR_HEREDOC)
+	int	fd_in;
+
+	if (access(node->right->args[0], F_OK) == -1)
+		perror("File does not exist");
+	fd_in = open(node->right->args[0], O_RDONLY);
+	if (fd_in < 0)
+		perror("failed to open file");
+	dup2(fd_in, STDIN_FILENO);
+	close(fd_in);
 }
 
-void	create_pipe(t_ast_node *node, t_data *data)
+void	create_pipe(t_ast_node *node, t_data *data)//handle child exit status? wait function?
 {
 	pid_t	child;
 	int	fd[2];
@@ -30,17 +38,15 @@ void	create_pipe(t_ast_node *node, t_data *data)
 	else if (child == 0)
 	{
 		close(fd[0]);
-		data->save_out = dup(STDOUT_FILENO);
 		dup2(fd[1], STDOUT_FILENO);
-		close(fd[1]);
+		close(fd[1]); //idk
 		ast(node->left, data);
 	}
 	else
 	{
 		close(fd[1]);
-		data->save_in = dup(STDIN_FILENO);
 		dup2(fd[0], STDIN_FILENO);
-		close(fd[0]);
+		close(fd[0]); //idk
 		ast(node->right, data);
 	}
 }
@@ -63,16 +69,31 @@ void	ast(t_ast_node *node, t_data *data)
 
 void	init_data(t_data *data, t_ast_node **head, t_env **start)
 {
-	data->save_in = -123;
-	data->save_out = -123;
 	data->ast = head;
 	data->env = start;
+	data->save_in = -123;
+	data->save_out = -123;
 }
 
-void	exec(t_ast_node **head, t_env **start)
+void	exec_pipe()
 {
-	t_data	*data;
+	/*
+	fork
+	in child
+		dup stdout
+		exec_ast left node
+	in parent
+		dup stdin
+		execute ast right node
+	*/
+}
 
-	init_data(data, head, start);
-	ast(data->ast, data);
+void	exec_command()
+{
+	/*
+	fork
+		get env
+		check path
+		exec
+	*/
 }
