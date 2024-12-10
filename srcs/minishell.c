@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:27:25 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/10 21:49:44 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/10 22:23:24 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,11 @@ int	main(int ac, char **av, char **envp)
 		return (0);
 	(void)av;
 	g_signal = 0;
-	env = init(&sa, envp); //MIGHT NEED TO HARDCODE SOME ENV VARIABLES
+	env = init(&sa, envp); 
+	// MIGHT NEED TO HARDCODE SOME ENV VARIABLES
+	// $OLDPWD
+	// $SHLVL
+	// $_
 	while (!g_signal)
 	{
 		line = readline(prompt(env));

@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:43:30 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/10 19:56:33 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/10 22:41:14 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,8 @@ t_token	*tokenize_input(char *input)
 		// WORK PIPE BY PIPE 
 		// TOKENIZE REDIR + FILE/DELIM on first read
 		// COMBINE REST OF CHARACTERS on second read
+		// ADD PIPE
+		// Rince & repeat (while)
 		while (ft_iswhitespace(input[i]))
 			i++;
 		if (input[i] == '<' || input[i] == '>')

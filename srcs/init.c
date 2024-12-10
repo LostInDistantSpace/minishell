@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 22:07:47 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/10 21:36:08 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/10 22:23:49 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	sig_handler(int signum)
 	}
 	g_signal = 0;
 }
+
 void	init_sigaction(struct sigaction *sa)
 {
 	sa->sa_handler = sig_handler;
