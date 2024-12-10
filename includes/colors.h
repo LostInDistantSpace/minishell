@@ -14,6 +14,10 @@
 # define COLORS_H
 
 // Foreground Colors
+# define NON_PRINT			"\001"
+# define END_NP				"\002"
+
+// Foreground Colors
 # define RESET_COLOR		"\033[0m"	// Reset all attributes
 # define BOLD				"\033[1m"	// Bold text
 # define UNDERLINE			"\033[4m"	// Underline text

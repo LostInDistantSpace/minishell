@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:35:28 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/09 22:14:49 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/10 19:50:06 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int	check_redir(char *line, int pos)
 int	check_pipe(char *line, int pos)
 {
 	pos++;
+	if (!line[pos] || line[pos] == '|')
+		return (1);
 	while (line[pos] && ft_iswhitespace(line[pos]))
 		pos++;
 	if (!line[pos] || line[pos] == '|')

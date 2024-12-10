@@ -6,52 +6,54 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 23:00:40 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/09 23:41:43 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/10 21:47:30 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_dir(void)
+char	*get_dir(t_env *env)
 {
 	int		home_len;
 	char	*home;
 	char	*cwd;
 	char	*gwd;
 
-	home = getenv("HOME");
-	home_len = ft_strlen(home);
 	cwd = getcwd(NULL, 0);
+	home = get_var(env, "HOME");
+	if (!home)
+		return (ft_strjoin(NON_PRINT BLUE BOLD END_NP, cwd));
+	home_len = ft_strlen(home);
 	if (home && !ft_strncmp(cwd, home, home_len))
 	{
 		gwd = malloc(ft_strlen(cwd) - home_len + 2 * sizeof(char));
-		gwd = ft_strjoin(BLUE BOLD "~", cwd + home_len);
+		gwd = ft_strjoin(NON_PRINT BLUE BOLD END_NP "~", cwd + home_len);
 		free(cwd);
 		return (gwd);
 	}
-	return (ft_strjoin(BLUE BOLD, cwd));
+	return (ft_strjoin(NON_PRINT BLUE BOLD END_NP, cwd));
 }
 
-char	*prompt(void)
+char	*prompt(t_env *env)
 {
 	char	*tmp;
 	char	*dir;
 	char	*user;
 	char	*prompt;
 
-	if (getenv("USER"))
-		user = ft_strjoin(GREEN BOLD, getenv("USER"));
+	if (get_var(env, "USER"))
+		user = ft_strjoin(NON_PRINT GREEN BOLD END_NP, getenv("USER"));
 	else
 		user = NULL;
-	dir = get_dir();
+	dir = get_dir(env);
 	if (user)
 	{
 		tmp = ft_double_join(user, " ", dir);
-		prompt = ft_strjoin(tmp, RESET_COLOR "$ ");
+		prompt = ft_strjoin(tmp, NON_PRINT RESET_COLOR END_NP "$ ");
 		free(tmp);
 		free(user);
 	}
 	else
-		prompt = ft_strjoin(dir, RESET_COLOR "$ ");
+		prompt = ft_strjoin(dir, NON_PRINT RESET_COLOR END_NP "$ ");
 	return (free(dir), prompt);
 }

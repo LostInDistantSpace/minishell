@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:27:25 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/10 19:00:10 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/10 21:49:44 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ int	g_signal;
 void	print_env(t_env *env)
 {
 	while (env)
+	{
 		printf("%s=%s\n", env->key, env->value);
+		env = env->next;
+	}
 }
 
 int	main(int ac, char **av, char **envp)
@@ -32,20 +35,22 @@ int	main(int ac, char **av, char **envp)
 		return (0);
 	(void)av;
 	g_signal = 0;
-	env = init(&sa, envp);
-	print_env(env);
+	env = init(&sa, envp); //MIGHT NEED TO HARDCODE SOME ENV VARIABLES
 	while (!g_signal)
 	{
-		line = readline(prompt());
+		line = readline(prompt(env));
 		if (!line)
 			exit(write(STDOUT_FILENO, "exit\n", 5)); // need exit function
 		if (ft_strlen(line))
 			add_history(line);
 		if (syntax_checker(line)) //NEED TO CHECK FOR UNSUPPORTED CHAR
 			printf("Incorrect line\n");
-		token_list = tokenize_input(line);
-		print_tokens(token_list);
-		// ast_root = parse_tokens(token_list);
+		else
+		{
+			token_list = tokenize_input(line);
+			print_tokens(token_list);
+			// ast_root = parse_tokens(token_list);
+		}
 		g_signal = 0;
 		free(line);
 		// free(ast);

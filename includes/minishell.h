@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:27:58 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/10 18:50:25 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/10 21:40:12 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ typedef struct s_env
 
 extern int	g_signal;
 
-char	*prompt(void);
+char	*prompt(t_env *env);
 
 t_env	*init(struct sigaction *sa, char **envp);
 
@@ -81,7 +81,7 @@ int		ft_strcmp(char *s1, char *s2);
 char	*ft_double_join(char *l, char *m, char *r);
 
 char	*get_var(t_env *env, char *key);
-char	*get_dir(void);
+char	*get_dir(t_env *env);
 
 int		is_special_char(char c);
 

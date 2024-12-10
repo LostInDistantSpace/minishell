@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:43:30 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/10 18:33:46 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/10 19:56:33 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ t_token	*new_token(char *value, int type)
 	t_token	*token;
 
 	token = malloc(sizeof(token));
+	if (!token)
+		return (NULL);
 	token->value = value;
 	token->type = type;
 	token->next = NULL;
@@ -25,15 +27,19 @@ t_token	*new_token(char *value, int type)
 
 void	add_token(t_token **first, t_token *token)
 {
+	t_token	*tmp;
+
 	if (!token)
 		return ;
 	if (!*first)
 	{
 		*first = token;
+		return ;
 	}
-	while ((*first)->next)
-		*first = (*first)->next;
-	(*first)->next = token;
+	tmp = *first;
+	while (tmp->next)
+		tmp = tmp->next;
+	tmp->next = token;
 }
 
 /*
@@ -75,12 +81,10 @@ t_token	*handle_word(char *input, int *pos)
 	char	*value;
 
 	i = *pos;
-	while (ft_iswhitespace(input[i]))
-		i++;
 	while (!ft_iswhitespace(input[i]) && !is_special_char(input[i]))
 		i++;
 	value = ft_substr(input, *pos, i - *pos);
-	*pos += i;
+	*pos = i;
 	return (new_token(value, WORD));
 }
 
@@ -90,24 +94,32 @@ t_token	*handle_word(char *input, int *pos)
 t_token	*tokenize_input(char *input)
 {
 	int		i;
+	int		len;
 	t_token	*token;
-	t_token	*first_token;
+	t_token	*head;
 
 	i = 0;
-	while (input[i])
+	len = ft_strlen(input);
+	head = NULL;
+	while (input[i] && i < len)
 	{
 		// WORK PIPE BY PIPE 
 		// TOKENIZE REDIR + FILE/DELIM on first read
 		// COMBINE REST OF CHARACTERS on second read
+		while (ft_iswhitespace(input[i]))
+			i++;
 		if (input[i] == '<' || input[i] == '>')
 			token = handle_special_chars(input, &i);
 		else if (input[i] == '|')
+		{
 			token = new_token("|", PIPE);
+			i++;
+		}
 		else
 			token = handle_word(input, &i);
-		add_token(&first_token, token);
+		add_token(&head, token);
 	}
-	return (first_token);
+	return (head);
 }
 /*
 Prints the tokens to verify the tokenization process.
@@ -119,18 +131,18 @@ void	print_tokens(t_token *token)
 	ptr = token;
 	while (ptr)
 	{
-		printf("Token: %-30s | Type: ", token->value);
-		if (token->type == WORD)
+		printf("Token: %-30s | Type: ", ptr->value);
+		if (ptr->type == WORD)
 			printf("WORD\n");
-		if (token->type == PIPE)
+		else if (ptr->type == PIPE)
 			printf("PIPE\n");
-		if (token->type == REDIR_IN)
+		else if (ptr->type == REDIR_IN)
 			printf("REDIR_IN\n");
-		if (token->type == REDIR_OUT)
+		else if (ptr->type == REDIR_OUT)
 			printf("REDIR_OUT\n");
-		if (token->type == REDIR_APPEND)
+		else if (ptr->type == REDIR_APPEND)
 			printf("REDIR_APPEND\n");
-		if (token->type == REDIR_HEREDOC)
+		else if (ptr->type == REDIR_HEREDOC)
 			printf("REDIR_HEREDOC\n");
 		printf("--------------------------------------------------\n");
 		ptr = ptr->next;
