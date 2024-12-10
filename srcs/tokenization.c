@@ -6,86 +6,105 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:43:30 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/10 22:41:14 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/10 23:57:48 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_token	*new_token(char *value, int type)
-{
-	t_token	*token;
-
-	token = malloc(sizeof(token));
-	if (!token)
-		return (NULL);
-	token->value = value;
-	token->type = type;
-	token->next = NULL;
-	return (token);
-}
-
-void	add_token(t_token **first, t_token *token)
-{
-	t_token	*tmp;
-
-	if (!token)
-		return ;
-	if (!*first)
-	{
-		*first = token;
-		return ;
-	}
-	tmp = *first;
-	while (tmp->next)
-		tmp = tmp->next;
-	tmp->next = token;
-}
-
 /*
 Handles the special characters in the input string.
 */
-t_token	*handle_special_chars(char *input, int *pos)
+int	handle_redir(char *input, int *pos)
 {
 	int	i;
+	int	type;
 
 	i = *pos;
+	type = -1;
 	if (input[i] == '<' || input[i] == '>')
 	{
+		if (input[i] == '>')
+			type = REDIR_OUT;
+		else if (input[i] == '<')
+			type = REDIR_IN;
 		if (input[i + 1] && input[i + 1] == input[i])
 		{
-			*pos += 2;
-			if (input[i] == '>')
-				return (new_token(NULL, REDIR_APPEND));
-			if (input[i] == '<')
-				return (new_token(NULL, REDIR_HEREDOC));
+			input[i + 1] = -1;
+			*pos += 1;
+			type += 2;
 		}
-		else
-		{
-			(*pos)++;
-			if (input[i] == '>')
-				return (new_token(NULL, REDIR_OUT));
-			if (input[i] == '<')
-				return (new_token(NULL, REDIR_IN));
-		}
+		*pos += 1;
+		input[i] = -1;
 	}
-	return (NULL);
+	return (type);
 }
 
 /*
 Handles the words in the input string.
 */
-t_token	*handle_word(char *input, int *pos)
+t_token	*handle_word(char **input, int *pos, int type)
 {
 	int		i;
 	char	*value;
 
 	i = *pos;
-	while (!ft_iswhitespace(input[i]) && !is_special_char(input[i]))
+	while (!ft_iswhitespace((*input)[i]) && !is_special_char((*input)[i])
+		&& (*input)[i])
 		i++;
-	value = ft_substr(input, *pos, i - *pos);
-	*pos = i;
-	return (new_token(value, WORD));
+	value = ft_substr(*input, *pos, i - *pos);
+	while (*pos < i)
+	{
+		(*input)[*pos] = -1;
+		*pos += 1;
+	}
+	return (new_token(value, type));
+}
+
+void	handle_redirs(char **input, int pos, int len, t_token **head)
+{
+	int		type;
+	char	*value;
+
+	value = NULL;
+	while ((*input)[pos] && (*input)[pos] != '|' && pos < len)
+	{
+		while ((*input)[pos] && !is_special_char((*input)[pos]))
+			pos++;
+		if (!(*input)[pos] || (*input)[pos] == '|')
+			return ;
+		type = handle_redir(*input, &pos); //check if -1
+		while ((*input)[pos] && ft_iswhitespace((*input)[pos]))
+		{
+			(*input)[pos] = -1;
+			pos++;
+		}
+		add_token(head, handle_word(input, &pos, type));
+	}
+}
+
+void	handle_words(char *input, int *pos, t_token **head)
+{
+	int		i;
+	int		len;
+	char	*str;
+
+	i = *pos;
+	len = 0;
+	while (input[i] && input[i] != '|')
+	{
+		if (input[i] > 0)
+		{
+			len++;
+			while (ft_iswhitespace(input[i + 1]))
+				i++;
+		}
+		i++;
+	}
+	str = copy_words(input, pos, i, len);
+	if (!str)
+		return ;
+	add_token(head, new_token(str, WORD));
 }
 
 /*
@@ -95,7 +114,6 @@ t_token	*tokenize_input(char *input)
 {
 	int		i;
 	int		len;
-	t_token	*token;
 	t_token	*head;
 
 	i = 0;
@@ -108,45 +126,13 @@ t_token	*tokenize_input(char *input)
 		// COMBINE REST OF CHARACTERS on second read
 		// ADD PIPE
 		// Rince & repeat (while)
-		while (ft_iswhitespace(input[i]))
-			i++;
-		if (input[i] == '<' || input[i] == '>')
-			token = handle_special_chars(input, &i);
-		else if (input[i] == '|')
+		handle_redirs(&input, i, len, &head);
+		handle_words(input, &i, &head);
+		if (input[i] == '|')
 		{
-			token = new_token("|", PIPE);
+			add_token(&head, new_token("|", PIPE));
 			i++;
 		}
-		else
-			token = handle_word(input, &i);
-		add_token(&head, token);
 	}
 	return (head);
-}
-/*
-Prints the tokens to verify the tokenization process.
-*/
-void	print_tokens(t_token *token)
-{
-	t_token	*ptr;
-
-	ptr = token;
-	while (ptr)
-	{
-		printf("Token: %-30s | Type: ", ptr->value);
-		if (ptr->type == WORD)
-			printf("WORD\n");
-		else if (ptr->type == PIPE)
-			printf("PIPE\n");
-		else if (ptr->type == REDIR_IN)
-			printf("REDIR_IN\n");
-		else if (ptr->type == REDIR_OUT)
-			printf("REDIR_OUT\n");
-		else if (ptr->type == REDIR_APPEND)
-			printf("REDIR_APPEND\n");
-		else if (ptr->type == REDIR_HEREDOC)
-			printf("REDIR_HEREDOC\n");
-		printf("--------------------------------------------------\n");
-		ptr = ptr->next;
-	}
 }

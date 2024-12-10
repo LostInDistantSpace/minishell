@@ -6,7 +6,7 @@
 #    By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/10 16:41:52 by bmouhib           #+#    #+#              #
-#    Updated: 2024/12/10 18:53:05 by bmouhib          ###   ########.fr        #
+#    Updated: 2024/12/10 22:51:03 by bmouhib          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,8 +24,9 @@ SRC			+=	init.c
 SRC			+=	parsing.c
 SRC			+=	prompt.c
 SRC			+=	str_utils.c
-SRC			+=	syntax.c
 SRC			+=	syntax_utils.c
+SRC			+=	syntax.c
+SRC			+=	token_utils.c
 SRC			+=	tokenization.c
 
 # --------------------------------- COMMANDS --------------------------------- #

@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:27:25 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/10 22:23:24 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/10 22:49:03 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,34 @@ void	print_env(t_env *env)
 	{
 		printf("%s=%s\n", env->key, env->value);
 		env = env->next;
+	}
+}
+
+/*
+Prints the tokens to verify the tokenization process.
+*/
+void	print_tokens(t_token *token)
+{
+	t_token	*ptr;
+
+	ptr = token;
+	while (ptr)
+	{
+		printf("Token: %-30s | Type: ", ptr->value);
+		if (ptr->type == WORD)
+			printf("WORD\n");
+		else if (ptr->type == PIPE)
+			printf("PIPE\n");
+		else if (ptr->type == REDIR_IN)
+			printf("REDIR_IN\n");
+		else if (ptr->type == REDIR_OUT)
+			printf("REDIR_OUT\n");
+		else if (ptr->type == REDIR_APPEND)
+			printf("REDIR_APPEND\n");
+		else if (ptr->type == REDIR_HEREDOC)
+			printf("REDIR_HEREDOC\n");
+		printf("--------------------------------------------------\n");
+		ptr = ptr->next;
 	}
 }
 
