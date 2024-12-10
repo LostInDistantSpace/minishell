@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:27:58 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/05 16:07:19 by lemarian         ###   ########.fr       */
+/*   Updated: 2024/12/09 18:47:50 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,13 @@
 // Token type enumeration
 typedef enum e_token_type
 {
-	TOKEN_WORD, // For commands and arguments
-	// TOKEN_CMD,
-	// TOKEN_ARG,
-	// TOKEN_FILE,
-	TOKEN_PIPE, // For '|'
-	TOKEN_REDIR_IN, // For '<'
-	TOKEN_REDIR_OUT, // For '>'
-	TOKEN_REDIR_APPEND, // For '>>'
-	TOKEN_REDIR_HEREDOC, // For '<<'
-	//TOKEN_ENV_VAR, delete
+	WORD, // For commands and arguments
+	PIPE, // For '|'
+	REDIR_IN, // For '<'
+	REDIR_OUT, // For '>'
+	REDIR_APPEND, // For '>>'
+	REDIR_HEREDOC, // For '<<'
+	ENV_VAR, // For environment variables
 }	t_token_type;
 
 // Token structure
@@ -48,13 +45,13 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
-typedef struct s_ast_node
+typedef struct s_ast
 {
-	t_token_type		type;
-	char				*args;
-	struct s_ast_node	*left;
-	struct s_ast_node	*right;
-}	t_ast_node;
+	t_token_type	type;
+	char			*args;
+	struct s_ast	*left;
+	struct s_ast	*right;
+}	t_ast;
 
 typedef struct s_env
 {
@@ -77,11 +74,12 @@ char				*prompt(void);
 struct sigaction	sa_init(void);
 
 int					syntax_checker(char *line);
+int					syntax_init(char **line, int *p, char *q, int *i);
 t_token				*tokenize_input(char *input);
-t_ast_node			*parse_tokens(t_token *token);
+t_ast				*parse_tokens(t_token *token);
 
 int					ft_strcmp(char *s1, char *s2);
-char				*ft_double_join(char *left, char *middle, char *right);
+char				*ft_double_join(char *l, char *m, char *r);
 
 char				*get_var(t_env *env, char *key);
 char				*get_dir(void);
