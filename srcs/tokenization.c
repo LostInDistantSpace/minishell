@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:43:30 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/10 00:09:29 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/10 18:33:46 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,9 @@ t_token	*tokenize_input(char *input)
 	i = 0;
 	while (input[i])
 	{
-		//NEED TO DEVELOP
+		// WORK PIPE BY PIPE 
+		// TOKENIZE REDIR + FILE/DELIM on first read
+		// COMBINE REST OF CHARACTERS on second read
 		if (input[i] == '<' || input[i] == '>')
 			token = handle_special_chars(input, &i);
 		else if (input[i] == '|')

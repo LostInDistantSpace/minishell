@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 22:07:47 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/09 23:10:51 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/10 18:59:58 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ void	sig_handler(int signum)
 	}
 	g_signal = 0;
 }
-
-void	sa_init(struct sigaction *sa)
+void	init_sigaction(struct sigaction *sa)
 {
 	sa->sa_handler = sig_handler;
 	sigemptyset(&sa->sa_mask);
@@ -35,15 +34,43 @@ void	sa_init(struct sigaction *sa)
 	sigaction(EOF, sa, NULL);
 }
 
-/*struct sigaction	sa_init(void)
+t_env	*add_env(t_env *env, char *str)
 {
-	struct sigaction	sa;
+	int		i;
+	int		len;
+	t_env	*var;
 
-	sa.sa_handler = sig_handler;
-	sigemptyset(&sa.sa_mask);
-	sigaddset(&sa.sa_mask, SIGTERM);
-	sa.sa_flags = SA_RESTART | SA_SIGINFO;
-	sigaction(SIGINT, &sa, NULL);
-	sigaction(EOF, &sa, NULL);
-	return (sa);
-}*/
+	env = NULL;
+	if (!str)
+		return (NULL);
+	len = 0;
+	var = malloc(sizeof(t_env));
+	while (str[len] && str[len] != '=')
+		len++;
+	var->key = malloc(len * sizeof(char));
+	i = -1;
+	while (++i < len)
+		var->key[i] = str[i];
+	len = i + 1;
+	while (str[len])
+		len++;
+	var->value = malloc(len * sizeof(char));
+	while (++i < len)
+		var->value[i] = str[i];
+	return (var);
+}
+
+t_env	*init(struct sigaction *sa, char **ep)
+{
+	int		i;
+	t_env	*env;
+
+	i = 0;
+	init_sigaction(sa);
+	if (!ep)
+		return (NULL);
+	env = NULL;
+	while (ep[i])
+		add_env(env, ep[i++]);
+	return (env);
+}

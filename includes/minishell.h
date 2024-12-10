@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:27:58 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/10 00:14:50 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/10 18:50:25 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,24 +66,23 @@ typedef struct s_env
 
 extern int	g_signal;
 
-char				*prompt(void);
+char	*prompt(void);
 
-// struct sigaction	sa_init(void);
-void				sa_init(struct sigaction *sa);
+t_env	*init(struct sigaction *sa, char **envp);
 
-int					syntax_checker(char *line);
-int					syntax_init(char **line, int *p, char *q, int *i);
+int		syntax_checker(char *line);
+int		syntax_init(char **line, int *p, char *q, int *i);
 
-t_token				*tokenize_input(char *input);
-t_ast				*parse_tokens(t_token *token);
-void				print_tokens(t_token *token);
+t_token	*tokenize_input(char *input);
+t_ast	*parse_tokens(t_token *token);
+void	print_tokens(t_token *token);
 
-int					ft_strcmp(char *s1, char *s2);
-char				*ft_double_join(char *l, char *m, char *r);
+int		ft_strcmp(char *s1, char *s2);
+char	*ft_double_join(char *l, char *m, char *r);
 
-char				*get_var(t_env *env, char *key);
-char				*get_dir(void);
+char	*get_var(t_env *env, char *key);
+char	*get_dir(void);
 
-int					is_special_char(char c);
+int		is_special_char(char c);
 
 #endif

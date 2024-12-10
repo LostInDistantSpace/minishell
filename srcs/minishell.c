@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:27:25 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/09 23:43:36 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/10 19:00:10 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,26 @@
 
 int	g_signal;
 
-int	main(void)
+void	print_env(t_env *env)
+{
+	while (env)
+		printf("%s=%s\n", env->key, env->value);
+}
+
+int	main(int ac, char **av, char **envp)
 {
 	char				*line;
 	struct sigaction	sa;
+	t_env				*env;
 	t_token				*token_list;
 	// t_ast				*ast_root;
 
+	if (ac > 1)
+		return (0);
+	(void)av;
 	g_signal = 0;
-	sa_init(&sa);
+	env = init(&sa, envp);
+	print_env(env);
 	while (!g_signal)
 	{
 		line = readline(prompt());

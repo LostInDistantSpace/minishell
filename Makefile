@@ -6,7 +6,7 @@
 #    By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/10 16:41:52 by bmouhib           #+#    #+#              #
-#    Updated: 2024/12/10 00:14:52 by bmouhib          ###   ########.fr        #
+#    Updated: 2024/12/10 18:53:05 by bmouhib          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,9 +20,9 @@ NAME		:=	minishell
 
 SRC			:=	minishell.c
 SRC			+=	env.c
+SRC			+=	init.c
 SRC			+=	parsing.c
 SRC			+=	prompt.c
-SRC			+=	signals.c
 SRC			+=	str_utils.c
 SRC			+=	syntax.c
 SRC			+=	syntax_utils.c
