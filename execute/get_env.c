@@ -1,29 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   get_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/04 14:51:39 by lemarian          #+#    #+#             */
-/*   Updated: 2024/12/10 16:06:59 by lemarian         ###   ########.fr       */
+/*   Created: 2024/12/11 13:27:53 by lemarian          #+#    #+#             */
+/*   Updated: 2024/12/11 13:33:03 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../exec.h"
+#include "exec.h"
 
-void	pwd(void)//idk if i need parameters
+int	count_size(t_env **start)
 {
-	char	*dir;
-	size_t	size;
+	t_env	*current;
+	int	size;
 
-	dir = NULL;
+	current = (*start);
 	size = 0;
-	printf("%s\n", getcwd(dir, size));
+	while (current != NULL)
+	{
+		current = current->next;
+		size++;
+	}
+	return(size);
 }
 
-/*int	main(void)
+char	**get_env(t_data *data)
 {
-	pwd();
-	return (0);
-}*/
+	char	**env;
+	int		size;
+
+	size = count_size(data->env);
+	env = malloc(sizeof(char*) * size);
+	if (!env)
+		return (NULL);
+	return (env);
+}

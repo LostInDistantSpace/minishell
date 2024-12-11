@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 14:53:58 by lemarian          #+#    #+#             */
-/*   Updated: 2024/12/10 18:22:19 by lemarian         ###   ########.fr       */
+/*   Updated: 2024/12/11 18:13:27 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,41 @@ void	restore_in_out(t_data *data)
 	dup2(data->save_out, STDOUT_FILENO);
 }
 
-void	change_input(t_ast *node, t_data *data)//update
+void	change_input(t_ast *node, t_data *data)
 {
 	int	fd_in;
 
-	if (node->right->type == REDIR_IN || node->right->type == REDIR_HEREDOC)
-		multiple_input(node, data);
-	else
+	if (access(node->args, F_OK) == -1)
+		perror("No such file or directory");
+	fd_in = open(node->args, O_RDONLY);
+	if (fd_in < 0)
 	{
-		if (access(node->right->args[0], F_OK) == -1)
-			perror("File does not exist");
-		fd_in = open(node->right->args[0], O_RDONLY);
-		if (fd_in < 0)
-			perror("failed to open file");
-		dup2(fd_in, STDIN_FILENO);
-		close(fd_in);
+		perror("Permission denied");
+		return;
 	}
-	find_command_node(node, data);//
+	dup2(fd_in, STDIN_FILENO);
+	close(fd_in);
+	if (node->right != NULL)
+		ast(node->right, data);
+	find_command(node->left, data);
+}
+
+void	change_output(t_ast *node, t_data *data)
+{
+	int	fd_out;
+
+	if (node->type == REDIR_OUT)
+		fd_out = open(node->args, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	else
+		fd_out = open(node->args, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	if (fd_out < 0)
+	{
+		perror("Failed to get output file");
+		return;
+	}
+	dup2(fd_out, STDOUT_FILENO);
+	close(fd_out);
+	if (node->right != NULL)
+		ast(node->right, data);
+	find_command(node->left, data);
 }

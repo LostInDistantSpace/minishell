@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   built_ins.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/04 14:28:58 by lemarian          #+#    #+#             */
-/*   Updated: 2024/12/10 15:02:19 by lemarian         ###   ########.fr       */
+/*   Created: 2024/12/11 13:26:07 by lemarian          #+#    #+#             */
+/*   Updated: 2024/12/11 13:26:55 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,15 @@ void	echo(t_ast *node)
 		}
 		printf("\n");
 	}
-	exit(EXIT_SUCCESS);
+	exit(EXIT_SUCCESS);//maybe not, kills process
+}
+
+void	pwd(void)//idk if i need parameters
+{
+	char	*dir;
+	size_t	size;
+
+	dir = NULL;
+	size = 0;
+	printf("%s\n", getcwd(dir, size));
 }
