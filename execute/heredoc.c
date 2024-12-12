@@ -6,37 +6,76 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:32:10 by lemarian          #+#    #+#             */
-/*   Updated: 2024/12/11 18:01:20 by lemarian         ###   ########.fr       */
+/*   Updated: 2024/12/12 14:44:59 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-void	handle_heredoc(char *str)
+char	*get_heredoc_name()
+{
+	int	i;
+	char	*name;
+	int	fd;
+
+	i = 0;
+	name = ft_strjoin("tmp/heredoc", ft_itoa(i));
+	while (access(name, F_OK) == 0)
+	{
+		free(name);
+		i++;
+		name = ft_strjoin("tmp/heredoc", ft_itoa(i));
+	}
+	return (name);
+}
+
+char	*create_heredoc(t_ast *node)//too long
 {
 	int	heredoc;
 	int	i;
 	char	*input;
+	char	*name;
 
-	heredoc = open("tmp/heredoc", O_WRONLY | O_CREAT, 0644);
+	if (access("tmp/heredoc", F_OK) == 0)
+	{
+		name = get_heredoc_name();
+		heredoc = open(name, O_WRONLY | O_CREAT, 0644);
+		free(name);
+	}
+	else
+	{
+		name = ft_strdup("tmp/heredoc");
+		heredoc = open(name, O_WRONLY | O_CREAT, 0644);
+	}
 	input = readline(">");
-	while (ft_strncmp(input, str, ft_strlen(input)) != 0)
+	while (ft_strncmp(input, node->args, ft_strlen(input)) != 0)
 	{
 		i = 0;
-		while (input[i])
+		while (input[i])//should add var expansion function here
 		{
 			write(heredoc, &input[i], 1);
 			i++;
 		}
+		write(heredoc, "\n", 1);
 		free(input);
 		input = readline(">");
 	}
 	free(input);
+	close(heredoc);
+	return (name);
 }
 
-int	main(void)
+void	handle_heredoc(t_ast *node, t_data *data)
 {
-	char *str = "EOF";
-	handle_heredoc(str);
-	return (0);
+	char *name;
+	int	heredoc;
+
+	name = create_heredoc(node);
+	heredoc = open(name, O_RDONLY);
+	unlink(name);// not sure this is the right path
+	dup2(heredoc, STDIN_FILENO);
+	close(heredoc);
+	if (node->right != NULL)
+		ast(node->right, data);
+	find_command(node->left, data);
 }

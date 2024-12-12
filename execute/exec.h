@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 17:38:11 by lemarian          #+#    #+#             */
-/*   Updated: 2024/12/11 18:09:05 by lemarian         ###   ########.fr       */
+/*   Updated: 2024/12/12 14:41:59 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ typedef struct s_data
 {
 	int			save_in;
 	int			save_out;
-	bool		child;
+	bool		child;//?
 	t_ast		**ast;
 	t_env	**env;
 }	t_data;
@@ -32,6 +32,7 @@ void	ast(t_ast *node, t_data *data);
 
 void	change_input(t_ast *node, t_data *data);
 void	change_output(t_ast *node, t_data *data);
+void	handle_heredoc(t_ast *node, t_data *data);
 
 void	find_command(t_ast *node, t_data *data);
 char	*get_path(char *cmd, char **ep);
