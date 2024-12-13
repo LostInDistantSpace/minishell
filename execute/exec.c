@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 14:06:25 by lemarian          #+#    #+#             */
-/*   Updated: 2024/12/11 15:29:16 by lemarian         ###   ########.fr       */
+/*   Updated: 2024/12/13 17:12:25 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,24 @@
 void	exec_command(t_ast *node, char **cmd, char *path, char **env)
 {
 	pid_t	child;
+	int	status;
 
 	child = fork();
 	if (child == 0)
 	{
+		if (execve(path, cmd, env) == -1)
+		{
+			perror("Command not found");
+			free_array(cmd);
+			free_array(env);
+			free(path);
+			exit(EXIT_FAILURE);
+		}
+	}
+	else
+		waitpid(child, &status, NULL);
+		//return exit status, store where?
 
-	}
-	if (execve(path, cmd, NULL) == -1)
-	{
-		perror("Command not found");
-		free_array(cmd);
-		free_array(env);
-		free(path);
-		exit(EXIT_FAILURE);
-	}
 }
 
 void	find_command(t_ast *node, t_data *data)

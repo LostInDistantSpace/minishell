@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 17:38:11 by lemarian          #+#    #+#             */
-/*   Updated: 2024/12/12 14:41:59 by lemarian         ###   ########.fr       */
+/*   Updated: 2024/12/13 17:54:09 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,23 @@ typedef struct s_data
 	int			save_out;
 	bool		child;//?
 	t_ast		**ast;
-	t_env	**env;
+	t_env		**env;
 }	t_data;
 
-void	env(t_ast *node);
-void	echo(t_ast *node);
+void	env(t_data *data);
+void	echo(t_ast *node, t_data *data);
 
 void	ast(t_ast *node, t_data *data);
 
 void	change_input(t_ast *node, t_data *data);
 void	change_output(t_ast *node, t_data *data);
 void	handle_heredoc(t_ast *node, t_data *data);
+void	write_heredoc(int heredoc, char *input, t_data *data);
 
 void	find_command(t_ast *node, t_data *data);
 char	*get_path(char *cmd, char **ep);
 char	**get_env(t_data *data);
+
+void	free_array(char **array);
 
 #endif

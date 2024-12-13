@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:32:10 by lemarian          #+#    #+#             */
-/*   Updated: 2024/12/12 14:44:59 by lemarian         ###   ########.fr       */
+/*   Updated: 2024/12/13 17:49:17 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,33 +29,25 @@ char	*get_heredoc_name()
 	return (name);
 }
 
-char	*create_heredoc(t_ast *node)//too long
+char	*create_heredoc(t_ast *node)
 {
 	int	heredoc;
-	int	i;
 	char	*input;
 	char	*name;
 
 	if (access("tmp/heredoc", F_OK) == 0)
 	{
 		name = get_heredoc_name();
-		heredoc = open(name, O_WRONLY | O_CREAT, 0644);
+		heredoc = open(get_heredoc_name(), O_WRONLY | O_CREAT, 0644);
 		free(name);
 	}
 	else
-	{
-		name = ft_strdup("tmp/heredoc");
-		heredoc = open(name, O_WRONLY | O_CREAT, 0644);
-	}
+		heredoc = open("tmp/heredoc", O_WRONLY | O_CREAT, 0644);
 	input = readline(">");
 	while (ft_strncmp(input, node->args, ft_strlen(input)) != 0)
 	{
-		i = 0;
-		while (input[i])//should add var expansion function here
-		{
-			write(heredoc, &input[i], 1);
-			i++;
-		}
+		while (*input)
+			write(heredoc, input++, 1);
 		write(heredoc, "\n", 1);
 		free(input);
 		input = readline(">");
