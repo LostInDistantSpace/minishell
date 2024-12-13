@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 22:49:26 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/10 23:44:21 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/13 17:47:21 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,18 @@ char	*copy_words(char *input, int *pos, int stop, int len)
 	str = malloc((len + 1) * sizeof(char));
 	if (!str)
 		return (NULL);
+	while ((input[*pos] < 0 || ft_iswhitespace(input[*pos])) && *pos < stop)
+		(*pos)++;
 	while (input[*pos] && *pos < stop)
 	{
 		if (input[*pos] > 0)
 		{
 			str[i++] = input[*pos];
-			while (ft_iswhitespace(input[*pos + 1]))
-				(*pos)++;
+			if (ft_iswhitespace(input[*pos]))
+			{
+				while (ft_iswhitespace(input[*pos + 1]) && *pos < stop - 1)
+					(*pos)++;
+			}
 		}
 		(*pos)++;
 	}

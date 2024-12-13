@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:43:30 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/10 23:57:48 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/13 17:32:05 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,11 +121,6 @@ t_token	*tokenize_input(char *input)
 	head = NULL;
 	while (input[i] && i < len)
 	{
-		// WORK PIPE BY PIPE 
-		// TOKENIZE REDIR + FILE/DELIM on first read
-		// COMBINE REST OF CHARACTERS on second read
-		// ADD PIPE
-		// Rince & repeat (while)
 		handle_redirs(&input, i, len, &head);
 		handle_words(input, &i, &head);
 		if (input[i] == '|')
