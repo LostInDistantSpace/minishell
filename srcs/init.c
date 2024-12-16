@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 22:07:47 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/10 22:23:49 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/16 20:07:53 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,13 @@ t_env	*new_env(char *str)
 	var = malloc(sizeof(t_env));
 	if (!var)
 		return (NULL);
+	var->next = NULL;
 	while (str[len] && str[len] != '=')
 		len++;
-	var->key = malloc(len * sizeof(char));
+	var->key = malloc((len + 1) * sizeof(char));
 	if (!var->key)
 		return (free(var), NULL);
+	var->key[len] = 0;
 	i = -1;
 	while (++i < len)
 		var->key[i] = str[i];
@@ -62,21 +64,22 @@ t_env	*new_env(char *str)
 	return (var);
 }
 
-void	add_env(t_env **head, t_env *var)
+t_env	*add_env(t_env *head, t_env *var)
 {
 	t_env	*tmp;
 
 	if (!var)
-		return ;
-	if (!*head)
+		return (head);
+	if (!head)
 	{
-		*head = var;
-		return ;
+		head = var;
+		return (head);
 	}
-	tmp = *head;
+	tmp = head;
 	while (tmp->next)
-		tmp = tmp->next;
+			tmp = tmp->next;
 	tmp->next = var;
+	return (head);
 }
 
 t_env	*init(struct sigaction *sa, char **ep)
@@ -90,6 +93,6 @@ t_env	*init(struct sigaction *sa, char **ep)
 		return (NULL);
 	env = NULL;
 	while (ep[i])
-		add_env(&env, new_env(ep[i++]));
+		env = add_env(env, new_env(ep[i++]));
 	return (env);
 }

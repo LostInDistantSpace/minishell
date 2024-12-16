@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:27:58 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/10 23:44:25 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/16 22:45:59 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,14 @@ typedef enum e_token_type
 typedef struct s_token
 {
 	t_token_type	type;
-	char			*value;
+	char			**value;
 	struct s_token	*next;
 }	t_token;
 
 typedef struct s_ast
 {
 	t_token_type	type;
-	char			*args;
+	char			**args;
 	struct s_ast	*left;
 	struct s_ast	*right;
 }	t_ast;
@@ -73,20 +73,27 @@ t_env	*init(struct sigaction *sa, char **envp);
 int		syntax_checker(char *line);
 int		syntax_init(char **line, int *p, char *q, int *i);
 
-t_ast	*parse_tokens(t_token *token);
+t_token	*word_token(char **value, int num_word);
 t_token	*tokenize_input(char *input);
+t_ast	*parse_tokens(t_token *token);
 t_token	*new_token(char *value, int type);
 void	add_token(t_token **first, t_token *token);
 
 void	print_tokens(t_token *token);
 
 int		ft_strcmp(char *s1, char *s2);
+int		word_num(char *input, int pos);
 char	*ft_double_join(char *l, char *m, char *r);
-char	*copy_words(char *input, int *pos, int stop, int len);
 
 char	*get_var(t_env *env, char *key);
 char	*get_dir(t_env *env);
 
-int		is_special_char(char c);
+int		is_spe_char(char c);
+
+void	free_array(char **array, int size);
+void	free_token(t_token *token, int size);
+void	free_env(t_env *env);
+void	free_tokens(t_token *token);
+void	free_all(t_env *env, t_token *token);
 
 #endif

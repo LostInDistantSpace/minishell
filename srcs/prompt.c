@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 23:00:40 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/10 22:22:13 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/16 23:06:49 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ char	*get_dir(t_env *env)
 	home_len = ft_strlen(home);
 	if (home && !ft_strncmp(cwd, home, home_len))
 	{
-		gwd = malloc(ft_strlen(cwd) - home_len + 2 * sizeof(char));
 		gwd = ft_strjoin(NON_PRINT BLUE BOLD END_NP "~", cwd + home_len);
 		free(cwd);
 		return (gwd);
@@ -55,5 +54,6 @@ char	*prompt(t_env *env)
 	}
 	else
 		prompt = ft_strjoin(dir, NON_PRINT RESET_COLOR END_NP "$ ");
-	return (free(dir), prompt);
+	free(dir);
+	return (prompt);
 }
