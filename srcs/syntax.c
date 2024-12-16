@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:35:28 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/10 19:50:06 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/13 18:26:42 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,9 @@ int	syntax_checker(char *line)
 			open_quote = check_quote(line[i], open_quote);
 		if (!open_quote)
 		{
+			/*
+			** CHECK FORBIDDEN CHAR
+			*/
 			if (line[i] == '(' || line[i] == ')')
 				parenthesis += check_parenthesis(line[i]);
 			if ((line[i] == '<' || line[i] == '>') && check_redir(line, i))

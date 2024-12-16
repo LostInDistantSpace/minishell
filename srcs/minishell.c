@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:27:25 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/10 22:49:03 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/16 23:03:15 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,15 @@ Prints the tokens to verify the tokenization process.
 */
 void	print_tokens(t_token *token)
 {
+	int		i;
 	t_token	*ptr;
 
 	ptr = token;
 	while (ptr)
 	{
-		printf("Token: %-30s | Type: ", ptr->value);
+		i = 0;
+		while (ptr->value[i])
+			printf("Token: [%s] | Type: ", ptr->value[i++]);
 		if (ptr->type == WORD)
 			printf("WORD\n");
 		else if (ptr->type == PIPE)
@@ -54,6 +57,7 @@ void	print_tokens(t_token *token)
 int	main(int ac, char **av, char **envp)
 {
 	char				*line;
+	char				*prompt_str;
 	struct sigaction	sa;
 	t_env				*env;
 	t_token				*token_list;
@@ -64,15 +68,25 @@ int	main(int ac, char **av, char **envp)
 	(void)av;
 	g_signal = 0;
 	env = init(&sa, envp); 
-	// MIGHT NEED TO HARDCODE SOME ENV VARIABLES
-	// $OLDPWD
-	// $SHLVL
-	// $_
+	/*
+	** NEED TO MANAGE THE C-\ signal
+	**
+	** MIGHT NEED TO HARDCODE SOME ENV VARIABLES
+	** $OLDPWD
+	** $SHLVL
+	** $_
+	*/
 	while (!g_signal)
 	{
-		line = readline(prompt(env));
+		prompt_str = prompt(env);
+		line = readline(prompt_str);
+		free(prompt_str);
 		if (!line)
+		{
+			free_env(env);
+			rl_clear_history();
 			exit(write(STDOUT_FILENO, "exit\n", 5)); // need exit function
+		}
 		if (ft_strlen(line))
 			add_history(line);
 		if (syntax_checker(line)) //NEED TO CHECK FOR UNSUPPORTED CHAR
@@ -83,9 +97,10 @@ int	main(int ac, char **av, char **envp)
 			print_tokens(token_list);
 			// ast_root = parse_tokens(token_list);
 		}
-		g_signal = 0;
+		free_tokens(token_list);
 		free(line);
 		// free(ast);
 	}
+	rl_clear_history();
 	return (0);
 }

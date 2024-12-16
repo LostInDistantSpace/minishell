@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 22:49:26 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/13 17:47:21 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/16 22:45:19 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,42 @@ t_token	*new_token(char *value, int type)
 {
 	t_token	*token;
 
-	token = malloc(sizeof(token));
+	token = malloc(sizeof(t_token));
 	if (!token)
 		return (NULL);
-	token->value = value;
+	token->value = malloc(2 * sizeof(char *));
+	if (!token->value)
+		return (free(token), NULL);
+	token->value[0] = ft_strdup(value);
+	token->value[1] = NULL;
 	token->type = type;
+	token->next = NULL;
+	return (token);
+}
+
+t_token	*word_token(char **value, int num_word)
+{
+	int		i;
+	t_token	*token;
+
+	if (!value || num_word <= 0)
+		return (NULL);
+	token = malloc(sizeof(t_token));
+	if (!token)
+		return (NULL);
+	token->value = malloc((num_word + 1) * sizeof(char *));
+	if (!token->value)
+		return (free(token), NULL);
+	i = -1;
+	while (++i < num_word)
+	{
+		token->value[i] = ft_strdup(value[i]);
+		if (!token->value[i])
+			return (free_token(token, i), free_array(value, i), NULL);
+	}
+	token->value[i] = NULL;
+	free_array(value, i);
+	token->type = WORD;
 	token->next = NULL;
 	return (token);
 }
@@ -40,31 +71,4 @@ void	add_token(t_token **first, t_token *token)
 	while (tmp->next)
 		tmp = tmp->next;
 	tmp->next = token;
-}
-
-char	*copy_words(char *input, int *pos, int stop, int len)
-{
-	int		i;
-	char	*str;
-
-	i = 0;
-	str = malloc((len + 1) * sizeof(char));
-	if (!str)
-		return (NULL);
-	while ((input[*pos] < 0 || ft_iswhitespace(input[*pos])) && *pos < stop)
-		(*pos)++;
-	while (input[*pos] && *pos < stop)
-	{
-		if (input[*pos] > 0)
-		{
-			str[i++] = input[*pos];
-			if (ft_iswhitespace(input[*pos]))
-			{
-				while (ft_iswhitespace(input[*pos + 1]) && *pos < stop - 1)
-					(*pos)++;
-			}
-		}
-		(*pos)++;
-	}
-	return (str);
 }

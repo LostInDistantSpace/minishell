@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 22:04:20 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/09 23:28:39 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/16 19:56:57 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,19 @@
 
 int	ft_strcmp(char *s1, char *s2)
 {
-	if (s2 == NULL)
-		return (*s1);
-	if (s1 == NULL)
-		return (-*s2);
-	while (*s1 && *s2)
+	int	i;
+
+	i = 0;
+	while (s1[i] || s2[i])
 	{
-		if (*s1 - *s2)
-			return (*s1 - *s2);
-		s1++;
-		s2++;
+		if (s1[i] != s2[i])
+			return (s1[i] - s2[i]);
+		i++;
 	}
-	return (*s1 - *s2);
+	return (0);
 }
 
-int	is_special_char(char c)
+int	is_spe_char(char c)
 {
 	if (c == '<' || c == '>' || c == '|')
 		return (1);
@@ -44,4 +42,25 @@ char	*ft_double_join(char *left, char *middle, char *right)
 	str = ft_strjoin(tmp, right);
 	free(tmp);
 	return (str);
+}
+
+int	word_num(char *input, int pos)
+{
+	int		i;
+	int		words;
+
+	words = 0;
+	i = pos;
+	while (input[i] < 0 || ft_iswhitespace(input[i]))
+		i++;
+	while (input[i] && input[i] != '|')
+	{
+		if (input[i] > 0 && !ft_iswhitespace(input[i]))
+		{
+			if (i == pos || ft_iswhitespace(input[i - 1]))
+				words++;
+		}
+		i++;
+	}
+	return (words);
 }
