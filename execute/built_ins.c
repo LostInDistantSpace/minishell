@@ -70,5 +70,7 @@ void	env(t_data *data)
 
 void	export(t_ast *node, t_data *data)
 {
-	
+	/*
+	test
+	*/
 }
