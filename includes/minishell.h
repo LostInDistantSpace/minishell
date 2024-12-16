@@ -48,7 +48,7 @@ typedef struct s_token
 typedef struct s_ast
 {
 	t_token_type	type;
-	char			*args;
+	char			**args;
 	struct s_ast	*left;
 	struct s_ast	*right;
 }	t_ast;

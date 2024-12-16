@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 13:26:07 by lemarian          #+#    #+#             */
-/*   Updated: 2024/12/13 17:55:59 by lemarian         ###   ########.fr       */
+/*   Updated: 2024/12/16 14:00:26 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ void	echo(t_ast *node, t_data *data)
 		}
 		printf("\n");
 	}
-	if (data->child == true)
-		exit(EXIT_SUCCESS);
 }
 
 void	pwd(t_data *data)
@@ -47,8 +45,6 @@ void	pwd(t_data *data)
 	dir = NULL;
 	size = 0;
 	printf("%s\n", getcwd(dir, size));
-	if (data->child == true)
-		exit(EXIT_SUCCESS);
 }
 
 void	env(t_data *data)
@@ -64,13 +60,4 @@ void	env(t_data *data)
 		i++;
 	}
 	free_array(env);
-	if (data->child == true)
-		exit(EXIT_SUCCESS);
-}
-
-void	export(t_ast *node, t_data *data)
-{
-	/*
-	test
-	*/
 }
