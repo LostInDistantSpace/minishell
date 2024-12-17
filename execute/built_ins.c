@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 13:26:07 by lemarian          #+#    #+#             */
-/*   Updated: 2024/12/16 14:00:26 by lemarian         ###   ########.fr       */
+/*   Updated: 2024/12/17 15:06:36 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,50 @@ void	env(t_data *data)
 		i++;
 	}
 	free_array(env);
+}
+
+void	unset(t_ast *node, t_data *data)
+{
+	t_env	*current;
+	t_env	*delete;
+	int	len;
+
+	current = data->env;
+	len = ft_strlen(node->args[1]);
+	delete = NULL;
+	while (current)
+	{
+		if (ft_strncmp(node->args[1], current->next->key, len) == 0)
+		{
+			delete = current->next;
+			current->next = current->next->next;
+			free(delete->key);
+			free(delete->value);
+			free(delete);
+		}
+		current = current->next;
+	}
+}
+
+int	check_built_in(t_ast *node, t_data *data)//bof
+{
+	int	len;
+	
+	len = ft_strlen(node->args[0]);
+	if (ft_strncmp(node->args[0], "echo", len) == 0)
+		echo(node, data);
+	if (ft_strncmp(node->args[0], "cd", len) == 0)
+		//need to code
+	if (ft_strncmp(node->args[0], "pwd", len) == 0)
+		pwd(data);
+	if (ft_strncmp(node->args[0], "export", len) == 0)
+		export(node, data);
+	if (ft_strncmp(node->args[0], "unset", len) == 0)
+		unset(node, data);
+	if (ft_strncmp(node->args[0], "env", len) == 0)
+		env(data);
+	if (ft_strncmp(node->args[0], "exit", len) == 0)
+		ft_exit();//need exit function
+	else
+		return (0);
 }

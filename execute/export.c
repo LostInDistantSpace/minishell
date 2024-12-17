@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 14:00:07 by lemarian          #+#    #+#             */
-/*   Updated: 2024/12/16 17:21:08 by lemarian         ###   ########.fr       */
+/*   Updated: 2024/12/17 13:53:04 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*get_var(char *var, t_data *data)
 	while(current)
 	{
 		if (ft_strncmp(&var[1], current->key, ft_strlen(current->key)) == 0)
-			return (current->value);//pointer?
+			return (current->value);//is this pointer of char*, should be char*
 		current = current->next;
 	}
 	return (NULL);
@@ -44,6 +44,7 @@ void	export(t_ast *node, t_data *data)
 {
 	char	**var;
 	t_env	*new_node;
+	t_env	*current;
 
 	var = ft_split(node->args[1], '=');
 	new_node = check_key(var[0], data);
@@ -56,5 +57,10 @@ void	export(t_ast *node, t_data *data)
 		new_node->value = get_var(var[1],data);
 	else
 		new_node->value = var[1];
+	current = data->env;
+	while (current->next != NULL)
+		current = current->next;
+	current->next = new_node;
+	new_node->next = NULL;
 }
 	

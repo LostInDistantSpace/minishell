@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 17:38:11 by lemarian          #+#    #+#             */
-/*   Updated: 2024/12/13 17:54:09 by lemarian         ###   ########.fr       */
+/*   Updated: 2024/12/17 14:04:27 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ typedef struct s_data
 
 void	env(t_data *data);
 void	echo(t_ast *node, t_data *data);
+void	export(t_ast *node, t_data *data);
+void	unset(t_ast *node, t_data *data);
 
 void	ast(t_ast *node, t_data *data);
 
