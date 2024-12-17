@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 17:38:11 by lemarian          #+#    #+#             */
-/*   Updated: 2024/12/17 14:04:27 by lemarian         ###   ########.fr       */
+/*   Updated: 2024/12/17 15:56:11 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ typedef struct s_data
 {
 	int			save_in;
 	int			save_out;
-	bool		child;//?
 	t_ast		**ast;
 	t_env		**env;
 }	t_data;
@@ -42,5 +41,7 @@ char	*get_path(char *cmd, char **ep);
 char	**get_env(t_data *data);
 
 void	free_array(char **array);
+void	free_ast(t_ast *node);
+void	free_env(t_env **start);
 
 #endif

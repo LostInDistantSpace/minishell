@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 14:06:25 by lemarian          #+#    #+#             */
-/*   Updated: 2024/12/13 17:12:25 by lemarian         ###   ########.fr       */
+/*   Updated: 2024/12/17 15:56:43 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ void	create_pipe(t_ast *node, t_data *data)
 		close(fd[0]);
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[1]);
-		data->child = true;
 		ast(node->left, data);
 	}
 	else
@@ -108,7 +107,6 @@ void	init_data(t_data *data, t_ast **head, t_env **start)
 {
 	data->save_in = dup(STDIN_FILENO);
 	data->save_out = dup(STDOUT_FILENO);
-	data->child = false;
 	data->ast = head;
 	data->env = start;
 }
