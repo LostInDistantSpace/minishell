@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 17:16:29 by lemarian          #+#    #+#             */
-/*   Updated: 2024/12/17 17:16:42 by lemarian         ###   ########.fr       */
+/*   Updated: 2024/12/18 15:08:25 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	create_pipe(t_ast *node, t_data *data)
 	int	fd[2];
 
 	if (pipe(fd) == -1)
-		perror("No more available fd");
+		perror("Error: pipe: all file descriptors are in use");
 	child = fork();
 	if (child == -1)
 		perror("Fork failed");

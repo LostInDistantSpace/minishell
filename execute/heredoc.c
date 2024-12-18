@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:32:10 by lemarian          #+#    #+#             */
-/*   Updated: 2024/12/13 17:49:17 by lemarian         ###   ########.fr       */
+/*   Updated: 2024/12/18 13:41:39 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*create_heredoc(t_ast *node)
 		free(name);
 	}
 	else
-		heredoc = open("tmp/heredoc", O_WRONLY | O_CREAT, 0644);
+		heredoc = open("tmp/heredoc", O_WRONLY | O_CREAT, 0644); //also need absolute path
 	input = readline(">");
 	while (ft_strncmp(input, node->args, ft_strlen(input)) != 0)
 	{
@@ -64,7 +64,7 @@ void	handle_heredoc(t_ast *node, t_data *data)
 
 	name = create_heredoc(node);
 	heredoc = open(name, O_RDONLY);
-	unlink(name);// not sure this is the right path
+	unlink(name);// should change to absolute path
 	dup2(heredoc, STDIN_FILENO);
 	close(heredoc);
 	if (node->right != NULL)
