@@ -6,7 +6,7 @@
 #    By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/10 16:41:52 by bmouhib           #+#    #+#              #
-#    Updated: 2024/12/18 15:28:20 by bmouhib          ###   ########.fr        #
+#    Updated: 2024/12/18 15:36:10 by bmouhib          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ NAME		:=	minishell
 
 SRC			:=	minishell.c
 SRC			+=	env.c
+SRC			+=	heredoc.c
 SRC			+=	init.c
 SRC			+=	cleaner.c
 SRC			+=	parsing.c
