@@ -6,7 +6,7 @@
 #    By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/10 16:41:52 by bmouhib           #+#    #+#              #
-#    Updated: 2024/12/16 22:46:14 by bmouhib          ###   ########.fr        #
+#    Updated: 2024/12/17 17:15:30 by bmouhib          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ MKDIR			:=	mkdir -p
 INCLUDES		:=	includes/
 INCLUDE_FILES	:=	colors.h
 INCLUDE_FILES	+=	minishell.h
+INCLUDE_FILES	+=	parsing.h
 
 LIBFT_DIR		:=	libft/
 LIBFT_NAME		:=	libft.a

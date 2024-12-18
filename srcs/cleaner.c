@@ -60,9 +60,3 @@ void	free_tokens(t_token *token)
 		free(tmp_token);
 	}
 }
-
-void	free_all(t_env *env, t_token *token)
-{
-	free_env(env);
-	free_tokens(token);
-}

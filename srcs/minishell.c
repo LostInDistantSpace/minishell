@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:27:25 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/16 23:03:15 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/18 14:52:45 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ void	print_tokens(t_token *token)
 	{
 		i = 0;
 		while (ptr->value[i])
-			printf("Token: [%s] | Type: ", ptr->value[i++]);
+			printf("Token: [%s] | ", ptr->value[i++]);
+		printf("Type : ");
 		if (ptr->type == WORD)
 			printf("WORD\n");
 		else if (ptr->type == PIPE)
@@ -72,9 +73,11 @@ int	main(int ac, char **av, char **envp)
 	** NEED TO MANAGE THE C-\ signal
 	**
 	** MIGHT NEED TO HARDCODE SOME ENV VARIABLES
+	** $PWD
 	** $OLDPWD
 	** $SHLVL
 	** $_
+	** $?
 	*/
 	while (!g_signal)
 	{
@@ -93,11 +96,11 @@ int	main(int ac, char **av, char **envp)
 			printf("Incorrect line\n");
 		else
 		{
-			token_list = tokenize_input(line);
+			token_list = tokenize_input(line); //JE GERE HEREDOC 
 			print_tokens(token_list);
 			// ast_root = parse_tokens(token_list);
+			free_tokens(token_list);
 		}
-		free_tokens(token_list);
 		free(line);
 		// free(ast);
 	}

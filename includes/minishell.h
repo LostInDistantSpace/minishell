@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:27:58 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/16 22:45:59 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/17 19:43:05 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # define _GNU_SOURCE
 # include "colors.h"
+# include "parsing.h"
 # include "libft.h"
 # include <unistd.h>
 # include <stdlib.h>
@@ -57,43 +58,15 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
-/*typedef struct s_env
-{
-	char	**key;
-	char	**value;
-	// int		nb_value;
-}	t_env;*/
-
 extern int	g_signal;
 
 char	*prompt(t_env *env);
 
 t_env	*init(struct sigaction *sa, char **envp);
 
-int		syntax_checker(char *line);
-int		syntax_init(char **line, int *p, char *q, int *i);
-
-t_token	*word_token(char **value, int num_word);
-t_token	*tokenize_input(char *input);
-t_ast	*parse_tokens(t_token *token);
-t_token	*new_token(char *value, int type);
-void	add_token(t_token **first, t_token *token);
-
-void	print_tokens(t_token *token);
-
-int		ft_strcmp(char *s1, char *s2);
-int		word_num(char *input, int pos);
-char	*ft_double_join(char *l, char *m, char *r);
-
-char	*get_var(t_env *env, char *key);
-char	*get_dir(t_env *env);
-
-int		is_spe_char(char c);
-
 void	free_array(char **array, int size);
 void	free_token(t_token *token, int size);
 void	free_env(t_env *env);
 void	free_tokens(t_token *token);
-void	free_all(t_env *env, t_token *token);
 
 #endif

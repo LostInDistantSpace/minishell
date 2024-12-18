@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 22:07:47 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/16 20:07:53 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/17 19:24:52 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,12 @@
 
 void	sig_handler(int signum)
 {
-	if (signum == SIGINT)
+	if (signum == SIGINT) 
 	{
+		/*
+		** might need child process specific things
+		** C-\
+		*/
 		g_signal = SIGINT;
 		rl_replace_line("", 0);
 		write(1, "\n", 1);
