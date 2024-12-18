@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:27:58 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/18 15:31:09 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/18 18:19:14 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ typedef enum e_token_type
 typedef struct s_token
 {
 	t_token_type	type;
-	char			**value;
 	char			**value;
 	struct s_token	*next;
 }	t_token;

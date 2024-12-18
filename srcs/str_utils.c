@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 22:04:20 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/16 19:56:57 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/18 19:18:36 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_strcmp(char *s1, char *s2)
 	return (0);
 }
 
-int	is_spe_char(char c)
+int	is_spechar(char c)
 {
 	if (c == '<' || c == '>' || c == '|')
 		return (1);

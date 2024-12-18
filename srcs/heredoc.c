@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:32:10 by lemarian          #+#    #+#             */
-/*   Updated: 2024/12/18 13:41:39 by lemarian         ###   ########.fr       */
+/*   Updated: 2024/12/18 20:01:05 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
+#include "minishell.h"
 
-char	*get_heredoc_name()
+char	*get_heredoc_name(void)
 {
-	int	i;
+	int		i;
+	// int		fd;
 	char	*name;
-	int	fd;
 
 	i = 0;
 	name = ft_strjoin("tmp/heredoc", ft_itoa(i));
@@ -29,9 +29,9 @@ char	*get_heredoc_name()
 	return (name);
 }
 
-char	*create_heredoc(t_ast *node)
+char	*create_heredoc(t_token *token)
 {
-	int	heredoc;
+	int		heredoc;
 	char	*input;
 	char	*name;
 
@@ -42,9 +42,10 @@ char	*create_heredoc(t_ast *node)
 		free(name);
 	}
 	else
-		heredoc = open("tmp/heredoc", O_WRONLY | O_CREAT, 0644); //also need absolute path
+		heredoc = open("tmp/heredoc", O_WRONLY | O_CREAT, 0644);
+		//also need absolute path
 	input = readline(">");
-	while (ft_strncmp(input, node->args, ft_strlen(input)) != 0)
+	while (ft_strncmp(input, token->value[0], ft_strlen(input)) != 0)
 	{
 		while (*input)
 			write(heredoc, input++, 1);
@@ -57,17 +58,35 @@ char	*create_heredoc(t_ast *node)
 	return (name);
 }
 
-void	handle_heredoc(t_ast *node, t_data *data)
+void	handle_heredoc(t_token *token)
 {
-	char *name;
-	int	heredoc;
+	char	*name;
+
+	while (token)
+	{
+		if (token->type == REDIR_HEREDOC)
+		{
+			name = create_heredoc(token);
+			free(token->value);
+			token->value = malloc(2 * sizeof(char *));
+			token->value[0] = name;
+			token->value = NULL;
+		}
+		token = token->next;
+	}
+}
+
+/* void	handle_heredoc(t_ast *node, t_data *data)
+{
+	char	*name;
+	int		heredoc;
 
 	name = create_heredoc(node);
 	heredoc = open(name, O_RDONLY);
-	unlink(name);// should change to absolute path
+	unlink(name); // should change to absolute path
 	dup2(heredoc, STDIN_FILENO);
 	close(heredoc);
 	if (node->right != NULL)
 		ast(node->right, data);
 	find_command(node->left, data);
-}
+} */

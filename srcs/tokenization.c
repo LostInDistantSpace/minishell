@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:43:30 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/16 22:42:35 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/18 19:20:21 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	handle_redir(char *input, int *pos)
 /*
 Handles the words in the input string.
 */
-char	*handle_word(char **str, int *pos)
+char	*handle_word(char **s, int *pos)
 {
 	int		i;
 	char	open_quote;
@@ -51,21 +51,21 @@ char	*handle_word(char **str, int *pos)
 
 	i = *pos;
 	open_quote = 0;
-	while ((*str)[i] && !ft_iswhitespace((*str)[i]) && !is_spe_char((*str)[i]))
+	while ((*s)[i] > 0 && !ft_iswhitespace((*s)[i]) && !is_spechar((*s)[i]))
 	{
-		if ((*str)[i] == '"' || (*str)[i] == '\'')
+		if ((*s)[i] == '"' || (*s)[i] == '\'')
 		{
-			open_quote = (*str)[i];
-			while ((*str)[i] != open_quote)
+			open_quote = (*s)[i];
+			while ((*s)[i] != open_quote)
 				i++;
 			open_quote = 0;
 		}
 		i++;
 	}
-	value = ft_substr(*str, *pos, i - *pos);
+	value = ft_substr(*s, *pos, i - *pos);
 	while (*pos < i)
 	{
-		(*str)[*pos] = -1;
+		(*s)[*pos] = -1;
 		*pos += 1;
 	}
 	return (value);
@@ -80,11 +80,13 @@ void	handle_redirs(char **input, int pos, t_token **head)
 	value = NULL;
 	while ((*input)[pos] && (*input)[pos] != '|')
 	{
-		while ((*input)[pos] && !is_spe_char((*input)[pos]))
+		while ((*input)[pos] && !is_spechar((*input)[pos]))
 			pos++;
 		if (!(*input)[pos] || (*input)[pos] == '|')
 			return ;
-		type = handle_redir(*input, &pos); //check if -1
+		type = handle_redir(*input, &pos);
+		if (type == -1)
+			return ; // handle error
 		while ((*input)[pos] && ft_iswhitespace((*input)[pos]))
 		{
 			(*input)[pos] = -1;

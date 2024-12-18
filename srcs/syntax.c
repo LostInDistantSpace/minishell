@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:35:28 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/18 15:27:49 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/18 19:18:36 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,7 @@ int	check_redir(char *line, int pos)
 		return (1);
 	while (line[pos] && ft_iswhitespace(line[pos]))
 		pos++;
-	if (!line[pos] || line[pos] == '<' || line[pos] == '>')
-		return (1);
-	else if (line[pos] == '|' || line[pos] == '&')
+	if (!line[pos] || is_spechar(line[pos]) || line[pos] == '&')
 		return (1);
 	return (0);
 }
@@ -73,7 +71,7 @@ int	syntax_checker(char *line)
 		{
 			if (is_forbiddenchar(line[i]))
 				return (1);
-			if (is_spe_char(line[i]) && check_special_char(line, i))
+			if (is_spechar(line[i]) && check_special_char(line, i))
 				return (1);
 		}
 		i++;
