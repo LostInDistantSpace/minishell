@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   cleaner.c										  :+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: bmouhib <bmouhib@student.42.fr>			+#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2024/12/16 22:44:59 by bmouhib		   #+#	#+#			 */
-/*   Updated: 2024/12/16 22:48:44 by bmouhib		  ###   ########.fr	   */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cleaner.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/18 15:22:52 by bmouhib           #+#    #+#             */
+/*   Updated: 2024/12/18 15:23:05 by bmouhib          ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
@@ -59,10 +59,4 @@ void	free_tokens(t_token *token)
 		free_array(tmp_token->value, size);
 		free(tmp_token);
 	}
-}
-
-void	free_all(t_env *env, t_token *token)
-{
-	free_env(env);
-	free_tokens(token);
 }
