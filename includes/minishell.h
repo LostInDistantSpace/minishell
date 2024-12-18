@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:27:58 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/18 15:28:43 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/18 15:31:09 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <sys/wait.h>
+# include <fcntl.h>
 
 // Token type enumeration
 typedef enum e_token_type
@@ -47,7 +49,6 @@ typedef struct s_token
 typedef struct s_ast
 {
 	t_token_type	type;
-	char			**args;
 	char			**args;
 	struct s_ast	*left;
 	struct s_ast	*right;
