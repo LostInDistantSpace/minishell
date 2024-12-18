@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:27:58 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/17 19:43:05 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/18 15:28:43 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,14 @@ typedef struct s_token
 {
 	t_token_type	type;
 	char			**value;
+	char			**value;
 	struct s_token	*next;
 }	t_token;
 
 typedef struct s_ast
 {
 	t_token_type	type;
+	char			**args;
 	char			**args;
 	struct s_ast	*left;
 	struct s_ast	*right;
