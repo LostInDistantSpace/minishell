@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 22:07:47 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/18 19:36:02 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/19 16:28:37 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ t_env	*init(struct sigaction *sa, char **ep)
 		env = add_env(env, new_env(ep[i++]));
 	if (!env) //idk if that's right
 	{
-		env = add_env(env, empty_env("PWD"));
+		env = add_env(env, new_env(ft_strjoin("PWD=", getcwd(NULL, 0))));
 		env = add_env(env, empty_env("OLDPWD"));
 		env = add_env(env, new_env("SHLVL=0"));
-		env = add_env(env, empty_env("_"));
+		env = add_env(env, empty_env("_")); //to do
 	}
 	return (env);
 }

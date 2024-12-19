@@ -6,22 +6,80 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 17:23:24 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/18 17:23:41 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/19 19:42:31 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_ast	*new_node(void)
+t_ast	*new_node(t_token *token)
 {
 	t_ast	*node;
 
-	node = malloc(sizeof(node));
+	node = malloc(sizeof(t_ast));
 	node->left = NULL;
 	node->right = NULL;
-	node->args = NULL;
-	node->type = WORD;
+	node->args = token->value; //deep copy OR put token->value to NULL
+	node->type = token->type;
 	return (node);
+}
+
+void	place_word(t_ast *head, t_ast *node)
+{
+	t_ast	*ptr;
+
+	ptr = head;
+	if (ptr->type == PIPE)
+	{
+		while (ptr->right && ptr->right->type == PIPE)
+			ptr = ptr->right;
+		if (ptr->right)
+		{
+			ptr = ptr->right;
+			ptr->left = node;
+		}
+		else
+			ptr->right = node;
+	}
+	else
+		ptr->left = node;
+}
+
+void	place_redir(t_ast *head, t_ast *node)
+{
+	t_ast	*ptr;
+
+	ptr = head;
+	while (ptr->right)
+		ptr = ptr->right;
+	ptr->right = node;
+}
+
+void	place_pipe(t_ast **head, t_ast *node)
+{
+	t_ast	*tmp;
+	t_ast	*ptr;
+
+	ptr = *head;
+	if (ptr->type == PIPE)
+	{
+		while (ptr->right && ptr->right->type == PIPE)
+			ptr = ptr->right;
+		if (!ptr->right)
+			ptr->right = node;
+		else
+		{
+			tmp = ptr->right;
+			ptr->right = node;
+			ptr = ptr->right;
+			ptr->left = tmp;
+		}
+	}
+	else
+	{
+		*head = node;
+		(*head)->left = ptr;
+	}
 }
 
 /*
@@ -31,44 +89,25 @@ that represents the input string.
 */
 t_ast	*parse_tokens(t_token *token)
 {
-	while (token->next)
+	t_ast	*head;
+	t_ast	*node;
+
+	head = NULL;
+	while (token)
 	{
-		// heredoc_reader();
-		// transom token into node -> expand variables as needed, remove quotes
+		node = new_node(token);
+		if (!head)
+			head = node;
+		else
+		{
+			if (node->type == PIPE)
+				place_pipe(&head, node);
+			if (node->type >= REDIR_IN && node->type <= REDIR_APPEND)
+				place_redir(head, node);
+			if (node->type == WORD)
+				place_word(head, node);
+		}
 		token = token->next;
 	}
-	return (new_node());
+	return (head);
 }
-
-/*
-Parses a command and its arguments, 
-creating a command node in the AST.
-*/
-void	parse_command(char *cmd)
-{
-	(void)cmd;
-}
-
-/*
-Parses pipeline tokens, 
-creating pipeline nodes in the AST.
-*/
-void	parse_pipeline(void)
-{
-}
-
-/*
-Parses redirection tokens, 
-creating redirection nodes in the AST.
-*/
-void	parse_redirection(char *redir)
-{
-	(void)redir;
-}
-
-/*
-Creates a file node for redirections in the AST.
-*/
-// void	create_file_node(char *file)
-// {
-// }

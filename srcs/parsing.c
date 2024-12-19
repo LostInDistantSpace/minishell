@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:49:05 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/19 13:56:48 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/19 19:09:49 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,14 @@ char	*get_input(char *prompt)
 	return (line);
 }
 
-void	parse(t_env *env)
+t_token	*parse(t_env *env)
 {
 	int		syntax;
 	char	*line;
 	t_token	*token_list;
 
 	line = get_input(prompt(env));
+	token_list = NULL;
 	if (!line)
 	{
 		free_env(env);
@@ -49,10 +50,7 @@ void	parse(t_env *env)
 		**		- WE DO EXPAND AL TOKENS ARGS (except heredocs delimiter)
 		** - remove quotes
 		*/
-		print_tokens(token_list);
-		// ast_root = parse_tokens(token_list);
-		free_tokens(token_list);
 	}
 	free(line);
-
+	return (token_list);
 }
