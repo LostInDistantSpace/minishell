@@ -1,94 +1,68 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   built_ins.c                                        :+:      :+:    :+:   */
+/*   handle_commands.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/11 13:26:07 by lemarian          #+#    #+#             */
-/*   Updated: 2024/12/19 15:43:24 by lemarian         ###   ########.fr       */
+/*   Created: 2024/12/19 15:15:13 by lemarian          #+#    #+#             */
+/*   Updated: 2024/12/19 15:50:48 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-void	echo(t_ast *node, t_data *data)
+void	exec_command(t_ast *node, char **cmd, char *path, char **env)
 {
-	int	i;
+	pid_t	child;
+	int	status;
 
-	if (!(ft_strncmp(node->args[1], "-n", 2)))
+	child = fork();
+	if (child == -1)
+		return (perror(strerror(errno)));
+	if (child == 0)
 	{
-		i = 2;
-		while (node->args[i])
+		if (execve(path, cmd, env) == -1)
 		{
-			printf("%s", node->args[i]);
-			i++;
+			perror(strerror(errno));
+			free_array(env);
+			free(path);
+			exit(EXIT_FAILURE);
 		}
 	}
 	else
+		waitpid(child, &status, NULL);
+		//store exit status where?
+}
+
+void	find_exec(t_ast *node, t_data *data)
+{
+	char	**cmd;
+	char	**env;
+	char *path;
+
+
+	if (!get_env(data))
+		return (perror(strerror(errno)));
+	if (access(node->args[0], X_OK == -1))
+		path = get_path(node->args[0], env);
+	else
+		path = ft_strdup(node->args[0]);
+	if (!path)
 	{
-		i = 1;
-		while (node->args[i])
-		{
-			printf("%s", node->args[i]);
-			i++;
-		}
-		printf("\n");
+		perror(strerror(errno));
+		free_array(env);
+		exit(EXIT_FAILURE);//child?
 	}
-}
-
-void	pwd(t_data *data)
-{
-	char	*dir;
-	size_t	size;
-
-	dir = NULL;
-	size = 0;
-	printf("%s\n", getcwd(dir, size));
-}
-
-void	env(t_data *data)
-{
-	char **env;
-	int	i;
-
-	env = get_env(data);
-	i = 0;
-	while (env[i])
-	{
-		printf("%s\n", env[i]);
-		i++;
-	}
-	free_array(env);
-}
-
-void	unset(t_ast *node, t_data *data)
-{
-	t_env	*current;
-	t_env	*delete;
-	int	len;
-
-	current = data->env;
-	len = ft_strlen(node->args[1]);
-	delete = NULL;
-	while (current)
-	{
-		if (ft_strncmp(node->args[1], current->next->key, len) == 0)
-		{
-			delete = current->next;
-			current->next = current->next->next;
-			free(delete->key);
-			free(delete->value);
-			free(delete);
-		}
-		current = current->next;
-	}
-}
-
-int	check_built_in(t_ast *node, t_data *data)//bof
-{
-	int	len;
+	else
+		exec_command(node, cmd, path, env);
 	
+}
+
+void	handle_commands(t_ast *node, t_data *data)
+{
+	int	len;
+
 	len = ft_strlen(node->args[0]);
 	if (ft_strncmp(node->args[0], "echo", len) == 0)
 		echo(node, data);
@@ -105,5 +79,5 @@ int	check_built_in(t_ast *node, t_data *data)//bof
 	if (ft_strncmp(node->args[0], "exit", len) == 0)
 		ft_exit();//need exit function
 	else
-		return (0);
+		find_exec(node, data);
 }

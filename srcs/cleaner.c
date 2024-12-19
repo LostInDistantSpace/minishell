@@ -3,21 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cleaner.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 15:22:52 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/18 15:23:05 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/19 15:27:27 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	free_array(char **array, int size)
-{
-	while (--size >= 0)
-		free(array[size]);
-	free(array);
-}
 
 void	free_token(t_token *token, int size)
 {

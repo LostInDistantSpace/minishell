@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:27:58 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/18 15:31:09 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/19 15:27:35 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ char	*prompt(t_env *env);
 
 t_env	*init(struct sigaction *sa, char **envp);
 
-void	free_array(char **array, int size);
 void	free_token(t_token *token, int size);
 void	free_env(t_env *env);
 void	free_tokens(t_token *token);
