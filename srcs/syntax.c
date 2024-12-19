@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:35:28 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/18 19:18:36 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/19 13:56:29 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,18 @@ int	check_special_char(char *line, int pos)
 	return (0);
 }
 
+int	only_whitespace(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i] && ft_iswhitespace(line[i]))
+		i++;
+	if (!line[i])
+		return (1);
+	return (0);
+}
+
 int	syntax_checker(char *line)
 {
 	int		i;
@@ -63,6 +75,8 @@ int	syntax_checker(char *line)
 
 	if (syntax_init(&line, &parenthesis, &open_quote, &i))
 		return (1);
+	if (only_whitespace(line))
+		return (3);
 	while (line[i])
 	{
 		if (line[i] == '\'' || line[i] == '\"')
