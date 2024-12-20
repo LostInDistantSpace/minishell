@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 13:26:07 by lemarian          #+#    #+#             */
-/*   Updated: 2024/12/19 15:43:24 by lemarian         ###   ########.fr       */
+/*   Updated: 2024/12/20 14:41:36 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	pwd(t_data *data)
 	printf("%s\n", getcwd(dir, size));
 }
 
-void	env(t_data *data)
+void	env(t_data *data)//change don't display null variables
 {
 	char **env;
 	int	i;
