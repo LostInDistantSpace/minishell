@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+         #
+#    By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/10 16:41:52 by bmouhib           #+#    #+#              #
-#    Updated: 2024/12/19 19:31:38 by bmouhib          ###   ########.fr        #
+#    Updated: 2024/12/20 15:21:12 by lemarian         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,13 @@ SRC			+=	syntax.c
 SRC			+=	token_utils.c
 SRC			+=	tokenization.c
 SRC			+=	TESTS.c
+SRC			+=	built_ins.c
+SRC			+=	exec.c
+SRC			+=	export.c
+SRC			+=	find_path.c
+SRC			+=	free.c
+SRC			+=	get_env.c
+SRC			+=	handle_in_out.c
 
 # --------------------------------- COMMANDS --------------------------------- #
 
@@ -47,6 +54,7 @@ INCLUDES		:=	includes/
 INCLUDE_FILES	:=	colors.h
 INCLUDE_FILES	+=	minishell.h
 INCLUDE_FILES	+=	parsing.h
+INCLUDE_FILES	+=	exec.h
 
 LIBFT_DIR		:=	libft/
 LIBFT_NAME		:=	libft.a

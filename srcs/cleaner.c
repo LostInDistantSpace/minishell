@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 15:22:52 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/19 15:27:27 by lemarian         ###   ########.fr       */
+/*   Updated: 2024/12/20 15:22:10 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	free_tokens(t_token *token)
 			token = NULL;
 		while (tmp_token->value[size])
 			size++;
-		free_array(tmp_token->value, size);
+		free_array(tmp_token->value);
 		free(tmp_token);
 	}
 }
