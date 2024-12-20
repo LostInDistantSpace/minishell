@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 12:29:17 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/09 23:04:44 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/19 19:29:04 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <string.h>
 # include <unistd.h>
 # include <limits.h>
+# include <math.h>
 
 typedef struct s_list
 {

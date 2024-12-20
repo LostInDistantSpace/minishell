@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 19:53:42 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/18 14:50:46 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/18 17:36:30 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	syntax_init(char **line, int *parenthesis, char *quote, int *pos)
 
 int	is_forbiddenchar(char c)
 {
-	if (c == '\\' || c == ';')
+	if (c == '\\' || c == ';' || c == '&')
 		return (1);
 	return (0);
 }

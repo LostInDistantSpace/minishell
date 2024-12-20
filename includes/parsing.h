@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 17:12:55 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/18 14:50:55 by bmouhib          ###   ########.fr       */
+/*   Updated: 2024/12/19 19:25:27 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,17 @@
 # define PARSING_H
 
 # include "minishell.h"
+# include <fcntl.h>
+# include <sys/stat.h>
+# include <dirent.h>
 
-typedef struct s_token	t_token;
-typedef struct s_ast	t_ast;
-typedef struct s_env	t_env;
+typedef enum e_token_type	t_token_type;
+typedef struct s_token		t_token;
+typedef struct s_ast		t_ast;
+typedef struct s_env		t_env;
+typedef struct sigaction	t_sigac;
+
+t_token	*parse(t_env *env);
 
 int		syntax_checker(char *line);
 int		syntax_init(char **line, int *p, char *q, int *i);
@@ -38,6 +45,24 @@ char	*ft_double_join(char *l, char *m, char *r);
 char	*get_var(t_env *env, char *key);
 char	*get_dir(t_env *env);
 
-int		is_spe_char(char c);
+int		is_spechar(char c);
+
+void	sig_handler(int signum);
+t_sigac	init_sigaction(void);
+
+t_env	*new_env(char *str);
+t_env	*empty_env(char *str);
+t_env	*add_env(t_env *head, t_env *var);
+
+
+void	handle_heredocs(t_token *token);
+
+/******************/
+/* TESTS FUNCTIONS*/
+/******************/
+void	print_env(t_env *env);
+void	print_type(t_token_type type);
+void	print_tokens(t_token *token);
+void	print_ast_tree(t_ast *ast);
 
 #endif

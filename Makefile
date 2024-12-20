@@ -6,7 +6,7 @@
 #    By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/10 16:41:52 by bmouhib           #+#    #+#              #
-#    Updated: 2024/12/18 15:36:10 by bmouhib          ###   ########.fr        #
+#    Updated: 2024/12/19 19:31:38 by bmouhib          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,17 +19,20 @@ NAME		:=	minishell
 # --------------------------------- SOURCES ---------------------------------- #
 
 SRC			:=	minishell.c
+SRC			+=	ast.c
 SRC			+=	env.c
 SRC			+=	heredoc.c
 SRC			+=	init.c
 SRC			+=	cleaner.c
 SRC			+=	parsing.c
 SRC			+=	prompt.c
+SRC			+=	signal.c
 SRC			+=	str_utils.c
 SRC			+=	syntax_utils.c
 SRC			+=	syntax.c
 SRC			+=	token_utils.c
 SRC			+=	tokenization.c
+SRC			+=	TESTS.c
 
 # --------------------------------- COMMANDS --------------------------------- #
 
@@ -71,6 +74,7 @@ CFLAGS			+=	-g3
 
 LIBFT_FLAGS		:=	-L$(LIBFT_DIR)
 LIBFT_FLAGS		+=	-lft
+LIBFT_FLAGS		+=	-lm
 
 MAKE_NO_PRINT	:=	--no-print-directory
 MAKE_FLAGS		:=	$(MAKE_NO_PRINT)

@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:27:58 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/19 15:27:35 by lemarian         ###   ########.fr       */
+/*   Updated: 2024/12/20 15:16:58 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,23 +25,23 @@
 # include <readline/history.h>
 # include <sys/wait.h>
 # include <fcntl.h>
+# include <errno.h>
 
 // Token type enumeration
 typedef enum e_token_type
 {
-	WORD, // For commands and arguments
-	PIPE, // For '|'
-	REDIR_IN, // For '<'
-	REDIR_OUT, // For '>'
-	REDIR_HEREDOC, // For '<<'
-	REDIR_APPEND, // For '>>'
+	WORD,
+	PIPE,
+	REDIR_IN,
+	REDIR_OUT,
+	REDIR_HEREDOC,
+	REDIR_APPEND,
 }	t_token_type;
 
 // Token structure
 typedef struct s_token
 {
 	t_token_type	type;
-	char			**value;
 	char			**value;
 	struct s_token	*next;
 }	t_token;
