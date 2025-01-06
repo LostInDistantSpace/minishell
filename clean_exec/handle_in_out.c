@@ -5,32 +5,30 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/17 16:24:31 by lemarian          #+#    #+#             */
-/*   Updated: 2024/12/19 15:48:30 by lemarian         ###   ########.fr       */
+/*   Created: 2025/01/06 14:29:59 by lemarian          #+#    #+#             */
+/*   Updated: 2025/01/06 17:32:41 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-void	close_in_out(t_data *data)
+void	restore_in_out(t_data *data)//call somewhere
 {
+	dup2(data->save_in, STDIN_FILENO);
+	dup2(data->save_out, STDOUT_FILENO);
 	close(data->save_in);
 	close(data->save_out);
 }
 
-void	restore_in_out(t_data *data)
-{
-	dup2(data->save_in, STDIN_FILENO);
-	dup2(data->save_out, STDOUT_FILENO);
-}
-
-void	change_input(t_ast *node, t_data *data)//unlink heredoc?
+void	change_input(t_ast *node, t_data *data)
 {
 	int	fd_in;
 
 	fd_in = open(node->args[0], O_RDONLY);
 	if (fd_in < 0)
 		return (perror(strerror(errno)));
+	if (node->type == REDIR_HEREDOC)
+		unlink(node->args[0]);
 	if (dup2(fd_in, STDIN_FILENO) == -1)
 	{
 		close(fd_in);

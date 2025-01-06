@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/17 16:05:03 by lemarian          #+#    #+#             */
-/*   Updated: 2024/12/19 15:48:14 by lemarian         ###   ########.fr       */
+/*   Created: 2025/01/06 14:23:12 by lemarian          #+#    #+#             */
+/*   Updated: 2025/01/06 17:08:24 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	init_data(t_data *data, t_ast **head, t_env **start)
 		perror(strerror(errno));
 		return(0);
 	}
-	data->pipe = false;
+	data->is_child = false;
 	data->ast = head;
 	data->env = start;
 	return (1);
