@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:49:05 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/19 19:09:49 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/06 15:02:49 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_token	*parse(t_env *env)
 	token_list = NULL;
 	if (!line)
 	{
-		free_env(env);
+		free_env(&env);
 		exit(write(STDOUT_FILENO, "exit\n", 5)); // need exit function
 	}
 	syntax = syntax_checker(line);

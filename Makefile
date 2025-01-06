@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+         #
+#    By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/10 16:41:52 by bmouhib           #+#    #+#              #
-#    Updated: 2024/12/20 15:21:12 by lemarian         ###   ########.fr        #
+#    Updated: 2025/01/06 13:50:31 by bmouhib          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,13 +33,6 @@ SRC			+=	syntax.c
 SRC			+=	token_utils.c
 SRC			+=	tokenization.c
 SRC			+=	TESTS.c
-SRC			+=	built_ins.c
-SRC			+=	exec.c
-SRC			+=	export.c
-SRC			+=	find_path.c
-SRC			+=	free.c
-SRC			+=	get_env.c
-SRC			+=	handle_in_out.c
 
 # --------------------------------- COMMANDS --------------------------------- #
 
