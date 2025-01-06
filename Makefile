@@ -6,7 +6,7 @@
 #    By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/10 16:41:52 by bmouhib           #+#    #+#              #
-#    Updated: 2025/01/06 13:50:31 by bmouhib          ###   ########.fr        #
+#    Updated: 2025/01/06 17:44:03 by bmouhib          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,7 +75,6 @@ CFLAGS			+=	-g3
 
 LIBFT_FLAGS		:=	-L$(LIBFT_DIR)
 LIBFT_FLAGS		+=	-lft
-LIBFT_FLAGS		+=	-lm
 
 MAKE_NO_PRINT	:=	--no-print-directory
 MAKE_FLAGS		:=	$(MAKE_NO_PRINT)

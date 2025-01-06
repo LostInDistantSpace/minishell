@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:32:10 by lemarian          #+#    #+#             */
-/*   Updated: 2024/12/19 16:28:46 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/06 19:32:53 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,23 @@ char	*create_heredoc(t_token *token)
 		return (perror(name), free(name), NULL);
 	//also need absolute path
 	input = readline("> ");
-	while (ft_strncmp(input, token->value[0], ft_strlen(input)) != 0)
+	while (ft_strcmp(input, token->value[0]) != 0)
 	{
+		if (g_signal || !input)
+		{
+			close(heredoc);
+			if (g_signal)
+			{
+				unlink(name);
+				free(name);
+				return (NULL);
+			}
+			if (!input)
+				return (name);
+		}
+		/*
+		** Maybe delete the files if smth went wrong ???
+		*/
 		ft_putstr_fd(input, heredoc);
 		write(heredoc, "\n", 1);
 		free(input);

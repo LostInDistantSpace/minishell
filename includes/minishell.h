@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:27:58 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/06 13:51:00 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/06 15:07:19 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,6 @@ void	free_token(t_token *token, int size);
 void	free_env(t_env **env);
 void	free_tokens(t_token *token);
 void	free_array(char **array);
+void	free_ast(t_ast *ast);
 
 #endif
