@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:32:10 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/07 23:24:57 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/08 00:23:01 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*get_heredoc_name(void)
 	return (name);
 }
 
-char	*create_heredoc(t_token *token, t_env *env)
+char	*create_heredoc(char *delim, t_env *env)
 {
 	int		heredoc;
 	char	*input;
@@ -40,10 +40,11 @@ char	*create_heredoc(t_token *token, t_env *env)
 		return (perror(name), free(name), NULL);
 	//also need absolute path
 	input = readline("> ");
-	while (ft_strcmp(input, token->value[0]) != 0)
+	while (ft_strcmp(input, delim) != 0)
 	{
 		if (g_signal || !input)
 		{
+			printf(RED "WRONG !!!\n" RESET_COLOR);
 			close(heredoc);
 			if (g_signal)
 			{
@@ -81,7 +82,7 @@ void	handle_heredocs(t_token *token, t_env *env)
 	{
 		if (token->type == REDIR_HEREDOC)
 		{
-			name = create_heredoc(token, env);
+			name = create_heredoc(token->value[0], env);
 			if (!name)
 				return ;
 			free(token->value);

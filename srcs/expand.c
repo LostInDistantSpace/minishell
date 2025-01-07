@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:18:08 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/07 23:21:01 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/08 00:23:11 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ char	*expand_var(char *str, t_env *env)
 		else
 			i++;
 	}
+	if (i == (int)ft_strlen(str))
+		return (str);
 	free(str);
 	return (result);
 }
