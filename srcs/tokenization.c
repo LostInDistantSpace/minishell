@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:43:30 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/18 19:20:21 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/08 00:13:00 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ int	handle_redir(char *input, int *pos)
 			type = REDIR_OUT;
 		else if (input[i] == '<')
 			type = REDIR_IN;
+		*pos += 1;
 		if (input[i + 1] && input[i + 1] == input[i])
 		{
 			input[i + 1] = -1;
 			*pos += 1;
 			type += 2;
 		}
-		*pos += 1;
 		input[i] = -1;
 	}
 	return (type);
@@ -99,7 +99,7 @@ void	handle_redirs(char **input, int pos, t_token **head)
 	}
 }
 
-void	handle_words(char *input, int *pos, t_token **head)
+int	handle_words(char *input, int *pos, t_token **head)
 {
 	int		cur_word;
 	int		num_word;
@@ -107,10 +107,10 @@ void	handle_words(char *input, int *pos, t_token **head)
 
 	num_word = word_num(input, *pos);
 	if (!num_word)
-		return ;
+		return (0);
 	array = malloc((num_word + 1) * sizeof(char *));
 	if (!array)
-		return ; // error management
+		return (-1);
 	array[num_word] = NULL;
 	while (input[*pos] < 0 || ft_iswhitespace(input[*pos]))
 		(*pos)++;
@@ -123,6 +123,7 @@ void	handle_words(char *input, int *pos, t_token **head)
 			(*pos)++;
 	}
 	add_token(head, word_token(array, num_word));
+	return (num_word);
 }
 
 /*
@@ -131,6 +132,7 @@ void	handle_words(char *input, int *pos, t_token **head)
 t_token	*tokenize_input(char *input)
 {
 	int		i;
+	int		words_num;
 	t_token	*head;
 
 	i = 0;
@@ -138,7 +140,14 @@ t_token	*tokenize_input(char *input)
 	while (input[i])
 	{
 		handle_redirs(&input, i, &head);
-		handle_words(input, &i, &head);
+		words_num = handle_words(input, &i, &head);
+		if (!words_num)
+		{
+			while (input[i] && input[i] != '|')
+				i++;
+		}
+		else if (words_num < 0)
+			return (free_tokens(head), NULL);
 		if (input[i] == '|')
 		{
 			add_token(&head, new_token("|", PIPE));

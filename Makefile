@@ -6,7 +6,7 @@
 #    By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/10 16:41:52 by bmouhib           #+#    #+#              #
-#    Updated: 2025/01/06 17:44:03 by bmouhib          ###   ########.fr        #
+#    Updated: 2025/01/07 19:24:59 by bmouhib          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ NAME		:=	minishell
 SRC			:=	minishell.c
 SRC			+=	ast.c
 SRC			+=	env.c
+SRC			+=	expand.c
 SRC			+=	heredoc.c
 SRC			+=	init.c
 SRC			+=	cleaner.c

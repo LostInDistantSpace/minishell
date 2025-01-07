@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:32:10 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/06 19:32:53 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/07 23:24:57 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*get_heredoc_name(void)
 	return (name);
 }
 
-char	*create_heredoc(t_token *token)
+char	*create_heredoc(t_token *token, t_env *env)
 {
 	int		heredoc;
 	char	*input;
@@ -52,11 +52,17 @@ char	*create_heredoc(t_token *token)
 				return (NULL);
 			}
 			if (!input)
+			{
+				// print warning
 				return (name);
+			}
 		}
 		/*
 		** Maybe delete the files if smth went wrong ???
 		*/
+		input = expand_var(input, env);
+		if (!input)
+			return (NULL);
 		ft_putstr_fd(input, heredoc);
 		write(heredoc, "\n", 1);
 		free(input);
@@ -67,7 +73,7 @@ char	*create_heredoc(t_token *token)
 	return (name);
 }
 
-void	handle_heredocs(t_token *token)
+void	handle_heredocs(t_token *token, t_env *env)
 {
 	char	*name;
 
@@ -75,7 +81,7 @@ void	handle_heredocs(t_token *token)
 	{
 		if (token->type == REDIR_HEREDOC)
 		{
-			name = create_heredoc(token);
+			name = create_heredoc(token, env);
 			if (!name)
 				return ;
 			free(token->value);

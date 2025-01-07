@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:49:05 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/06 19:10:01 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/08 00:12:26 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@ t_token	*parse(t_env *env)
 		exit(write(STDOUT_FILENO, "exit\n", 5));
 		// need exit function
 	}
+	/*
+	** redir without words : OKAY
+	*/
 	syntax = syntax_checker(line);
 	if (syntax == 1 || syntax == 2)
 		printf("Incorrect line\n"); 
@@ -49,7 +52,7 @@ t_token	*parse(t_env *env)
 	else if (syntax != 3)
 	{
 		token_list = tokenize_input(line);
-		handle_heredocs(token_list);
+		handle_heredocs(token_list, env);
 		if (g_signal == SIGINT)
 		{
 			g_signal = 0;
