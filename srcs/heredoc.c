@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:32:10 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/08 00:23:01 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/08 00:24:47 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ char	*create_heredoc(char *delim, t_env *env)
 	{
 		if (g_signal || !input)
 		{
-			printf(RED "WRONG !!!\n" RESET_COLOR);
 			close(heredoc);
 			if (g_signal)
 			{
