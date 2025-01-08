@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 15:30:04 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/06 17:43:57 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/08 14:59:16 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	free_ast(t_ast *node)//rework
 	free_ast(node->right);
 	free_ast(node->left);
 	free_array(node->args);
-	free(node->type);
 	free(node);
 }
 

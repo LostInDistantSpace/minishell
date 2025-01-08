@@ -6,13 +6,13 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:23:12 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/06 17:08:24 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/08 15:09:07 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-void	ast(t_ast *node, t_data *data)
+void	ft_ast(t_ast *node, t_data *data)
 {
 	if (node->type == PIPE)
 		create_pipe(node, data);
@@ -52,5 +52,5 @@ void	exec(t_ast **head, t_env **start)
 	if (!data)
 		return(perror(strerror(errno)));
 	init_data(data, head, start);
-	ast(*head, data);
+	ft_ast(*head, data);
 }

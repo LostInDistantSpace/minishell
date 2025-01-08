@@ -6,13 +6,13 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:36:54 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/08 14:38:03 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/08 15:06:05 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-void	exec_command(t_ast *node, t_data *data, char *path, char **env)
+void	exec_command(t_ast *node, char *path, char **env)
 {
 	if (execve(path, node->args, env) == -1)
 	{
@@ -52,7 +52,8 @@ void	find_command(t_ast *node, t_data *data)
 	char	**env;
 	char	*path;
 
-	if (!get_env(data))
+	env = get_env(data->env);
+	if (!env)
 		return (perror(strerror(errno)));//replace by exit function
 	if (access(node->args[0], X_OK == -1))
 		path = get_path(node->args[0], env);
@@ -61,7 +62,7 @@ void	find_command(t_ast *node, t_data *data)
 	if (data->is_child == false)
 		fork_command(node, data, path, env);
 	else
-		exec_command(node, data, path, env);
+		exec_command(node, path, env);
 }
 
 void	handle_commands(t_ast *node, t_data *data)
@@ -70,17 +71,17 @@ void	handle_commands(t_ast *node, t_data *data)
 
 	len = ft_strlen(node->args[0]);
 	if (ft_strncmp(node->args[0], "echo", len) == 0)
-		echo(node, data);
+		ft_echo(node);
 	//else if (ft_strncmp(node->args[0], "cd", len) == 0)
 		//need to code
 	else if (ft_strncmp(node->args[0], "pwd", len) == 0)
-		pwd(data);
+		ft_pwd(data);
 	else if (ft_strncmp(node->args[0], "export", len) == 0)
 		ft_export(node, data);
 	else if (ft_strncmp(node->args[0], "unset", len) == 0)
-		unset(node, data);
+		ft_unset(node, data);
 	else if (ft_strncmp(node->args[0], "env", len) == 0)
-		env(node, data);
+		ft_env(data->env);
 	//else if (ft_strncmp(node->args[0], "exit", len) == 0)
 	//	ft_exit();//need exit function
 	else

@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 17:18:59 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/06 17:29:16 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/08 15:02:13 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,31 +27,31 @@ int	count_size(t_env **start)
 	return(size);
 }
 
-char	**get_env(t_data *data)
+char	**get_env(t_env **env)
 {
-	char	**env;
+	char	**new_env;
 	int		i;
 	t_env	*current;
 	char	*join;
 	char	*var;
 
-	env = malloc(sizeof(char*) * count_size(data->env) + 1);
-	if (!env)
+	new_env = malloc(sizeof(char*) * count_size(env) + 1);
+	if (!new_env)
 		return (NULL);//replace with exit function
 	i = 0;
-	current = data->env;
+	current = *env;
 	while (current)
 	{
 		join = ft_strjoin(current->key, "=");
 		var = ft_strjoin(join, current->value);
-		env[i] = ft_strdup(var);
-		if (!join || !var || !env[i])
-			return (free(join), free(var), free(env[i]), NULL);
+		new_env[i] = ft_strdup(var);
+		if (!join || !var || !new_env[i])
+			return (free(join), free(var), free(new_env[i]), NULL);
 		free(join);
 		free(var);
 		i++;
 		current = current->next;
 	}
-	env[i] = '\0';
-	return (env);
+	new_env[i] = "\0";
+	return (new_env);
 }

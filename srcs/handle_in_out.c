@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:29:59 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/06 17:32:41 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/08 15:08:07 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	change_input(t_ast *node, t_data *data)
 	}
 	close(fd_in);
 	if (node->right != NULL)
-		ast(node->right, data);
+		ft_ast(node->right, data);
 	handle_commands(node->left, data);
 }
 
@@ -57,6 +57,6 @@ void	change_output(t_ast *node, t_data *data)
 	}
 	close(fd_out);
 	if (node->right != NULL)
-		ast(node->right, data);
+		ft_ast(node->right, data);
 	handle_commands(node->left, data);
 }

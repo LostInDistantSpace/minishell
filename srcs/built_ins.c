@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:04:27 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/08 14:17:39 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/08 15:06:15 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 //need cd and exit
 
-void	echo(t_ast *node, t_data *data)
+void	ft_echo(t_ast *node)
 {
 	int	i;
 
@@ -39,7 +39,7 @@ void	echo(t_ast *node, t_data *data)
 	}
 }
 
-void	pwd(t_data *data)
+void	ft_pwd()
 {
 	char	*dir;
 	size_t	size;
@@ -49,11 +49,11 @@ void	pwd(t_data *data)
 	printf("%s\n", getcwd(dir, size));
 }
 
-void	env(t_ast *node, t_data *data)
+void	ft_env(t_env **env)
 {
 	t_env	*current;
 
-	current = data->env;
+	current = *env;
 	while (current)
 	{
 		if (current->value != NULL)

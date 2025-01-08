@@ -6,18 +6,18 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 14:04:00 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/08 14:16:12 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/08 15:08:54 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-void	delete_var(char *key, t_data *data)
+void	delete_var(char *key, t_env **env)
 {
 	t_env	*current;
 	t_env	*delete;
 
-	current = data->env;
+	current = *env;
 	delete = NULL;
 	while (current)
 	{
@@ -33,7 +33,7 @@ void	delete_var(char *key, t_data *data)
 	}
 }
 
-void	unset(t_ast *node, t_data *data)
+void	ft_unset(t_ast *node, t_data *data)
 {
 	int	i;
 
@@ -42,7 +42,7 @@ void	unset(t_ast *node, t_data *data)
 		return;
 	while (node->args[i])
 	{
-		delete_var(node->args[i], data);
+		delete_var(node->args[i], data->env);
 		i++;
 	}
 }
