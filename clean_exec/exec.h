@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:22:40 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/06 17:44:32 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/08 14:17:32 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,15 @@ void	free_env(t_env **start);
 void	free_ast(t_ast *node);
 void	free_array(char **array);
 void	restore_in_out(t_data *data);
+
+void	echo(t_ast *node, t_data *data);
+void	pwd(t_data *data);
+void	env(t_ast *node, t_data *data);
+void	unset(t_ast *node, t_data *data);
+
+void	export(t_ast *node, t_data *data);
+char	*get_key(char *var);
+char	*get_value(char *var);
+int		check_key_name(char *key);
 
 #endif
