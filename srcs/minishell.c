@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:27:25 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/19 19:50:06 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/06 18:11:16 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,15 @@ int	main(int ac, char **av, char **envp)
 	{
 		token = parse(env);
 		if (token)
+		{
 			print_tokens(token);
-		ast_root = parse_tokens(token);
-		/*
-		NOTE TO SELF : REMOVE -lm FROM MAKEFILE (used for math lib)
-		*/
-		if (ast_root)
-			print_ast_tree(ast_root);
-		free_tokens(token);
-		// free(ast);
+			ast_root = parse_tokens(token);
+			if (ast_root)
+			{
+				print_ast_tree(ast_root);
+				free_ast(ast_root);
+			}
+		}
 	}
 	rl_clear_history();
 	return (0);

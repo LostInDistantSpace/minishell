@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:35:28 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/19 13:56:29 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/07 23:29:03 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,12 @@ int	only_whitespace(char *line)
 int	syntax_checker(char *line)
 {
 	int		i;
-	int		parenthesis;
 	char	open_quote;
 
-	if (syntax_init(&line, &parenthesis, &open_quote, &i))
+	/*
+	** redir without words : OKAY
+	*/
+	if (syntax_init(&line, &open_quote, &i))
 		return (1);
 	if (only_whitespace(line))
 		return (3);

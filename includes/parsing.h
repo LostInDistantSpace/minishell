@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 17:12:55 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/19 19:25:27 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/07 23:28:52 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct sigaction	t_sigac;
 t_token	*parse(t_env *env);
 
 int		syntax_checker(char *line);
-int		syntax_init(char **line, int *p, char *q, int *i);
+int		syntax_init(char **line, char *q, int *i);
 int		is_forbiddenchar(char c);
 
 t_token	*word_token(char **value, int num_word);
@@ -35,8 +35,6 @@ t_token	*tokenize_input(char *input);
 t_ast	*parse_tokens(t_token *token);
 t_token	*new_token(char *value, int type);
 void	add_token(t_token **first, t_token *token);
-
-void	print_tokens(t_token *token);
 
 int		ft_strcmp(char *s1, char *s2);
 int		word_num(char *input, int pos);
@@ -54,8 +52,8 @@ t_env	*new_env(char *str);
 t_env	*empty_env(char *str);
 t_env	*add_env(t_env *head, t_env *var);
 
-
-void	handle_heredocs(t_token *token);
+void	handle_heredocs(t_token *token, t_env *env);
+char	*expand_var(char *str, t_env *env);
 
 /******************/
 /* TESTS FUNCTIONS*/

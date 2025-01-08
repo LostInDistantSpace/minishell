@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 22:49:26 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/16 22:45:19 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/06 13:52:35 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ t_token	*word_token(char **value, int num_word)
 	{
 		token->value[i] = ft_strdup(value[i]);
 		if (!token->value[i])
-			return (free_token(token, i), free_array(value, i), NULL);
+			return (free_tokens(token), free_array(value), NULL);
 	}
 	token->value[i] = NULL;
-	free_array(value, i);
+	free_array(value);
 	token->type = WORD;
 	token->next = NULL;
 	return (token);

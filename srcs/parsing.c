@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:49:05 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/19 19:09:49 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/08 00:12:26 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,35 @@ t_token	*parse(t_env *env)
 
 	line = get_input(prompt(env));
 	token_list = NULL;
+	if (g_signal == SIGINT)
+	{
+		g_signal = 0;
+		return (NULL);
+	}
 	if (!line)
 	{
-		free_env(env);
-		exit(write(STDOUT_FILENO, "exit\n", 5)); // need exit function
+		free_env(&env);
+		exit(write(STDOUT_FILENO, "exit\n", 5));
+		// need exit function
 	}
+	/*
+	** redir without words : OKAY
+	*/
 	syntax = syntax_checker(line);
 	if (syntax == 1 || syntax == 2)
-		printf("Incorrect line\n"); // specific errors needed
+		printf("Incorrect line\n"); 
+	// specific errors needed
 	else if (syntax != 3)
 	{
 		token_list = tokenize_input(line);
-		handle_heredocs(token_list);
-		/* transforming string
+		handle_heredocs(token_list, env);
+		if (g_signal == SIGINT)
+		{
+			g_signal = 0;
+			return (free_tokens(token_list), free(line), NULL);
+		}
+		/* 
+		** transforming string
 		** - expand var if needed (if string is empty AT THIS STAGE ONLY, remove word)
 		**		- $ if whtespace ou \0 after, no expand
 		**		- if smth else after, expand into V

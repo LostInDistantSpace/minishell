@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 17:23:24 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/19 19:42:31 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/06 15:11:55 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_ast	*new_node(t_token *token)
 	node->right = NULL;
 	node->args = token->value; //deep copy OR put token->value to NULL
 	node->type = token->type;
+	token->value = NULL;
 	return (node);
 }
 
@@ -91,11 +92,14 @@ t_ast	*parse_tokens(t_token *token)
 {
 	t_ast	*head;
 	t_ast	*node;
+	t_token	*next;
 
 	head = NULL;
 	while (token)
 	{
 		node = new_node(token);
+		next = token->next;
+		free(token);
 		if (!head)
 			head = node;
 		else
@@ -107,7 +111,7 @@ t_ast	*parse_tokens(t_token *token)
 			if (node->type == WORD)
 				place_word(head, node);
 		}
-		token = token->next;
+		token = next;
 	}
 	return (head);
 }

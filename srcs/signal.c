@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 18:52:05 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/19 15:05:28 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/08 00:05:41 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,23 @@ void	sig_handler(int signum)
 	g_signal = signum;
 	if (signum == SIGINT)
 	{
-		/*
-		** might need child process specific things
-		*/
+		write(STDOUT_FILENO, "\n", 1);
 		rl_replace_line("", 0);
-		write(1, "\n", 1);
 		rl_on_new_line();
-		rl_redisplay();
+		rl_done = 1;
 	}
-	g_signal = 0;
+}
+
+int	rl_end_event(void)
+{
+	return (0);
 }
 
 struct sigaction	init_sigaction(void)
 {
 	struct sigaction	sa;
 
+	rl_event_hook = rl_end_event;
 	sa.sa_handler = sig_handler;
 	sa.sa_flags = SA_SIGINFO;
 	sigemptyset(&sa.sa_mask);
@@ -39,6 +41,6 @@ struct sigaction	init_sigaction(void)
 	sa.sa_handler = SIG_IGN;
 	sa.sa_flags = 0;
 	sigemptyset(&sa.sa_mask);
-	sigaction(SIGQUIT, &sa, NULL);
+	// sigaction(SIGQUIT, &sa, NULL);
 	return (sa);
 }

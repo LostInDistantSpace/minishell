@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 22:04:20 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/18 19:18:36 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/06 17:04:52 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,15 @@ int	ft_strcmp(char *s1, char *s2)
 	int	i;
 
 	i = 0;
+	if (!s1 || !s2)
+	{
+		if (!s1 && !s2)
+			return (0);
+		else if (!s1)
+			return (s2[0]);
+		else
+			return (s1[0]);
+	}
 	while (s1[i] || s2[i])
 	{
 		if (s1[i] != s2[i])

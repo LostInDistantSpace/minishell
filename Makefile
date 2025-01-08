@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+         #
+#    By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/10 16:41:52 by bmouhib           #+#    #+#              #
-#    Updated: 2024/12/20 15:21:12 by lemarian         ###   ########.fr        #
+#    Updated: 2025/01/07 19:24:59 by bmouhib          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ NAME		:=	minishell
 SRC			:=	minishell.c
 SRC			+=	ast.c
 SRC			+=	env.c
+SRC			+=	expand.c
 SRC			+=	heredoc.c
 SRC			+=	init.c
 SRC			+=	cleaner.c
@@ -33,13 +34,6 @@ SRC			+=	syntax.c
 SRC			+=	token_utils.c
 SRC			+=	tokenization.c
 SRC			+=	TESTS.c
-SRC			+=	built_ins.c
-SRC			+=	exec.c
-SRC			+=	export.c
-SRC			+=	find_path.c
-SRC			+=	free.c
-SRC			+=	get_env.c
-SRC			+=	handle_in_out.c
 
 # --------------------------------- COMMANDS --------------------------------- #
 
@@ -82,7 +76,6 @@ CFLAGS			+=	-g3
 
 LIBFT_FLAGS		:=	-L$(LIBFT_DIR)
 LIBFT_FLAGS		+=	-lft
-LIBFT_FLAGS		+=	-lm
 
 MAKE_NO_PRINT	:=	--no-print-directory
 MAKE_FLAGS		:=	$(MAKE_NO_PRINT)

@@ -6,14 +6,14 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 19:19:09 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/19 19:47:29 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/07 23:52:38 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <math.h>
 
-void	print_env(t_env *env) //TEST FUNCTION
+void	print_env(t_env *env)
 {
 	while (env)
 	{
@@ -41,7 +41,7 @@ void	print_type(t_token_type type)
 /*
 Prints the tokens to verify the tokenization process.
 */
-void	print_tokens(t_token *token) //TEST FUNCTION
+void	print_tokens(t_token *token)
 {
 	int		i;
 	t_token	*ptr;
@@ -55,7 +55,7 @@ void	print_tokens(t_token *token) //TEST FUNCTION
 		while (ptr->value[i])
 			printf("Token: [%s] | ", ptr->value[i++]);
 		printf("Type : ");
-		print_type(token->type);
+		print_type(ptr->type);
 		printf("\n--------------------------------------------------\n");
 		ptr = ptr->next;
 	}
