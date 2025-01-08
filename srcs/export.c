@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:52:04 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/08 14:07:15 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/08 14:37:28 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	check_key(char *var, t_data *data)
 	}
 }
 
-void	export(t_ast *node, t_data *data)
+void	ft_export(t_ast *node, t_data *data)
 {
 	int	i;
 

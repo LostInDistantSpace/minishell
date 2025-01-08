@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:36:54 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/06 17:33:11 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/08 14:38:03 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,11 @@ void	handle_commands(t_ast *node, t_data *data)
 	else if (ft_strncmp(node->args[0], "pwd", len) == 0)
 		pwd(data);
 	else if (ft_strncmp(node->args[0], "export", len) == 0)
-		export(node, data);
+		ft_export(node, data);
 	else if (ft_strncmp(node->args[0], "unset", len) == 0)
 		unset(node, data);
 	else if (ft_strncmp(node->args[0], "env", len) == 0)
-		env(data);
+		env(node, data);
 	//else if (ft_strncmp(node->args[0], "exit", len) == 0)
 	//	ft_exit();//need exit function
 	else

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+         #
+#    By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/10 16:41:52 by bmouhib           #+#    #+#              #
-#    Updated: 2025/01/07 19:24:59 by bmouhib          ###   ########.fr        #
+#    Updated: 2025/01/08 14:36:25 by lemarian         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,24 +34,22 @@ SRC			+=	syntax.c
 SRC			+=	token_utils.c
 SRC			+=	tokenization.c
 SRC			+=	TESTS.c
+SRC			+=	built_ins.c
+SRC			+=	export_utils.c
+SRC			+=	export.c
+SRC			+=	find_path.c
+SRC			+=	free.c
+SRC			+=	get_env.c
+SRC			+=	handle_commands.c
+SRC			+=	handle_in_out.c
+SRC			+=	pipe.c
+SRC			+=	unset.c
+SRC			+=	exec.c
 
 # --------------------------------- COMMANDS --------------------------------- #
 
 CC				:=	cc
 RM				:=	rm -rf
-AR				:=	ar -rc
-MKDIR			:=	mkdir -p
-
-# ----------------------------------- FILES ---------------------------------- #
-
-INCLUDES		:=	includes/
-INCLUDE_FILES	:=	colors.h
-INCLUDE_FILES	+=	minishell.h
-INCLUDE_FILES	+=	parsing.h
-INCLUDE_FILES	+=	exec.h
-
-LIBFT_DIR		:=	libft/
-LIBFT_NAME		:=	libft.a
 LIBFT_INCLUDES	:=	$(LIBFT_DIR)$(INCLUDES)
 LIBFT			:=	$(LIBFT_DIR)$(LIBFT_NAME)
 
@@ -118,7 +116,7 @@ COMP_FCLEAN		:=	$(ECHO) $(DELETION) $(NAME_FILE) $(COMPLETE)
 # ---------------------------------------------------------------------------- #
 
 $(OBJS_DIR)%.o:		$(SRCS_DIR)%.c
-					@$(MKDIR) $(dir $@)
+					@ mkdir -p $(dir $@)
 					@$(CC) $(CFLAGS) $(INCLUDES_FLAGS) -c $< -o $@
 
 all:				$(NAME)
