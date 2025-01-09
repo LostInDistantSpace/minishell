@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:04:27 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/09 14:13:22 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/09 14:31:13 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ void	ft_echo(t_ast *node)
 {
 	int	i;
 
-	if (!(ft_strncmp(node->args[1], "-n", 2)))
+	if (!(ft_strcmp(node->args[1], "-n")))
 	{
 		i = 2;
 		while (node->args[i])
 		{
-			printf("%s", node->args[i]);
+			ft_putstr_fd(node->args[i], STDOUT_FILENO);
 			i++;
 		}
 	}
@@ -32,7 +32,7 @@ void	ft_echo(t_ast *node)
 		i = 1;
 		while (node->args[i])
 		{
-			printf("%s", node->args[i]);
+			ft_putstr_fd(node->args[i], STDOUT_FILENO);
 			i++;
 		}
 		printf("\n");
@@ -44,7 +44,9 @@ void	ft_pwd(void)
 	char	*dir;
 
 	dir = NULL;
-	printf("%s\n", getcwd(dir, PATH_MAX));//protect?
+	ft_putstr_fd(getcwd(dir, PATH_MAX), STDOUT_FILENO);
+	ft_putstr_fd("\n", STDOUT_FILENO);
+	// protect?
 }
 
 void	ft_env(t_env **env)

@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:27:58 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/06 15:07:19 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/09 14:15:51 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # define _GNU_SOURCE
 # include "colors.h"
 # include "parsing.h"
+# include "exec.h"
 # include "libft.h"
 # include <unistd.h>
 # include <stdlib.h>

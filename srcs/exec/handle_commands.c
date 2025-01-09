@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_commands.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:36:54 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/09 13:44:28 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/09 14:25:07 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,20 +67,17 @@ void	find_command(t_ast *node, t_data *data)
 
 void	handle_commands(t_ast *node, t_data *data)
 {
-	int	len;
-
-	len = ft_strlen(node->args[0]);
-	if (ft_strncmp(node->args[0], "echo", len) == 0)
+	if (ft_strcmp(node->args[0], "echo") == 0)
 		ft_echo(node);
-	else if (ft_strncmp(node->args[0], "cd", len) == 0)
+	else if (ft_strcmp(node->args[0], "cd") == 0)
 		ft_cd(node, data->env);
-	else if (ft_strncmp(node->args[0], "pwd", len) == 0)
+	else if (ft_strcmp(node->args[0], "pwd") == 0)
 		ft_pwd(data);
-	else if (ft_strncmp(node->args[0], "export", len) == 0)
+	else if (ft_strcmp(node->args[0], "export") == 0)
 		ft_export(node, data);
-	else if (ft_strncmp(node->args[0], "unset", len) == 0)
+	else if (ft_strcmp(node->args[0], "unset") == 0)
 		ft_unset(node, data);
-	else if (ft_strncmp(node->args[0], "env", len) == 0)
+	else if (ft_strcmp(node->args[0], "env") == 0)
 		ft_env(data->env);
 	//else if (ft_strncmp(node->args[0], "exit", len) == 0)
 	//	ft_exit();//need exit function

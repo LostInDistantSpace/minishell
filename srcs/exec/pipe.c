@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:26:27 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/08 15:08:22 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/09 14:36:09 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	create_pipe(t_ast *node, t_data *data)
 {
 	pid_t	child;
-	int	fd[2];
+	int		fd[2];
 
 	if (pipe(fd) == -1)
 		perror(strerror(errno));
@@ -29,6 +29,8 @@ void	create_pipe(t_ast *node, t_data *data)
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[1]);
 		ft_ast(node->left, data);
+		// free all
+		exit(EXIT_SUCCESS);
 	}
 	else
 	{
