@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_ins.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:04:27 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/09 13:58:26 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/09 14:09:37 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	ft_echo(t_ast *node)
 	}
 }
 
-void	ft_pwd()
+void	ft_pwd(void)
 {
 	char	*dir;
 
@@ -62,9 +62,9 @@ void	ft_env(t_env **env)
 
 void	ft_cd(t_ast *node, char **env)//not sure if this works
 {
-	t_env *current;
+	t_env	*current;
 	char	*old_pwd;
-	
+
 	current = *env;
 	old_pwd = NULL;
 	if (chdir(node->args[1]) == -1)
