@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:26:27 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/09 14:36:09 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/09 15:55:13 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	create_pipe(t_ast *node, t_data *data)
 		close(fd[1]);
 		ft_ast(node->left, data);
 		// free all
-		exit(EXIT_SUCCESS);
 	}
 	else
 	{
@@ -38,5 +37,6 @@ void	create_pipe(t_ast *node, t_data *data)
 		dup2(fd[0], STDIN_FILENO);
 		close(fd[0]);
 		ft_ast(node->right, data);
+		wait(NULL);
 	}
 }
