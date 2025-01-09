@@ -6,20 +6,11 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:35:28 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/07 23:29:03 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/09 22:27:15 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	check_quote(char c, char open_quote)
-{
-	if (open_quote && c == open_quote)
-		return (0);
-	else if (!open_quote)
-		return (c);
-	return (open_quote);
-}
 
 int	check_redir(char *line, int pos)
 {
@@ -67,32 +58,33 @@ int	only_whitespace(char *line)
 	return (0);
 }
 
-int	syntax_checker(char *line)
+int	syntax_checker(char *str)
 {
 	int		i;
-	char	open_quote;
+	char	quote;
 
 	/*
 	** redir without words : OKAY
 	*/
-	if (syntax_init(&line, &open_quote, &i))
+	if (syntax_init(&str, &quote, &i))
 		return (1);
-	if (only_whitespace(line))
+	if (only_whitespace(str))
 		return (3);
-	while (line[i])
+	quote = 0;
+	while (str[i])
 	{
-		if (line[i] == '\'' || line[i] == '\"')
-			open_quote = check_quote(line[i], open_quote);
-		if (!open_quote)
+		if ((!quote || str[i] == quote) && (str[i] == '\'' || str[i] == '\"'))
+			quote = str[i] - quote;
+		if (!quote)
 		{
-			if (is_forbiddenchar(line[i]))
+			if (is_forbiddenchar(str[i]))
 				return (1);
-			if (is_spechar(line[i]) && check_special_char(line, i))
+			if (is_spechar(str[i]) && check_special_char(str, i))
 				return (1);
 		}
 		i++;
 	}
-	if (open_quote)
+	if (quote)
 		return (2);
 	return (0);
 }

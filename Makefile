@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+         #
+#    By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/10 16:41:52 by bmouhib           #+#    #+#              #
-#    Updated: 2025/01/09 17:11:38 by lemarian         ###   ########.fr        #
+#    Updated: 2025/01/09 19:37:02 by bmouhib          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ EXEC_PATH	:=	exec/
 SRC			:=	minishell.c
 SRC			+=	$(PARS_PATH)ast.c
 SRC			+=	$(PARS_PATH)env.c
+SRC			+=	$(PARS_PATH)expand_utils.c
 SRC			+=	$(PARS_PATH)expand.c
 SRC			+=	$(PARS_PATH)heredoc.c
 SRC			+=	$(PARS_PATH)init.c
