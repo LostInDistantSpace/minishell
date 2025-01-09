@@ -6,7 +6,7 @@
 #    By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/10 16:41:52 by bmouhib           #+#    #+#              #
-#    Updated: 2025/01/09 14:04:10 by lemarian         ###   ########.fr        #
+#    Updated: 2025/01/09 14:06:44 by lemarian         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@
 
 NAME		:=	minishell
 PARS_PATH	:=	parsing/
+EXEC_PATH	:=	exec/
 
 # --------------------------------- SOURCES ---------------------------------- #
 
@@ -35,16 +36,16 @@ SRC			+=	$(PARS_PATH)syntax.c
 SRC			+=	$(PARS_PATH)token_utils.c
 SRC			+=	$(PARS_PATH)tokenization.c
 SRC			+=	TESTS.c
-SRC			+=	built_ins.c
-SRC			+=	export_utils.c
-SRC			+=	export.c
-SRC			+=	find_path.c
-SRC			+=	get_env.c
-SRC			+=	handle_commands.c
-SRC			+=	handle_in_out.c
-SRC			+=	pipe.c
-SRC			+=	unset.c
-SRC			+=	exec.c
+SRC			+=	$(EXEC_PATH)built_ins.c
+SRC			+=	$(EXEC_PATH)export_utils.c
+SRC			+=	$(EXEC_PATH)export.c
+SRC			+=	$(EXEC_PATH)find_path.c
+SRC			+=	$(EXEC_PATH)get_env.c
+SRC			+=	$(EXEC_PATH)handle_commands.c
+SRC			+=	$(EXEC_PATH)handle_in_out.c
+SRC			+=	$(EXEC_PATH)pipe.c
+SRC			+=	$(EXEC_PATH)unset.c
+SRC			+=	$(EXEC_PATH)exec.c
 
 
 # --------------------------------- COMMANDS --------------------------------- #
