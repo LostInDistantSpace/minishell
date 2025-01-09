@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:04:27 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/09 13:58:26 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/09 14:09:00 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	ft_env(t_env **env)
 	}
 }
 
-void	ft_cd(t_ast *node, char **env)//not sure if this works
+void	ft_cd(t_ast *node, t_env **env)//not sure if this works
 {
 	t_env *current;
 	char	*old_pwd;
@@ -73,7 +73,7 @@ void	ft_cd(t_ast *node, char **env)//not sure if this works
 		current = current->next;
 	if (current->value)
 		free(current->value);
-	get_cwd(old_pwd, PATH_MAX);
+	getcwd(old_pwd, PATH_MAX);
 	current->value = ft_strdup(old_pwd);
 	if (!current->value)
 		return (perror(strerror(errno)));//replace with exit
