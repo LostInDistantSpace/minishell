@@ -6,13 +6,21 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:04:27 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/09 17:41:51 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/09 17:48:55 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
 //need exit
+
+/*void	ft_exit(t_data *data)
+{
+	- free ast
+	- free env
+	- free tokens and other parsing things
+	- exit(EXIT_SUCCESS)
+}*/
 
 void	ft_echo(t_ast *node)
 {
@@ -64,7 +72,7 @@ void	ft_env(t_env **env)
 	}
 }
 
-void	ft_cd(t_ast *node, t_env **env)//not sure if this works
+void	ft_cd(t_ast *node, t_env **env)
 {
 	t_env	*current;
 	char	*old_pwd;

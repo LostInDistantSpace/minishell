@@ -6,13 +6,13 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:29:59 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/08 15:08:07 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/09 17:47:13 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-void	restore_in_out(t_data *data)//call somewhere
+void	restore_in_out(t_data *data)
 {
 	dup2(data->save_in, STDIN_FILENO);
 	dup2(data->save_out, STDOUT_FILENO);

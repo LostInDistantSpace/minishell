@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:36:54 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/09 17:09:21 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/09 17:49:34 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	exec_command(t_ast *node, t_data *data, char *path, char **env)
 {
 	if (execve(path, node->args, env) == -1)
 	{
-		perror(strerror(errno));
+		printf("%s: Command not found\n", node->args[0]);
 		free_array(env);
 		free(path);
 		free_data(data);
@@ -35,7 +35,7 @@ void	fork_command(t_ast *node, char *path, char **env)
 		{
 			if (execve(path, node->args, env) == -1)
 			{
-				perror(strerror(errno));
+				printf("%s: Command not found\n", node->args[0]);
 				free_array(env);
 				free(path);
 				exit(EXIT_FAILURE);
