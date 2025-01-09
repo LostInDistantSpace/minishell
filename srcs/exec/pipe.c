@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/17 17:16:29 by lemarian          #+#    #+#             */
-/*   Updated: 2024/12/19 14:55:42 by lemarian         ###   ########.fr       */
+/*   Created: 2025/01/06 14:26:27 by lemarian          #+#    #+#             */
+/*   Updated: 2025/01/08 15:08:22 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,24 @@ void	create_pipe(t_ast *node, t_data *data)
 	pid_t	child;
 	int	fd[2];
 
-	data->pipe = true;
 	if (pipe(fd) == -1)
 		perror(strerror(errno));
 	child = fork();
 	if (child == -1)
-		return(perror(strerror(errno)));
+		perror(strerror(errno));
 	else if (child == 0)
 	{
+		data->is_child = true;
 		close(fd[0]);
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[1]);
-		ast(node->left, data);
+		ft_ast(node->left, data);
 	}
 	else
 	{
 		close(fd[1]);
 		dup2(fd[0], STDIN_FILENO);
 		close(fd[0]);
-		ast(node->right, data);
+		ft_ast(node->right, data);
 	}
 }

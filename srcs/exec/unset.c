@@ -1,32 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export.c                                           :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/20 14:23:01 by lemarian          #+#    #+#             */
-/*   Updated: 2024/12/20 14:44:16 by lemarian         ###   ########.fr       */
+/*   Created: 2025/01/08 14:04:00 by lemarian          #+#    #+#             */
+/*   Updated: 2025/01/08 15:08:54 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-void	print_export(t_data *data)
+void	delete_var(char *key, t_env **env)
 {
 	t_env	*current;
+	t_env	*delete;
 
-	current = data->env;
+	current = *env;
+	delete = NULL;
 	while (current)
 	{
-		printf("export %s=%s\n", current->key, current->value);
+		if (ft_strcmp(key, current->next->key) == 0)
+		{
+			delete = current->next;
+			current->next = current->next->next;
+			free(delete->key);
+			free(delete->value);
+			free(delete);
+		}
 		current = current->next;
 	}
 }
 
-void	export(t_ast *node, t_data *data)
+void	ft_unset(t_ast *node, t_data *data)
 {
-	if (node->args[1])
-		print_export(data);
+	int	i;
 
+	i = 1;
+	if (node->args[i] == NULL)
+		return;
+	while (node->args[i])
+	{
+		delete_var(node->args[i], data->env);
+		i++;
+	}
 }

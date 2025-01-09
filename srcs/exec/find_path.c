@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/10 15:30:49 by lemarian          #+#    #+#             */
-/*   Updated: 2024/12/10 15:44:44 by lemarian         ###   ########.fr       */
+/*   Created: 2025/01/06 17:17:28 by lemarian          #+#    #+#             */
+/*   Updated: 2025/01/06 17:18:11 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*find_cmd_path(char *cmd, char **paths)
 	return (cmd_path);
 }
 
-char	*get_path(char *cmd, char **ep)
+char	*get_path(char *cmd, char **env)
 {
 	int		i;
 	char	*path_str;
@@ -56,10 +56,10 @@ char	*get_path(char *cmd, char **ep)
 
 	i = 0;
 	path_str = NULL;
-	while (ep[i])
+	while (env[i])
 	{
-		if (ft_strncmp(ep[i], "PATH=", 5) == 0)
-			path_str = ft_strdup(&ep[i][5]);
+		if (ft_strncmp(env[i], "PATH=", 5) == 0)
+			path_str = ft_strdup(&env[i][5]);
 		i++;
 	}
 	if (!path_str)

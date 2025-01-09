@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+         #
+#    By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/10 16:41:52 by bmouhib           #+#    #+#              #
-#    Updated: 2025/01/09 13:58:56 by bmouhib          ###   ########.fr        #
+#    Updated: 2025/01/09 14:04:10 by lemarian         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,17 @@ SRC			+=	$(PARS_PATH)syntax.c
 SRC			+=	$(PARS_PATH)token_utils.c
 SRC			+=	$(PARS_PATH)tokenization.c
 SRC			+=	TESTS.c
+SRC			+=	built_ins.c
+SRC			+=	export_utils.c
+SRC			+=	export.c
+SRC			+=	find_path.c
+SRC			+=	get_env.c
+SRC			+=	handle_commands.c
+SRC			+=	handle_in_out.c
+SRC			+=	pipe.c
+SRC			+=	unset.c
+SRC			+=	exec.c
+
 
 # --------------------------------- COMMANDS --------------------------------- #
 
@@ -153,4 +164,3 @@ help:
 -include			$(DEPS)
 
 .PHONY:				all clean fclean re norm
-
