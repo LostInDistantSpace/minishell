@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:04:27 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/09 15:15:01 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/09 17:18:08 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	ft_cd(t_ast *node, t_env **env)//not sure if this works
 	old_pwd = NULL;
 	if (chdir(node->args[1]) == -1)
 		return (perror(strerror(errno)));
-	while (ft_strcmp(current->key, "OLD_PWD"))
+	while (ft_strcmp(current->key, "OLDPWD"))
 		current = current->next;
 	if (current->value)
 		free(current->value);

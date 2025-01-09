@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:52:04 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/08 14:54:14 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/09 17:36:58 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,10 @@ void	create_var(char *key, char *value, t_env **env)
 	new_node->value = ft_strdup(value);
 	current = *env;
 	while (current->next != NULL)
+	{	
+		printf("var = %s\n", current->key);
 		current = current->next;
+	}
 	current->next = new_node;
 	new_node->next = NULL;
 }
@@ -53,7 +56,7 @@ void	check_key(char *var, t_env **env)
 	key = get_key(var);
 	value = get_value(var);
 	current = *env;
-	if (!check_key_name(key))
+	if (!check_key_name(key))//free?
 	{	
 		printf("export: %s: not a valid identifier\n", key);
 		return;
@@ -66,11 +69,14 @@ void	check_key(char *var, t_env **env)
 			{	
 				free(current->value);
 				current->value = ft_strdup(value);
+				break;
 			}
 		}
-		else
-			create_var(key, value, env);
+		current = current->next;
 	}
+	if (!current)
+		create_var(key, value, env);
+
 }
 
 void	ft_export(t_ast *node, t_data *data)

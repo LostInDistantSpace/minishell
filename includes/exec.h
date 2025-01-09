@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:22:40 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/09 14:10:03 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/09 17:06:20 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ char	*get_path(char *cmd, char **env);
 
 void	free_env(t_env **start);
 void	free_ast(t_ast *node);
+void	free_data(t_data *data);
 void	free_array(char **array);
 void	restore_in_out(t_data *data);
 

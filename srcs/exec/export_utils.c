@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:29:22 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/08 14:51:31 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/09 17:23:20 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,16 @@ char	*get_key(char *var)
 	i = 0;
 	key = NULL;
 	while (var[i] && var[i] != '=')
+		i++;
+	key = malloc(sizeof(char) * (i + 1));
+	if (!key)
+		return (NULL);//replace exit
+	i = 0;
+	while (var[i] && var[i] != '=')
 	{
 		key[i] = var[i];
 		i++;
 	}
+	key[i] = 0;
 	return (key);
 }

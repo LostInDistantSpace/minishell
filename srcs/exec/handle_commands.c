@@ -6,24 +6,25 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:36:54 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/09 15:41:11 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/09 17:09:21 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-void	exec_command(t_ast *node, char *path, char **env)
+void	exec_command(t_ast *node, t_data *data, char *path, char **env)
 {
 	if (execve(path, node->args, env) == -1)
 	{
 		perror(strerror(errno));
 		free_array(env);
 		free(path);
+		free_data(data);
 		exit (EXIT_FAILURE);
 	}
 }
 
-void	fork_command(t_ast *node, t_data *data, char *path, char **env)
+void	fork_command(t_ast *node, char *path, char **env)
 {
 	pid_t	child;
 
@@ -43,7 +44,8 @@ void	fork_command(t_ast *node, t_data *data, char *path, char **env)
 		else
 		{	
 			wait(NULL);//use waitpid for exit status?
-			restore_in_out(data);
+			free(path);
+			free_array(env);
 		}
 }
 
@@ -60,9 +62,9 @@ void	find_command(t_ast *node, t_data *data)
 	else
 		path = ft_strdup(node->args[0]);
 	if (data->is_child == false)
-		fork_command(node, data, path, env);
+		fork_command(node, path, env);
 	else
-		exec_command(node, path, env);
+		exec_command(node, data, path, env);
 }
 
 void	handle_commands(t_ast *node, t_data *data)
