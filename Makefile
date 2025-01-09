@@ -6,7 +6,7 @@
 #    By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/10 16:41:52 by bmouhib           #+#    #+#              #
-#    Updated: 2025/01/07 19:24:59 by bmouhib          ###   ########.fr        #
+#    Updated: 2025/01/09 13:58:56 by bmouhib          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,24 +15,25 @@
 # ---------------------------------------------------------------------------- #
 
 NAME		:=	minishell
+PARS_PATH	:=	parsing/
 
 # --------------------------------- SOURCES ---------------------------------- #
 
 SRC			:=	minishell.c
-SRC			+=	ast.c
-SRC			+=	env.c
-SRC			+=	expand.c
-SRC			+=	heredoc.c
-SRC			+=	init.c
-SRC			+=	cleaner.c
-SRC			+=	parsing.c
-SRC			+=	prompt.c
-SRC			+=	signal.c
-SRC			+=	str_utils.c
-SRC			+=	syntax_utils.c
-SRC			+=	syntax.c
-SRC			+=	token_utils.c
-SRC			+=	tokenization.c
+SRC			+=	$(PARS_PATH)ast.c
+SRC			+=	$(PARS_PATH)env.c
+SRC			+=	$(PARS_PATH)expand.c
+SRC			+=	$(PARS_PATH)heredoc.c
+SRC			+=	$(PARS_PATH)init.c
+SRC			+=	$(PARS_PATH)cleaner.c
+SRC			+=	$(PARS_PATH)parsing.c
+SRC			+=	$(PARS_PATH)prompt.c
+SRC			+=	$(PARS_PATH)signal.c
+SRC			+=	$(PARS_PATH)str_utils.c
+SRC			+=	$(PARS_PATH)syntax_utils.c
+SRC			+=	$(PARS_PATH)syntax.c
+SRC			+=	$(PARS_PATH)token_utils.c
+SRC			+=	$(PARS_PATH)tokenization.c
 SRC			+=	TESTS.c
 
 # --------------------------------- COMMANDS --------------------------------- #
