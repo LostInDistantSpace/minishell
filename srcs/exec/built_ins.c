@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_ins.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:04:27 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/09 14:31:13 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/09 15:15:01 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ft_echo(t_ast *node)
 			ft_putstr_fd(node->args[i], STDOUT_FILENO);
 			i++;
 		}
-		printf("\n");
+		ft_putstr_fd("\n", STDOUT_FILENO);
 	}
 }
 
