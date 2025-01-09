@@ -6,13 +6,13 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:04:27 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/08 15:06:15 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/09 13:58:26 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-//need cd and exit
+//need exit
 
 void	ft_echo(t_ast *node)
 {
@@ -42,11 +42,9 @@ void	ft_echo(t_ast *node)
 void	ft_pwd()
 {
 	char	*dir;
-	size_t	size;
 
 	dir = NULL;
-	size = 0;
-	printf("%s\n", getcwd(dir, size));
+	printf("%s\n", getcwd(dir, PATH_MAX));//protect?
 }
 
 void	ft_env(t_env **env)
@@ -60,4 +58,23 @@ void	ft_env(t_env **env)
 			printf("%s=%s\n", current->key, current->value);
 		current = current->next;
 	}
+}
+
+void	ft_cd(t_ast *node, char **env)//not sure if this works
+{
+	t_env *current;
+	char	*old_pwd;
+	
+	current = *env;
+	old_pwd = NULL;
+	if (chdir(node->args[1]) == -1)
+		return (perror(strerror(errno)));
+	while (ft_strcmp(current->key, "OLD_PWD"))
+		current = current->next;
+	if (current->value)
+		free(current->value);
+	get_cwd(old_pwd, PATH_MAX);
+	current->value = ft_strdup(old_pwd);
+	if (!current->value)
+		return (perror(strerror(errno)));//replace with exit
 }

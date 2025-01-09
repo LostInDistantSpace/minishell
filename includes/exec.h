@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:22:40 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/08 15:07:25 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/09 13:52:32 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define EXEC_H
 
 #include "minishell.h"
-#include <errno.h>
 #include <stdbool.h>
+#include <limits.h>
 
 typedef struct s_data
 {
@@ -48,6 +48,7 @@ void	ft_echo(t_ast *node);
 void	ft_pwd();
 void	ft_env(t_env **env);
 void	ft_unset(t_ast *node, t_data *data);
+void	ft_cd(t_ast *node, char **env);
 
 void	ft_export(t_ast *node, t_data *data);
 char	*get_key(char *var);

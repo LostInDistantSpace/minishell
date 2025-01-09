@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:36:54 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/08 15:06:05 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/09 13:44:28 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ void	handle_commands(t_ast *node, t_data *data)
 	len = ft_strlen(node->args[0]);
 	if (ft_strncmp(node->args[0], "echo", len) == 0)
 		ft_echo(node);
-	//else if (ft_strncmp(node->args[0], "cd", len) == 0)
-		//need to code
+	else if (ft_strncmp(node->args[0], "cd", len) == 0)
+		ft_cd(node, data->env);
 	else if (ft_strncmp(node->args[0], "pwd", len) == 0)
 		ft_pwd(data);
 	else if (ft_strncmp(node->args[0], "export", len) == 0)
