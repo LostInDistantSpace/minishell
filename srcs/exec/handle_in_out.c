@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:29:59 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/09 17:47:13 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/09 18:23:05 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	restore_in_out(t_data *data)
 	close(data->save_out);
 }
 
-void	change_input(t_ast *node, t_data *data)
+void	change_input(t_ast *node)
 {
 	int	fd_in;
 
@@ -35,12 +35,9 @@ void	change_input(t_ast *node, t_data *data)
 		return (perror(strerror(errno)));
 	}
 	close(fd_in);
-	if (node->right != NULL)
-		ft_ast(node->right, data);
-	handle_commands(node->left, data);
 }
 
-void	change_output(t_ast *node, t_data *data)
+void	change_output(t_ast *node)
 {
 	int	fd_out;
 
@@ -56,7 +53,22 @@ void	change_output(t_ast *node, t_data *data)
 		return (perror(strerror(errno)));
 	}
 	close(fd_out);
-	if (node->right != NULL)
-		ft_ast(node->right, data);
-	handle_commands(node->left, data);
+}
+
+void	ft_redirect(t_ast *node, t_data *data)
+{
+	t_ast	*command;
+
+	command = node->left;
+	while (node)
+	{
+		if (node->type == REDIR_IN || node->type == REDIR_HEREDOC)
+			change_input(node);
+		else if (node->type == REDIR_OUT || node->type == REDIR_APPEND)
+			change_output(node);
+		node = node->right;
+	}
+	if (!command)
+		return;
+	handle_commands(command, data);
 }

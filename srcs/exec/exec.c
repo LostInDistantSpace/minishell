@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:23:12 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/09 16:51:54 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/09 18:15:15 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ void	ft_ast(t_ast *node, t_data *data)
 	if (node->type == PIPE)
 		create_pipe(node, data);
 	else if (node->type == REDIR_IN || node->type == REDIR_HEREDOC)
-		change_input(node, data);
+		ft_redirect(node, data);
 	else if (node->type == REDIR_OUT || node->type == REDIR_APPEND)
-		change_output(node, data);
+		ft_redirect(node, data);
 	else if (node->type == WORD)
 		handle_commands(node, data);
 }
