@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:23:12 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/09 18:15:15 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/10 14:38:33 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	init_data(t_data *data, t_ast **head, t_env **start)
 		return(0);
 	}
 	data->is_child = false;
+	data->piped = false;
 	data->ast = head;
 	data->env = start;
 	return (1);

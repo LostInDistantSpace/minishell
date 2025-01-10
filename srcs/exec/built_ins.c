@@ -6,21 +6,20 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:04:27 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/09 17:48:55 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/10 14:50:03 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-//need exit
-
-/*void	ft_exit(t_data *data)
+void	ft_exit(t_data *data)//need to add ast
 {
-	- free ast
-	- free env
-	- free tokens and other parsing things
-	- exit(EXIT_SUCCESS)
-}*/
+	if (data->is_child == true|| data->piped == true)
+		return;
+	free_ast(*data->ast);
+	free_env(data->env);
+	exit(EXIT_SUCCESS);//replace with arg[1] or last exit status
+}
 
 void	ft_echo(t_ast *node)
 {
@@ -72,7 +71,7 @@ void	ft_env(t_env **env)
 	}
 }
 
-void	ft_cd(t_ast *node, t_env **env)
+void	ft_cd(t_ast *node, t_env **env, t_data *data)
 {
 	t_env	*current;
 	char	*old_pwd;
@@ -80,7 +79,7 @@ void	ft_cd(t_ast *node, t_env **env)
 	current = *env;
 	old_pwd = NULL;
 	if (chdir(node->args[1]) == -1)
-		return (perror(strerror(errno)));
+		return (perror(NULL));
 	while (ft_strcmp(current->key, "OLDPWD"))
 		current = current->next;
 	if (current->value)
@@ -88,5 +87,5 @@ void	ft_cd(t_ast *node, t_env **env)
 	getcwd(old_pwd, PATH_MAX);
 	current->value = ft_strdup(old_pwd);
 	if (!current->value)
-		return (perror(strerror(errno)));//replace with exit
+		return (ft_error(data));
 }

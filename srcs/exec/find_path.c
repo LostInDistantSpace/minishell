@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 17:17:28 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/06 17:18:11 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/10 15:33:28 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*test_path(char *path, char *cmd)
 	char	*test_path;
 
 	slash = ft_strjoin(path, "/");
+	if (!slash)
+		return (NULL);
 	test_path = ft_strjoin(slash, cmd);
 	free(slash);
 	if (!test_path)
@@ -59,17 +61,17 @@ char	*get_path(char *cmd, char **env)
 	while (env[i])
 	{
 		if (ft_strncmp(env[i], "PATH=", 5) == 0)
+		{
 			path_str = ft_strdup(&env[i][5]);
+			if (!path_str)
+				return (NULL);
+		}
 		i++;
-	}
-	if (!path_str)
-	{
-		perror("Command not found:");
-		ft_putstr_fd(cmd, 2);
-		return (NULL);
 	}
 	paths = ft_split(path_str, ':');
 	free(path_str);
+	if (!paths)
+		return (NULL);
 	correct_path = find_cmd_path(cmd, paths);
 	free_array(paths);
 	return (correct_path);

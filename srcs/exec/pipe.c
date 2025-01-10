@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:26:27 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/09 17:09:46 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/10 14:38:47 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	create_pipe(t_ast *node, t_data *data)
 	}
 	else
 	{
+		data->piped = true;
 		close(fd[1]);
 		dup2(fd[0], STDIN_FILENO);
 		close(fd[0]);

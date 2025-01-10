@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:36:54 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/09 17:58:22 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/10 15:32:47 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ void	find_command(t_ast *node, t_data *data)
 
 	env = get_env(data->env);
 	if (!env)
-		return (perror(strerror(errno)));//replace by exit function
-	if (access(node->args[0], X_OK == -1))
+		return (ft_error(data));
+	if (access(node->args[0], X_OK == -1))	
 		path = get_path(node->args[0], env);
 	else
 		path = ft_strdup(node->args[0]);
@@ -72,7 +72,7 @@ void	handle_commands(t_ast *node, t_data *data)
 	if (ft_strcmp(node->args[0], "echo") == 0)
 		ft_echo(node);
 	else if (ft_strcmp(node->args[0], "cd") == 0)
-		ft_cd(node, data->env);
+		ft_cd(node, data->env, data);
 	else if (ft_strcmp(node->args[0], "pwd") == 0)
 		ft_pwd(data);
 	else if (ft_strcmp(node->args[0], "export") == 0)
@@ -81,8 +81,8 @@ void	handle_commands(t_ast *node, t_data *data)
 		ft_unset(node, data);
 	else if (ft_strcmp(node->args[0], "env") == 0)
 		ft_env(data->env);
-	//else if (ft_strncmp(node->args[0], "exit", len) == 0)
-	//	ft_exit();//need exit function
+	else if (ft_strcmp(node->args[0], "exit") == 0)
+		ft_exit(data);
 	else
 		find_command(node, data);
 }
