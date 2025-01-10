@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:22:40 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/09 18:15:53 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/10 12:20:01 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void	exec(t_ast **head, t_env **start);
 void	create_pipe(t_ast *node, t_data *data);
 
 void	ft_redirect(t_ast *node, t_data *data);
-void	change_input(t_ast *node);
-void	change_output(t_ast *node);
+int		change_input(t_ast *node);
+int		change_output(t_ast *node);
 
 char	**get_env(t_env **env);
 
