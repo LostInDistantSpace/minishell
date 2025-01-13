@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:52:04 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/13 13:49:43 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/13 15:05:17 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,25 @@ void	print_export(t_env **env)
 	}
 }
 
-void	create_var(char *key, char *value, t_env **env, t_data *data)
+void	create_var(char *var, char *key, t_env **env, t_data *data)
 {
 	t_env	*new_node;
 	t_env	*current;
+	char	*value;
 
 	new_node = (t_env*)malloc(sizeof(t_env));
+	value = get_value(var);
 	if (!new_node)
 		return(ft_error(data));
-	new_node->key = ft_strdup(key);
-	new_node->value = ft_strdup(value);
+	new_node->key = key;
+	if (value[0] == '=')
+	{	
+		new_node->value = ft_strdup(&value[1]);
+		if (!new_node->value)
+			return (ft_error(data));
+	}
+	else
+		new_node->value = NULL;
 	current = *env;
 	while (current->next != NULL)
 		current = current->next;
@@ -47,14 +56,31 @@ void	create_var(char *key, char *value, t_env **env, t_data *data)
 	new_node->next = NULL;
 }
 
+void	check_value(char *var, char *key, t_env *node, t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (var[i])
+	{
+		if (var[i] == '=')
+		{
+			free(node->value);
+			node->value = ft_strdup(&var[i + 1]);
+			if (!node->value)
+				return(free(key), ft_error(data));
+			return;
+		}
+		i++;
+	}
+}
+
 void	check_key(char *var, t_env **env, t_data *data)
 {
 	t_env	*current;
 	char	*key;
-	char	*value;
 
 	key = get_key(var);
-	value = get_value(var);
 	current = *env;
 	if (!key)
 		return (ft_error(data));
@@ -66,18 +92,14 @@ void	check_key(char *var, t_env **env, t_data *data)
 	while (current)
 	{
 		if (ft_strcmp(current->key, key) == 0)
-		{
-			if (value)
-			{	
-				free(current->value);
-				current->value = ft_strdup(value);
-				break;
-			}
+		{		
+			check_value(var, key, current, data);
+			return (free(key));
 		}
 		current = current->next;
 	}
 	if (!current)
-		create_var(key, value, env, data);
+		create_var(var, key, env, data);
 
 }
 
