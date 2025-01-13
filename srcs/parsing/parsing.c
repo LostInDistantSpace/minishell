@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:49:05 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/08 14:24:54 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/09 22:23:17 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ t_token	*parse(t_env *env)
 			g_signal = 0;
 			return (free_tokens(token_list), free(line), NULL);
 		}
-		// clean_tokens(); //expand var + remove quotes
+		clean_tokens(token_list, env); 
+		//expand var + remove whitspaces + remove element + remove quotes
 		/* 
 		** transforming string
 		** - expand var if needed (if string is empty AT THIS STAGE ONLY, remove word)

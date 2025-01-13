@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 17:12:55 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/07 23:28:52 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/09 21:50:33 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,14 @@ t_env	*empty_env(char *str);
 t_env	*add_env(t_env *head, t_env *var);
 
 void	handle_heredocs(t_token *token, t_env *env);
-char	*expand_var(char *str, t_env *env);
+char	*heredoc_expand(char *str, t_env *env);
+
+void	init_expand(char **result, char *quote, int *step, int *i);
+char	*copy_key(char *str, int *i);
+char	*concat_var(t_env *env, char *previous, char *raw, int *i);
+char	*fill_from_step(char *prev, char *str, int start, int stop);
+char	*expand(char *str, t_env *env, char q);
+void	clean_tokens(t_token *tok, t_env *env);
 
 /******************/
 /* TESTS FUNCTIONS*/

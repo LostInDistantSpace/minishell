@@ -6,107 +6,118 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:18:08 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/08 00:23:11 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/09 22:41:05 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*copy_key(char *str, int *i)
-{
-	int		len;
-	char	*var;
-
-	len = 0;
-	while (str[*i + len] && (ft_isalnum(str[*i + len]) || str[*i + len] == '_'))
-		len++;
-	if (!len)
-	{
-		var = malloc(sizeof(char));
-		var[0] = 0;
-	}
-	else
-	{
-		var = ft_substr(str, *i, len);
-		if (!var)
-			return (NULL);
-		*i += len;
-	}
-	return (var);
-}
-
-char	*concat_var(t_env *env, char *previous, char *raw, int *i)
-{
-	char	*var;
-	char	*result;
-
-	(*i)++;
-	var = get_var(env, copy_key(raw, i));
-	printf(RED "var : %s\n" RESET_COLOR, var);
-	if (!var)
-		return (NULL); // error	management
-	else if (!var[0])
-	{
-		free(var);
-		result = ft_strjoin(previous, "$");
-	}
-	else
-	{
-		result = ft_strjoin(previous, var);
-		free(previous);
-	}
-	return (result);
-}
-
-/*
-** Adds substring of str from start to stop
-** to the string previous
-*/
-char	*fill_from_step(char *prev, char *str, int start, int stop)
-{
-	size_t	i;
-	size_t	len;
-	char	*result;
-
-	i = -1;
-	len = ft_strlen(prev);
-	result = malloc(sizeof(char) * (len + stop - start + 1));
-	if (!result)
-		return (free(prev), NULL);
-	while (++i < len)
-		result[i] = prev[i];
-	free(prev);
-	while (start < stop)
-		result[i++] = str[start++];
-	result[i] = '\0';
-	return (result);
-}
-
-char	*expand_var(char *str, t_env *env)
+char	*expand(char *str, t_env *env, char q)
 {
 	int		i;
 	int		step;
+	char	quote;
 	char	*result;
 
-	i = 0;
-	step = 0;
-	result = NULL;
+	init_expand(&result, &quote, &step, &i);
 	while (str[i])
 	{
-		if (str[i] == '$' || !str[i])
+		if (str[i] == q)
+			quote = str[i] - quote;
+		if (!quote && str[i] == '$')
 		{
 			result = fill_from_step(result, str, step, i);
+			result = concat_var(env, result, str, &i);
 			if (!result)
 				return (free(str), NULL); //error management
-			if (str[i] == '$')
-				result = concat_var(env, result, str, &i);
 			step = i;
 		}
 		else
 			i++;
 	}
-	if (i == (int)ft_strlen(str))
-		return (str);
+	result = fill_from_step(result, str, step, i);
 	free(str);
 	return (result);
+}
+
+char	*clean_whitespace(char *str)
+{
+	int		i;
+	int		j;
+	char	quote;
+	char	*result;
+
+	i = -1;
+	j = 0;
+	quote = 0;
+	result = malloc(sizeof(char) * (ft_strlen(str) + 1));
+	if (!result)
+		return (NULL);
+	while (str[++i] != '\0')
+	{
+		if ((str[i] == quote || !quote) && (str[i] == '\'' || str[i] == '"'))
+			quote = str[i] - quote;
+		if (quote || !ft_iswhitespace(str[i]))
+			result[j++] = str[i];
+		else if (j > 0 && result[j - 1] != ' ')
+			result[j++] = ' ';
+	}
+	if (j > 0 && result[j - 1] == ' ')
+		j--;
+	result[j] = '\0';
+	free(str);
+	str = ft_strdup(result);
+	return (str);
+}
+
+void	remove_quotes(char **ptr)
+{
+	int		i;
+	int		len;
+	char	*str;
+	char	*result;
+
+	i = -1;
+	len = 0;
+	str = *ptr;
+	while (str[++i])
+	{
+		if (str[i] != '\'' && str[i] != '"')
+			len++;
+	}
+	result = malloc(sizeof(char) * (len + 1));
+	len = 0;
+	i = -1;
+	while (str[++i])
+	{
+		if (str[i] != '\'' && str[i] != '"')
+			result[len++] = str[i];
+	}
+	result[len] = 0;
+	free(str);
+	*ptr = result;
+}
+
+void	clean_tokens(t_token *tok, t_env *env)
+{
+	int		i;
+	char	**array;
+
+	while (tok)
+	{
+		i = 0;
+		if (tok->type == WORD)
+		{
+			array = tok->value;
+			while (array[i])
+			{
+				array[i] = expand(array[i], env, '\'');
+				array[i] = clean_whitespace(array[i]);
+				// remove_if_needed
+				remove_quotes(&array[i]);
+				i++;
+			}
+		}
+		tok = tok->next;
+	}
 }

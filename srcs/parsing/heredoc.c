@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:32:10 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/08 00:24:47 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/09 19:46:36 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	*create_heredoc(char *delim, t_env *env)
 		/*
 		** Maybe delete the files if smth went wrong ???
 		*/
-		input = expand_var(input, env);
+		input = expand(input, env, 0);
 		if (!input)
 			return (NULL);
 		ft_putstr_fd(input, heredoc);

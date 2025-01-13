@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:43:30 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/08 00:13:00 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/09 22:40:35 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,28 +46,24 @@ Handles the words in the input string.
 char	*handle_word(char **s, int *pos)
 {
 	int		i;
-	char	open_quote;
+	char	quote;
 	char	*value;
 
 	i = *pos;
-	open_quote = 0;
-	while ((*s)[i] > 0 && !ft_iswhitespace((*s)[i]) && !is_spechar((*s)[i]))
+	quote = 0;
+	while ((*s)[i] && !ft_iswhitespace((*s)[i]) && !is_spechar((*s)[i]))
 	{
-		if ((*s)[i] == '"' || (*s)[i] == '\'')
+		if ((!quote || (*s)[i] == quote) && ((*s)[i] == '"' || (*s)[i] == '\''))
 		{
-			open_quote = (*s)[i];
-			while ((*s)[i] != open_quote)
+			quote = (*s)[i++];
+			while ((*s)[i] != quote)
 				i++;
-			open_quote = 0;
+			quote = 0;
 		}
 		i++;
 	}
 	value = ft_substr(*s, *pos, i - *pos);
-	while (*pos < i)
-	{
-		(*s)[*pos] = -1;
-		*pos += 1;
-	}
+	*pos = i;
 	return (value);
 }
 
@@ -88,10 +84,7 @@ void	handle_redirs(char **input, int pos, t_token **head)
 		if (type == -1)
 			return ; // handle error
 		while ((*input)[pos] && ft_iswhitespace((*input)[pos]))
-		{
-			(*input)[pos] = -1;
 			pos++;
-		}
 		value = handle_word(input, &pos);
 		token = new_token(value, type);
 		free(value);
@@ -112,12 +105,12 @@ int	handle_words(char *input, int *pos, t_token **head)
 	if (!array)
 		return (-1);
 	array[num_word] = NULL;
-	while (input[*pos] < 0 || ft_iswhitespace(input[*pos]))
+	while (ft_iswhitespace(input[*pos]))
 		(*pos)++;
 	cur_word = 0;
 	while (input[*pos] && input[*pos] != '|')
 	{
-		if (input[*pos] > 0 && !ft_iswhitespace(input[*pos]))
+		if (!ft_iswhitespace(input[*pos]))
 			array[cur_word++] = handle_word(&input, pos);
 		else
 			(*pos)++;
