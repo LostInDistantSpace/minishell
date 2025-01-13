@@ -6,18 +6,19 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 22:07:47 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/06 16:59:56 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/13 17:40:35 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_env	*init(struct sigaction *sa, char **ep)
+t_env	*init(struct sigaction *sa, char **ep, int *exit_status)
 {
 	int		i;
 	t_env	*env;
 
 	i = 0;
+	*exit_status = 0;
 	*sa = init_sigaction();
 	if (!ep)
 		return (NULL);

@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:27:58 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/09 14:15:51 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/13 17:40:55 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ extern int	g_signal;
 
 char	*prompt(t_env *env);
 
-t_env	*init(struct sigaction *sa, char **envp);
+t_env	*init(struct sigaction *sa, char **envp, int *exit_status);
 
 void	free_token(t_token *token, int size);
 void	free_env(t_env **env);

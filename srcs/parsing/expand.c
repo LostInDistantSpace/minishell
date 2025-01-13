@@ -6,38 +6,39 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:18:08 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/13 15:11:42 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/13 17:46:11 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*expand(char *str, t_env *env, char q)
+char	*expand(char *str, t_env *env, char q, int exit_status)
 {
 	int		i;
 	int		step;
 	char	quote;
-	char	*result;
+	char	*array[2];
 
-	init_expand(&result, &quote, &step, &i);
+	array[0] = str;
+	init_expand(&array[1], &quote, &step, &i);
 	while (str[i])
 	{
 		if (str[i] == q)
 			quote = str[i] - quote;
 		if (!quote && str[i] == '$')
 		{
-			result = fill_from_step(result, str, step, i);
-			result = concat_var(env, result, str, &i);
-			if (!result)
+			array[1] = fill_from_step(array[1], str, step, i);
+			array[1] = concat_var(env, array, &i, exit_status);
+			if (!array[1])
 				return (free(str), NULL); //error management
 			step = i;
 		}
 		else
 			i++;
 	}
-	result = fill_from_step(result, str, step, i);
+	array[1] = fill_from_step(array[1], str, step, i);
 	free(str);
-	return (result);
+	return (array[1]);
 }
 
 char	*clean_whitespace(char *str)
@@ -98,7 +99,7 @@ void	remove_quotes(char **ptr)
 	*ptr = result;
 }
 
-void	clean_tokens(t_token *tok, t_env *env)
+void	clean_tokens(t_token *tok, t_env *env, int exit_status)
 {
 	int		i;
 	char	**array;
@@ -110,7 +111,7 @@ void	clean_tokens(t_token *tok, t_env *env)
 		while (array[i])
 		{
 			if (tok->type == !REDIR_HEREDOC && tok->type == !PIPE)
-				array[i] = expand(array[i], env, '\'');
+				array[i] = expand(array[i], env, '\'', exit_status);
 			if (tok->type == WORD)
 				array[i] = clean_whitespace(array[i]);
 			// remove_if_needed
