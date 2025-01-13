@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:04:27 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/10 14:50:03 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/13 13:25:46 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,13 @@ void	ft_cd(t_ast *node, t_env **env, t_data *data)
 
 	current = *env;
 	old_pwd = NULL;
+	old_pwd = getcwd(old_pwd, PATH_MAX);
 	if (chdir(node->args[1]) == -1)
 		return (perror(NULL));
 	while (ft_strcmp(current->key, "OLDPWD"))
 		current = current->next;
 	if (current->value)
 		free(current->value);
-	getcwd(old_pwd, PATH_MAX);
 	current->value = ft_strdup(old_pwd);
 	if (!current->value)
 		return (ft_error(data));

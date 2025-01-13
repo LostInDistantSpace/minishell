@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:52:04 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/10 14:55:46 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/13 13:49:43 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,13 @@ void	print_export(t_env **env)
 	current = *env;
 	while (current)
 	{
-		printf("export %s", current->key);
-		if (current->value != NULL)
+		if (ft_strcmp(current->key, "_") != 0)
+		{
+			printf("export %s", current->key);
+			if (current->value != NULL)
 			printf("=\"%s\"", current->value);
-		printf("\n");
+			printf("\n");
+		}
 		current = current->next;
 	}
 }
