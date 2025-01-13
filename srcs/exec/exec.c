@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:23:12 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/10 14:38:33 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/13 16:33:13 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,14 @@ void	exec(t_ast **head, t_env **start)
 	t_data	*data;
 
 	data = (t_data *)malloc(sizeof(t_data));
-	if (!data)
-		return(perror(strerror(errno)));
-	init_data(data, head, start);
+	if (!data)//idk
+	{
+		printf("malloc failed exec\n");
+		return;
+	}
+	if (!init_data(data, head, start))
+		return (ft_error(data));//stop everything?
+	//print_ast_tree(*data->ast);
 	ft_ast(*head, data);
 	restore_in_out(data);
 	free(data);

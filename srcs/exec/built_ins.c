@@ -6,13 +6,13 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:04:27 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/13 13:25:46 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/13 15:14:51 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-void	ft_exit(t_data *data)//need to add ast
+void	ft_exit(t_data *data)//need to add ast and data???
 {
 	if (data->is_child == true|| data->piped == true)
 		return;

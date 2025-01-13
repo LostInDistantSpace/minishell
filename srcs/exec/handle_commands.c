@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:36:54 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/10 15:32:47 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/13 16:31:31 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	exec_command(t_ast *node, t_data *data, char *path, char **env)
 	}
 }
 
-void	fork_command(t_ast *node, char *path, char **env)
+void	fork_command(t_ast *node, t_data *data, char *path, char **env)
 {
 	pid_t	child;
 
@@ -38,6 +38,7 @@ void	fork_command(t_ast *node, char *path, char **env)
 				printf("%s: Command not found\n", node->args[0]);
 				free_array(env);
 				free(path);
+				free_data(data);
 				exit(EXIT_FAILURE);
 			}
 		}
@@ -60,9 +61,9 @@ void	find_command(t_ast *node, t_data *data)
 	if (access(node->args[0], X_OK == -1))	
 		path = get_path(node->args[0], env);
 	else
-		path = ft_strdup(node->args[0]);
+		path = ft_strdup(node->args[0]);//protect
 	if (data->is_child == false)
-		fork_command(node, path, env);
+		fork_command(node, data, path, env);
 	else
 		exec_command(node, data, path, env);
 }

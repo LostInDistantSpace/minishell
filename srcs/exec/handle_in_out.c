@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:29:59 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/10 12:21:37 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/13 16:06:30 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,6 @@ void	ft_redirect(t_ast *node, t_data *data)
 		node = node->right;
 	}
 	if (!command)
-		return;
+		return;//free?
 	handle_commands(command, data);
 }
