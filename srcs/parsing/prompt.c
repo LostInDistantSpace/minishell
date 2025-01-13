@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 23:00:40 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/16 23:06:49 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/13 14:10:50 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@ char	*get_dir(t_env *env)
 	cwd = getcwd(NULL, 0);
 	home = get_var(env, "HOME");
 	if (!home)
-		return (ft_strjoin(NON_PRINT BLUE BOLD END_NP, cwd));
+		return (ft_strjoin(NON_PRINT B_BLUE BOLD END_NP, cwd));
 	home_len = ft_strlen(home);
 	if (home && !ft_strncmp(cwd, home, home_len))
 	{
-		gwd = ft_strjoin(NON_PRINT BLUE BOLD END_NP "~", cwd + home_len);
+		gwd = ft_strjoin(NON_PRINT B_BLUE BOLD END_NP "~", cwd + home_len);
 		free(cwd);
 		return (gwd);
 	}
-	return (ft_strjoin(NON_PRINT BLUE BOLD END_NP, cwd));
+	return (ft_strjoin(NON_PRINT B_BLUE BOLD END_NP, cwd));
 }
 
 char	*prompt(t_env *env)

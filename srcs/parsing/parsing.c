@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:49:05 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/09 22:23:17 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/13 13:39:30 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_token	*parse(t_env *env)
 	*/
 	syntax = syntax_checker(line);
 	if (syntax == 1 || syntax == 2)
-		printf("Incorrect line\n"); 
+		printf("Incorrect line\n");
 	// specific errors needed
 	else if (syntax != 3)
 	{
@@ -58,16 +58,7 @@ t_token	*parse(t_env *env)
 			g_signal = 0;
 			return (free_tokens(token_list), free(line), NULL);
 		}
-		clean_tokens(token_list, env); 
-		//expand var + remove whitspaces + remove element + remove quotes
-		/* 
-		** transforming string
-		** - expand var if needed (if string is empty AT THIS STAGE ONLY, remove word)
-		**		- $ if whtespace ou \0 after, no expand
-		**		- if smth else after, expand into V
-		**		- WE DO EXPAND AL TOKENS ARGS (except heredocs delimiter)
-		** - remove quotes
-		*/
+		clean_tokens(token_list, env);
 	}
 	free(line);
 	return (token_list);

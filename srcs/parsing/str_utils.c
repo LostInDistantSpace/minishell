@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 22:04:20 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/06 17:04:52 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/13 16:34:48 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,29 @@ int	word_num(char *input, int pos)
 		i++;
 	}
 	return (words);
+}
+
+char	*ft_substr_del(char *s, unsigned int start, size_t len)
+{
+	char	*str;
+	size_t	i;
+
+	i = 0;
+	if (!s)
+		return (NULL);
+	if (ft_strlen(s) < start)
+		return (ft_strdup(""));
+	if (ft_strlen(s + start) < len)
+		len = ft_strlen(s + start);
+	str = (char *)malloc(sizeof(char) * (len + 1));
+	if (!str)
+		return (NULL);
+	while (i < len && s[start + i])
+	{
+		str[i] = s[start + i];
+		s[start + i] = -1;
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
 }
