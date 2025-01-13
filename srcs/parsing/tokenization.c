@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:43:30 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/09 22:40:35 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/13 16:34:32 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	*handle_word(char **s, int *pos)
 		}
 		i++;
 	}
-	value = ft_substr(*s, *pos, i - *pos);
+	value = ft_substr_del(*s, *pos, i - *pos);
 	*pos = i;
 	return (value);
 }

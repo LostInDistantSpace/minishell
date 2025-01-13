@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 17:12:55 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/09 21:50:33 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/13 16:30:38 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ char	*get_var(t_env *env, char *key);
 char	*get_dir(t_env *env);
 
 int		is_spechar(char c);
+char	*ft_substr_del(char *s, unsigned int start, size_t len);
 
 void	sig_handler(int signum);
 t_sigac	init_sigaction(void);
@@ -53,7 +54,6 @@ t_env	*empty_env(char *str);
 t_env	*add_env(t_env *head, t_env *var);
 
 void	handle_heredocs(t_token *token, t_env *env);
-char	*heredoc_expand(char *str, t_env *env);
 
 void	init_expand(char **result, char *quote, int *step, int *i);
 char	*copy_key(char *str, int *i);

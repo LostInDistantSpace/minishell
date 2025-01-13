@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:18:08 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/09 22:41:05 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/13 15:11:42 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,17 +106,16 @@ void	clean_tokens(t_token *tok, t_env *env)
 	while (tok)
 	{
 		i = 0;
-		if (tok->type == WORD)
+		array = tok->value;
+		while (array[i])
 		{
-			array = tok->value;
-			while (array[i])
-			{
+			if (tok->type == !REDIR_HEREDOC && tok->type == !PIPE)
 				array[i] = expand(array[i], env, '\'');
+			if (tok->type == WORD)
 				array[i] = clean_whitespace(array[i]);
-				// remove_if_needed
-				remove_quotes(&array[i]);
-				i++;
-			}
+			// remove_if_needed
+			remove_quotes(&array[i]);
+			i++;
 		}
 		tok = tok->next;
 	}

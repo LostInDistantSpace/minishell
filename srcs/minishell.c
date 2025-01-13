@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:27:25 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/13 11:31:31 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/13 16:33:14 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@ int	main(int ac, char **av, char **envp)
 		token = parse(env);
 		if (token)
 		{
+			print_tokens(token);
 			ast_root = parse_tokens(token);
+			print_ast_tree(ast_root);
 			if (ast_root)
 			{
 				exec(&ast_root, &env);
