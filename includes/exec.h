@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:22:40 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/10 14:49:43 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/13 17:14:18 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 
 typedef struct s_data
 {
+	int			*exit_status;
 	int			save_in;
 	int			save_out;
 	bool		is_child;
@@ -29,7 +30,7 @@ typedef struct s_data
 
 void	ft_ast(t_ast *node, t_data *data);
 
-void	exec(t_ast **head, t_env **start);
+void	exec(t_ast **head, t_env **start, int *e_status);
 void	create_pipe(t_ast *node, t_data *data);
 
 void	ft_redirect(t_ast *node, t_data *data);

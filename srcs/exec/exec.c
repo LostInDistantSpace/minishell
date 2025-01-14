@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:23:12 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/13 16:33:13 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/13 16:59:35 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_ast(t_ast *node, t_data *data)
 		handle_commands(node, data);
 }
 
-int	init_data(t_data *data, t_ast **head, t_env **start)
+int	init_data(t_data *data, t_ast **head, t_env **start, int *e_status)
 {
 	data->save_in = dup(STDIN_FILENO);
 	if (data->save_in == -1)
@@ -38,6 +38,7 @@ int	init_data(t_data *data, t_ast **head, t_env **start)
 		perror(strerror(errno));
 		return(0);
 	}
+	data->exit_status = e_status;
 	data->is_child = false;
 	data->piped = false;
 	data->ast = head;
@@ -45,7 +46,7 @@ int	init_data(t_data *data, t_ast **head, t_env **start)
 	return (1);
 }
 
-void	exec(t_ast **head, t_env **start)
+void	exec(t_ast **head, t_env **start, int *e_status)
 {
 	t_data	*data;
 
@@ -55,7 +56,7 @@ void	exec(t_ast **head, t_env **start)
 		printf("malloc failed exec\n");
 		return;
 	}
-	if (!init_data(data, head, start))
+	if (!init_data(data, head, start, e_status))
 		return (ft_error(data));//stop everything?
 	//print_ast_tree(*data->ast);
 	ft_ast(*head, data);
