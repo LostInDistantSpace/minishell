@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:36:54 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/14 16:55:54 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/14 17:47:26 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,14 @@ void	fork_command(t_ast *node, t_data *data, char *path, char **env)
 	int		status;
 
 	child = fork();
+	status = 0;
 		if (child == -1)
-			return (perror(strerror(errno)));
+			return (perror(NULL));
 		if (child == 0)
+		{	
+			data->is_child = true;
 			exec_command(node, data, path, env);
+		}
 		else
 		{	
 			waitpid(child, &status, 0);
