@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:32:10 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/09 19:46:36 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/13 18:04:41 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*get_heredoc_name(void)
 	return (name);
 }
 
-char	*create_heredoc(char *delim, t_env *env)
+char	*create_heredoc(char *delim, t_env *env, int exit_status)
 {
 	int		heredoc;
 	char	*input;
@@ -60,7 +60,7 @@ char	*create_heredoc(char *delim, t_env *env)
 		/*
 		** Maybe delete the files if smth went wrong ???
 		*/
-		input = expand(input, env, 0);
+		input = expand(input, env, 0, exit_status);
 		if (!input)
 			return (NULL);
 		ft_putstr_fd(input, heredoc);
@@ -73,7 +73,7 @@ char	*create_heredoc(char *delim, t_env *env)
 	return (name);
 }
 
-void	handle_heredocs(t_token *token, t_env *env)
+void	handle_heredocs(t_token *token, t_env *env, int exit_status)
 {
 	char	*name;
 
@@ -81,7 +81,7 @@ void	handle_heredocs(t_token *token, t_env *env)
 	{
 		if (token->type == REDIR_HEREDOC)
 		{
-			name = create_heredoc(token->value[0], env);
+			name = create_heredoc(token->value[0], env, exit_status);
 			if (!name)
 				return ;
 			free(token->value);

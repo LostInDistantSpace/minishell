@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 18:39:29 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/09 22:41:25 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/13 17:41:39 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@ char	*copy_key(char *str, int *i)
 	char	*var;
 
 	len = 0;
+	if (str[*i] == '?')
+	{
+		(*i)++;
+		var = ft_strdup("?");
+		return (var);
+	}
 	while (str[*i + len] && (ft_isalnum(str[*i + len]) || str[*i + len] == '_'))
 		len++;
 	if (!len)
@@ -40,12 +46,17 @@ char	*copy_key(char *str, int *i)
 
 /*
 ** Concatenates the variable if it exists to previous
+** previous 
 */
-char	*concat_var(t_env *env, char *previous, char *raw, int *i)
+char	*concat_var(t_env *env, char **array, int *i, int exit_status)
 {
 	char	*var;
 	char	*result;
+	char	*previous;
+	char	*raw;
 
+	previous = array[1];
+	raw = array[0];
 	(*i)++;
 	if (!previous)
 		return (NULL);
@@ -54,6 +65,8 @@ char	*concat_var(t_env *env, char *previous, char *raw, int *i)
 	{
 		if (!var[0])
 			result = ft_strjoin(previous, "$");
+		else if (var[0] == '?')
+			result = ft_strjoin(previous, ft_itoa(exit_status));
 		else
 			result = ft_strjoin(previous, var);
 		free(previous);

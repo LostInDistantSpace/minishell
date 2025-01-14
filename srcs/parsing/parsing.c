@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:49:05 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/13 13:39:30 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/13 18:35:37 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*get_input(char *prompt)
 	return (line);
 }
 
-t_token	*parse(t_env *env)
+t_token	*parse(t_env *env, int exit_status)
 {
 	int		syntax;
 	char	*line;
@@ -42,9 +42,6 @@ t_token	*parse(t_env *env)
 		exit(write(STDOUT_FILENO, "exit\n", 5));
 		// need exit function
 	}
-	/*
-	** redir without words : OKAY
-	*/
 	syntax = syntax_checker(line);
 	if (syntax == 1 || syntax == 2)
 		printf("Incorrect line\n");
@@ -52,13 +49,13 @@ t_token	*parse(t_env *env)
 	else if (syntax != 3)
 	{
 		token_list = tokenize_input(line);
-		handle_heredocs(token_list, env);
+		handle_heredocs(token_list, env, exit_status);
 		if (g_signal == SIGINT)
 		{
 			g_signal = 0;
 			return (free_tokens(token_list), free(line), NULL);
 		}
-		clean_tokens(token_list, env);
+		clean_tokens(token_list, env, exit_status);
 	}
 	free(line);
 	return (token_list);
