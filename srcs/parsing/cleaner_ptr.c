@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_exec.c                                        :+:      :+:    :+:   */
+/*   cleaner_ptr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/09 17:01:13 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/14 15:44:46 by bmouhib          ###   ########.fr       */
+/*   Created: 2025/01/14 14:48:35 by bmouhib           #+#    #+#             */
+/*   Updated: 2025/01/14 15:29:18 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
+#include "minishell.h"
 
-void	free_data(t_data *data)
+void	free_ptr(void **ptr)
 {
-	free_env(data->env);
-	free_ast(data->ast);
-	free(data);
+	if (ptr && *ptr)
+		free(*ptr);
+	*ptr = NULL;
 }
 
-void	ft_error(t_data *data)
+void	free_str(char **str)
 {
-	free_data(data);
-	exit(EXIT_FAILURE);
+	if (str && *str)
+		free(*str);
+	*str = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 17:23:24 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/13 16:13:41 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/14 17:12:59 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,10 +109,7 @@ t_ast	*parse_tokens(t_token *token)
 			if (node->type >= REDIR_IN && node->type <= REDIR_APPEND)
 				place_redir(head, node);
 			if (node->type == WORD)
-			{
-				printf("PEOPLE HERE IS A WORD !\n");
 				place_word(head, node);
-			}
 		}
 		token = next;
 	}

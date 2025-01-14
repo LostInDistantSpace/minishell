@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:22:40 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/10 14:49:43 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/14 15:03:07 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,8 @@ void	handle_commands(t_ast *node, t_data *data);
 char	*get_path(char *cmd, char **env);
 
 void	free_env(t_env **start);
-void	free_ast(t_ast *node);
 void	free_data(t_data *data);
-void	free_array(char **array);
+void	free_array(char ***array);
 void	ft_error(t_data *data);
 
 void	ft_echo(t_ast *node);

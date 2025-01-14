@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cleaner.c                                          :+:      :+:    :+:   */
+/*   cleaner_struct.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 15:22:52 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/06 15:08:29 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/14 17:11:40 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,46 +34,49 @@ void	free_env(t_env **env)
 	}
 }
 
-void	free_tokens(t_token *token)
+void	free_tokens(t_token **token)
 {
 	int		size;
 	t_token	*tmp_token;
 
-	while (token)
+	while (*token)
 	{
 		size = 0;
-		tmp_token = token;
-		if (token->next)
-			token = token->next;
+		tmp_token = *token;
+		if ((*token)->next)
+			*token = (*token)->next;
 		else
-			token = NULL;
+			*token = NULL;
 		while (tmp_token->value[size])
 			size++;
-		free_array(tmp_token->value);
+		free_array(&tmp_token->value);
 		free(tmp_token);
 	}
 }
 
-void	free_array(char **array)
+void	free_array(char ***array)
 {
 	int	i;
 
 	i = 0;
-	if (!array)
+	if (!*array)
 		return ;
-	while (array[i])
-		free(array[i++]);
-	free(array);
+	while ((*array)[i])
+	{
+		free((*array)[i]);
+		(*array)[i++] = NULL;
+	}
+	free(*array);
 }
 
-void	free_ast(t_ast *ast)
+void	free_ast(t_ast **ast)
 {
-	if (!ast)
+	if (!*ast)
 		return ;
-	if (ast->left)
-		free_ast(ast->left);
-	if (ast->right)
-		free_ast(ast->right);
-	free_array(ast->args);
-	free(ast);
+	if ((*ast)->left)
+		free_ast(&(*ast)->left);
+	if ((*ast)->right)
+		free_ast(&(*ast)->right);
+	free_array(&(*ast)->args);
+	free(*ast);
 }

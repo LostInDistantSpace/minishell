@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:43:30 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/13 18:35:11 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/14 17:11:31 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,13 +104,12 @@ int	handle_words(char *input, int *pos, t_token **head)
 	array = malloc((num_word + 1) * sizeof(char *));
 	if (!array)
 		return (-1);
-	array[num_word] = NULL;
 	while (ft_iswhitespace(input[*pos]))
 		(*pos)++;
 	cur_word = 0;
 	while (input[*pos] && input[*pos] != '|')
 	{
-		if (!ft_iswhitespace(input[*pos]))
+		if (input[*pos] > 0 && !ft_iswhitespace(input[*pos]))
 		{
 			array[cur_word] = handle_word(&input, pos);
 			cur_word++;
@@ -118,7 +117,8 @@ int	handle_words(char *input, int *pos, t_token **head)
 		else
 			(*pos)++;
 	}
-	add_token(head, word_token(array, num_word));
+	array[num_word] = NULL;
+	add_token(head, word_token(&array, num_word));
 	return (num_word);
 }
 
@@ -143,7 +143,7 @@ t_token	*tokenize_input(char *input)
 				i++;
 		}
 		else if (words_num < 0)
-			return (free_tokens(head), NULL);
+			return (free_tokens(&head), NULL);
 		if (input[i] == '|')
 		{
 			add_token(&head, new_token("|", PIPE));

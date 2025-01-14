@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_path.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 17:17:28 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/10 15:33:28 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/14 14:58:26 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,6 @@ char	*get_path(char *cmd, char **env)
 	if (!paths)
 		return (NULL);
 	correct_path = find_cmd_path(cmd, paths);
-	free_array(paths);
+	free_array(&paths);
 	return (correct_path);
 }

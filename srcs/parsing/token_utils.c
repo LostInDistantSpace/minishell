@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 22:49:26 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/06 13:52:35 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/14 17:05:27 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ t_token	*new_token(char *value, int type)
 	return (token);
 }
 
-t_token	*word_token(char **value, int num_word)
+t_token	*word_token(char ***value, int num_word)
 {
 	int		i;
 	t_token	*token;
 
-	if (!value || num_word <= 0)
+	if (!*value || num_word <= 0)
 		return (NULL);
 	token = malloc(sizeof(t_token));
 	if (!token)
@@ -45,11 +45,11 @@ t_token	*word_token(char **value, int num_word)
 	i = -1;
 	while (++i < num_word)
 	{
-		token->value[i] = ft_strdup(value[i]);
+		token->value[i] = ft_strdup((*value)[i]);
 		if (!token->value[i])
-			return (free_tokens(token), free_array(value), NULL);
+			return (free_tokens(&token), free_array(value), NULL);
 	}
-	token->value[i] = NULL;
+	token->value[num_word] = NULL;
 	free_array(value);
 	token->type = WORD;
 	token->next = NULL;

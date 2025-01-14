@@ -6,7 +6,7 @@
 #    By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/10 16:41:52 by bmouhib           #+#    #+#              #
-#    Updated: 2025/01/09 19:37:02 by bmouhib          ###   ########.fr        #
+#    Updated: 2025/01/14 15:37:47 by bmouhib          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,12 +22,13 @@ EXEC_PATH	:=	exec/
 
 SRC			:=	minishell.c
 SRC			+=	$(PARS_PATH)ast.c
+SRC			+=	$(PARS_PATH)cleaner_ptr.c
+SRC			+=	$(PARS_PATH)cleaner_struct.c
 SRC			+=	$(PARS_PATH)env.c
 SRC			+=	$(PARS_PATH)expand_utils.c
 SRC			+=	$(PARS_PATH)expand.c
 SRC			+=	$(PARS_PATH)heredoc.c
 SRC			+=	$(PARS_PATH)init.c
-SRC			+=	$(PARS_PATH)cleaner.c
 SRC			+=	$(PARS_PATH)parsing.c
 SRC			+=	$(PARS_PATH)prompt.c
 SRC			+=	$(PARS_PATH)signal.c

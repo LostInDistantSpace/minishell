@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:27:58 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/13 17:40:55 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/14 15:44:01 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,10 @@ t_env	*init(struct sigaction *sa, char **envp, int *exit_status);
 
 void	free_token(t_token *token, int size);
 void	free_env(t_env **env);
-void	free_tokens(t_token *token);
-void	free_array(char **array);
-void	free_ast(t_ast *ast);
+void	free_tokens(t_token **token);
+void	free_array(char ***array);
+void	free_ast(t_ast **ast);
+void	free_ptr(void **ptr);
+void	free_str(char **str);
 
 #endif
