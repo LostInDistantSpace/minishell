@@ -1,21 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_exec.c                                        :+:      :+:    :+:   */
+/*   ft_atoui.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/09 17:01:13 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/14 15:15:59 by lemarian         ###   ########.fr       */
+/*   Created: 2025/01/14 13:52:39 by lemarian          #+#    #+#             */
+/*   Updated: 2025/01/14 13:56:12 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-void	ft_error(t_data *data)
+unsigned int	ft_atoui(const char *nptr)
 {
-	free_env(data->env);
-	free_ast(*data->ast);
-	free(data);
-	exit(EXIT_FAILURE);
+	int	i;
+	unsigned int	result;
+
+	i = 0;
+	result = 0;
+	while ((nptr[i] == 32) || (nptr[i] >= 9 && nptr[i] <= 13))
+		i++;
+	while (nptr[i] >= '0' && nptr[i] <= '9')
+	{
+		result = (result * 10) + (nptr[i] - 48);
+		i++;
+	}
+	return (result);
 }

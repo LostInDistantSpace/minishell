@@ -6,22 +6,36 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:04:27 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/13 15:14:51 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/14 15:17:53 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-void	ft_exit(t_data *data)//need to add ast and data???
+void	ft_exit(t_ast *node, t_data *data)
 {
-	if (data->is_child == true|| data->piped == true)
+	int	final_exit;
+
+	if (data->is_child == true || data->piped == true)
 		return;
+	if (!node->args[1])
+		final_exit = *data->exit_status;
+	else
+	{
+		if (node->args[1][0] == '-')
+			final_exit = 255;
+		else if (ft_atoui(node->args[1]) > 255)
+			final_exit = 42;
+		else
+			final_exit = ft_atoui(node->args[1]);
+	}
 	free_ast(*data->ast);
 	free_env(data->env);
-	exit(EXIT_SUCCESS);//replace with arg[1] or last exit status
+	free(data);
+	exit(final_exit);
 }
 
-void	ft_echo(t_ast *node)
+void	ft_echo(t_ast *node, t_data *data)
 {
 	int	i;
 
@@ -46,19 +60,29 @@ void	ft_echo(t_ast *node)
 		}
 		ft_putstr_fd("\n", STDOUT_FILENO);
 	}
+	*data->exit_status = 0;
 }
 
-void	ft_pwd(void)
+void	ft_pwd(t_data *data)
 {
 	char	*dir;
 
 	dir = NULL;
-	ft_putstr_fd(getcwd(dir, PATH_MAX), STDOUT_FILENO);
-	ft_putstr_fd("\n", STDOUT_FILENO);
-	// protect?
+	dir = getcwd(dir, PATH_MAX);
+	if (!dir)
+	{
+		perror(NULL);
+		*data->exit_status = 1;
+	}
+	else
+	{
+		ft_putstr_fd(dir, STDOUT_FILENO);
+		ft_putstr_fd("\n", STDOUT_FILENO);
+		*data->exit_status = 0;
+	}
 }
 
-void	ft_env(t_env **env)
+void	ft_env(t_env **env, t_data *data)
 {
 	t_env	*current;
 
@@ -69,6 +93,7 @@ void	ft_env(t_env **env)
 			printf("%s=%s\n", current->key, current->value);
 		current = current->next;
 	}
+	*data->exit_status = 0;
 }
 
 void	ft_cd(t_ast *node, t_env **env, t_data *data)
@@ -80,7 +105,10 @@ void	ft_cd(t_ast *node, t_env **env, t_data *data)
 	old_pwd = NULL;
 	old_pwd = getcwd(old_pwd, PATH_MAX);
 	if (chdir(node->args[1]) == -1)
+	{	
+		*data->exit_status = 1;
 		return (perror(NULL));
+	}
 	while (ft_strcmp(current->key, "OLDPWD"))
 		current = current->next;
 	if (current->value)

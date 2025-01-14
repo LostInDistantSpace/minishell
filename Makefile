@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+         #
+#    By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/10 16:41:52 by bmouhib           #+#    #+#              #
-#    Updated: 2025/01/09 19:37:02 by bmouhib          ###   ########.fr        #
+#    Updated: 2025/01/14 13:56:43 by lemarian         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,7 @@ SRC			+=	$(EXEC_PATH)pipe.c
 SRC			+=	$(EXEC_PATH)unset.c
 SRC			+=	$(EXEC_PATH)exec.c
 SRC			+=	$(EXEC_PATH)free_exec.c
+SRC			+=	$(EXEC_PATH)ft_atoui.c
 
 
 # --------------------------------- COMMANDS --------------------------------- #

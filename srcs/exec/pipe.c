@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:26:27 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/10 14:38:47 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/14 16:51:24 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@ void	create_pipe(t_ast *node, t_data *data)
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[1]);
 		ft_ast(node->left, data);
-		// free all
-		exit(EXIT_SUCCESS);//implement in built-ins
+		free_ast(*data->ast);
+		free_env(data->env);
+		free(data);
+		exit(EXIT_SUCCESS);//does it matter?
 	}
 	else
 	{

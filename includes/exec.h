@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:22:40 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/13 17:14:18 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/14 15:15:53 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,20 +45,21 @@ char	*get_path(char *cmd, char **env);
 
 void	free_env(t_env **start);
 void	free_ast(t_ast *node);
-void	free_data(t_data *data);
 void	free_array(char **array);
 void	ft_error(t_data *data);
 
-void	ft_echo(t_ast *node);
-void	ft_pwd();
-void	ft_env(t_env **env);
+void	ft_echo(t_ast *node, t_data *data);
+void	ft_pwd(t_data *data);
+void	ft_env(t_env **env, t_data *data);
 void	ft_unset(t_ast *node, t_data *data);
 void	ft_cd(t_ast *node, t_env **env, t_data *data);
-void	ft_exit(t_data *data);
+void	ft_exit(t_ast *node, t_data *data);
 
 void	ft_export(t_ast *node, t_data *data);
 char	*get_key(char *var);
 char	*get_value(char *var);
 int		check_key_name(char *key);
+
+unsigned int	ft_atoui(const char *nptr);
 
 #endif

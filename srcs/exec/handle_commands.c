@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:36:54 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/13 16:41:52 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/14 16:55:54 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,32 +19,27 @@ void	exec_command(t_ast *node, t_data *data, char *path, char **env)
 		printf("%s: Command not found\n", node->args[0]);
 		free_array(env);
 		free(path);
-		free_data(data);
-		exit (EXIT_FAILURE);
+		ft_error(data);
 	}
 }
 
 void	fork_command(t_ast *node, t_data *data, char *path, char **env)
 {
 	pid_t	child;
+	int		status;
 
 	child = fork();
 		if (child == -1)
 			return (perror(strerror(errno)));
 		if (child == 0)
-		{
-			if (execve(path, node->args, env) == -1)
-			{
-				printf("%s: Command not found\n", node->args[0]);
-				free_array(env);
-				free(path);
-				free_data(data);
-				exit(EXIT_FAILURE);
-			}
-		}
+			exec_command(node, data, path, env);
 		else
 		{	
-			wait(NULL);//use waitpid for exit status?
+			waitpid(child, &status, 0);
+			if (WIFEXITED(status))
+				*data->exit_status = WEXITSTATUS(status);
+			else
+				*data->exit_status = 0;
 			free(path);
 			free_array(env);
 		}
@@ -71,7 +66,7 @@ void	find_command(t_ast *node, t_data *data)
 void	handle_commands(t_ast *node, t_data *data)
 {
 	if (ft_strcmp(node->args[0], "echo") == 0)
-		ft_echo(node);
+		ft_echo(node, data);
 	else if (ft_strcmp(node->args[0], "cd") == 0)
 		ft_cd(node, data->env, data);
 	else if (ft_strcmp(node->args[0], "pwd") == 0)
@@ -81,9 +76,9 @@ void	handle_commands(t_ast *node, t_data *data)
 	else if (ft_strcmp(node->args[0], "unset") == 0)
 		ft_unset(node, data);
 	else if (ft_strcmp(node->args[0], "env") == 0)
-		ft_env(data->env);
+		ft_env(data->env, data);
 	else if (ft_strcmp(node->args[0], "exit") == 0)
-		ft_exit(data);
+		ft_exit(node, data);
 	else
 		find_command(node, data);
 }

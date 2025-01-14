@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:27:25 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/13 17:40:22 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/14 14:37:25 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ int	main(int ac, char **av, char **envp)
 		{
 			ast_root = parse_tokens(token);
 			if (ast_root)
-			{
-				exec(&ast_root, &env);
+			{			
+				exec(&ast_root, &env, &exit_status);
 				free_ast(ast_root);
 			}
 		}
