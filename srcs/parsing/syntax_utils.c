@@ -6,22 +6,22 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 19:53:42 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/07 23:28:43 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/16 15:57:15 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	syntax_init(char **line, char *quote, int *pos)
+int	syntax_init(char *line, char *quote, int *pos)
 {
 	int	i;
 
 	i = *pos;
 	i = 0;
 	*quote = 0;
-	while (ft_iswhitespace(*line[i]))
+	while (ft_iswhitespace(line[i]))
 		i++;
-	if (*line[i] == '|' || *line[i] == '&')
+	if (line[i] == '|' || line[i] == '&')
 		return (1);
 	*pos = i;
 	return (0);
