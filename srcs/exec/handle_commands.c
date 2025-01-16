@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:36:54 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/16 11:27:58 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/16 11:41:23 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,8 @@ void	fork_command(t_ast *node, t_data *data, char *path, char **env)
 			return (perror(NULL));
 		if (child == 0)
 		{
-			if (execve(path, node->args, env) == -1)
-			{
-				printf("%s: Command not found\n", node->args[0]);
-				free_array(&env);
-				free(path);
-				free_data(data);
-				exit(EXIT_FAILURE);
-			}
+			data->is_child = true;
+			exec_command(node, data, path, env);
 		}
 		else
 		{	

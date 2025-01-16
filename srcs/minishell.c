@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:27:25 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/16 11:26:32 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/16 11:29:16 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	executor(t_env **env, int exit_status)
 		ast_root = parse_tokens(token);
 		if (ast_root)
 		{
-			exec(&ast_root, env);
+			exec(&ast_root, env, &exit_status);
 			free_ast(&ast_root);
 		}
 	}
