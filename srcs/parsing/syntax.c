@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:35:28 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/09 22:27:15 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/16 15:57:19 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,7 @@ int	syntax_checker(char *str)
 	int		i;
 	char	quote;
 
-	/*
-	** redir without words : OKAY
-	*/
-	if (syntax_init(&str, &quote, &i))
+	if (syntax_init(str, &quote, &i))
 		return (1);
 	if (only_whitespace(str))
 		return (3);

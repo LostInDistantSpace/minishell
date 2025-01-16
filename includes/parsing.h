@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 17:12:55 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/14 16:51:22 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/16 15:57:34 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct sigaction	t_sigac;
 t_token	*parse(t_env *env, int exit_status);
 
 int		syntax_checker(char *line);
-int		syntax_init(char **line, char *q, int *i);
+int		syntax_init(char *line, char *q, int *i);
 int		is_forbiddenchar(char c);
 
 t_token	*word_token(char ***value, int num_word);
