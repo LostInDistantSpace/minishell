@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:29:22 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/13 15:05:05 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/16 17:13:22 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*get_value(char *var)
 
 char	*get_key(char *var)
 {
-	int	i;
+	int		i;
 	char	*key;
 
 	i = 0;

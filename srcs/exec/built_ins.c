@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:04:27 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/16 14:23:06 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/16 17:09:49 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_exit(t_ast *node, t_data *data)
 	int	final_exit;
 
 	if (data->is_child == true || data->piped == true)
-		return;
+		return ;
 	if (!node->args[1])
 		final_exit = *data->exit_status;
 	else
@@ -108,6 +108,8 @@ void	ft_cd(t_ast *node, t_env **env, t_data *data)
 	buff = NULL;
 	old_pwd = getcwd(buff, PATH_MAX);
 	free(buff);
+	if (!old_pwd)
+		return (perror(NULL));
 	if (chdir(node->args[1]) == -1)
 	{	
 		*data->exit_status = 1;
@@ -119,6 +121,4 @@ void	ft_cd(t_ast *node, t_env **env, t_data *data)
 	if (current->value)
 		free(current->value);
 	current->value = old_pwd;
-	if (!current->value)
-		return (ft_error(data));
 }

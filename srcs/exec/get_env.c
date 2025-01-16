@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 17:18:59 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/09 15:02:17 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/16 17:15:16 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	count_size(t_env **start)
 {
 	t_env	*current;
-	int	size;
+	int		size;
 
 	current = (*start);
 	size = 0;
@@ -24,7 +24,7 @@ int	count_size(t_env **start)
 		current = current->next;
 		size++;
 	}
-	return(size);
+	return (size);
 }
 
 char	**get_env(t_env **env)
@@ -35,7 +35,7 @@ char	**get_env(t_env **env)
 	char	*join;
 	char	*var;
 
-	new_env = malloc(sizeof(char*) * (count_size(env) + 1));
+	new_env = malloc(sizeof(char *) * (count_size(env) + 1));
 	if (!new_env)
 		return (NULL);//replace with exit function
 	i = 0;
