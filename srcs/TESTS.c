@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 19:19:09 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/07 23:52:38 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/14 14:37:03 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,9 @@ void	print_tokens(t_token *token)
 	while (ptr)
 	{
 		i = 0;
-		while (ptr->value[i])
-			printf("Token: [%s] | ", ptr->value[i++]);
+		if (ptr->value)
+			while (ptr->value[i])
+				printf("Token: [%s] | ", ptr->value[i++]);
 		printf("Type : ");
 		print_type(ptr->type);
 		printf("\n--------------------------------------------------\n");

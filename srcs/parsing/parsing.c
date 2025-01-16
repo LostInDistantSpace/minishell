@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:49:05 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/13 18:35:37 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/14 17:13:07 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,25 +23,32 @@ char	*get_input(char *prompt)
 	return (line);
 }
 
+int	check_input(t_env **env, char *line)
+{
+	if (g_signal == SIGINT)
+	{
+		g_signal = 0;
+		return (1);
+	}
+	if (!line)
+	{
+		free_env(env);
+		exit(write(STDOUT_FILENO, "exit\n", 5));
+		// need exit function
+	}
+	return (0);
+}
+
 t_token	*parse(t_env *env, int exit_status)
 {
 	int		syntax;
 	char	*line;
 	t_token	*token_list;
 
-	line = get_input(prompt(env));
 	token_list = NULL;
-	if (g_signal == SIGINT)
-	{
-		g_signal = 0;
+	line = get_input(prompt(env));
+	if (check_input(&env, line))
 		return (NULL);
-	}
-	if (!line)
-	{
-		free_env(&env);
-		exit(write(STDOUT_FILENO, "exit\n", 5));
-		// need exit function
-	}
 	syntax = syntax_checker(line);
 	if (syntax == 1 || syntax == 2)
 		printf("Incorrect line\n");
@@ -53,9 +60,9 @@ t_token	*parse(t_env *env, int exit_status)
 		if (g_signal == SIGINT)
 		{
 			g_signal = 0;
-			return (free_tokens(token_list), free(line), NULL);
+			return (free_tokens(&token_list), free(line), NULL);
 		}
-		clean_tokens(token_list, env, exit_status);
+		clean_tokens(&token_list, env, exit_status);
 	}
 	free(line);
 	return (token_list);
