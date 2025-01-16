@@ -3,45 +3,49 @@
 /*                                                        :::      ::::::::   */
 /*   find_path.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/06 17:17:28 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/14 14:58:26 by bmouhib          ###   ########.fr       */
+/*   Created: 2025/01/16 15:33:19 by lemarian          #+#    #+#             */
+/*   Updated: 2025/01/16 16:23:57 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-char	*test_path(char *path, char *cmd)
+/*
+- check if command is absolute path to command (access)
+- if not
+
+*/
+
+char	*test_path(char *path, char *cmd, t_data *data)
 {
 	char	*slash;
 	char	*test_path;
 
 	slash = ft_strjoin(path, "/");
 	if (!slash)
-		return (NULL);
+		ft_error(data);
 	test_path = ft_strjoin(slash, cmd);
 	free(slash);
 	if (!test_path)
-		return (NULL);
+		ft_error(data);
 	if (access(test_path, X_OK) != -1)
 		return (test_path);
 	else
 		return (free(test_path), NULL);
 }
 
-char	*find_cmd_path(char *cmd, char **paths)
+char	*find_cmd_path(char *cmd, char **paths, t_data *data)
 {
 	int		i;
 	char	*cmd_path;
 
 	i = 0;
 	cmd_path = NULL;
-	if (!cmd)
-		return (NULL);
 	while (paths[i])
 	{
-		cmd_path = test_path(paths[i], cmd);
+		cmd_path = test_path(paths[i], cmd, data);
 		if (cmd_path)
 			break ;
 		i++;
@@ -49,30 +53,27 @@ char	*find_cmd_path(char *cmd, char **paths)
 	return (cmd_path);
 }
 
-char	*get_path(char *cmd, char **env)
+char	*get_path(char *cmd, t_data *data)
 {
-	int		i;
 	char	*path_str;
-	char	*correct_path;
 	char	**paths;
+	char	*correct_path;
+	t_env	*current;
 
-	i = 0;
 	path_str = NULL;
-	while (env[i])
+	current = *data->env;
+	while (current)
 	{
-		if (ft_strncmp(env[i], "PATH=", 5) == 0)
-		{
-			path_str = ft_strdup(&env[i][5]);
-			if (!path_str)
-				return (NULL);
-		}
-		i++;
+		if (ft_strcmp(current->key, "PATH") == 0)
+			path_str = current->value;
+		current = current->next;
 	}
-	paths = ft_split(path_str, ':');
-	free(path_str);
-	if (!paths)
+	if (!path_str)//if PATH var was deleted or NULL
 		return (NULL);
-	correct_path = find_cmd_path(cmd, paths);
+	paths = ft_split(path_str, ':');
+	if (!paths)
+		return (ft_error(data), NULL);
+	correct_path = find_cmd_path(cmd, paths, data);
 	free_array(&paths);
 	return (correct_path);
 }
