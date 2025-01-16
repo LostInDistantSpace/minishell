@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:04:27 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/16 14:12:44 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/16 14:23:06 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	ft_exit(t_ast *node, t_data *data)
 	}
 	free_ast(data->ast);
 	free_env(data->env);
+	restore_in_out(data);
 	free(data);
 	exit(final_exit);
 }

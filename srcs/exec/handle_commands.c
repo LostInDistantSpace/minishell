@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:36:54 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/16 14:11:38 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/16 14:39:44 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	exec_command(t_ast *node, t_data *data, char *path, char **env)
 {
+	close(data->save_in);
+	close(data->save_out);
 	if (execve(path, node->args, env) == -1)
 	{
 		printf("%s: Command not found\n", node->args[0]);
