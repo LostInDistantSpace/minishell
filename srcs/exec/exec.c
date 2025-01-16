@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:23:12 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/14 15:08:38 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/16 14:11:45 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,5 @@ void	exec(t_ast **head, t_env **start, int *e_status)
 	ft_ast(*head, data);
 	restore_in_out(data);
 	free(data);
+	g_signal = 0;
 }

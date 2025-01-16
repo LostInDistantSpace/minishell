@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:27:25 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/16 11:29:16 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/16 14:03:37 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	main(int ac, char **av, char **envp)
 	(void)av;
 	g_signal = 0;
 	env = init(&sa, envp, &exit_status);
-	while (!g_signal)
+	while (1)
 		executor(&env, exit_status);
 	rl_clear_history();
 	return (0);

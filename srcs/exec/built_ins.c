@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:04:27 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/16 11:34:35 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/16 14:12:44 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_exit(t_ast *node, t_data *data)
 {
 	int	final_exit;
 
-		if (data->is_child == true || data->piped == true)
+	if (data->is_child == true || data->piped == true)
 		return;
 	if (!node->args[1])
 		final_exit = *data->exit_status;
@@ -29,7 +29,6 @@ void	ft_exit(t_ast *node, t_data *data)
 		else
 			final_exit = ft_atoui(node->args[1]);
 	}
-	free_ast(data->ast);
 	free_ast(data->ast);
 	free_env(data->env);
 	free(data);
