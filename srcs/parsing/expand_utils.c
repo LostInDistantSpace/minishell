@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 18:39:29 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/13 17:41:39 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/20 17:24:49 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,15 @@ char	*copy_key(char *str, int *i)
 	if (str[*i] == '?')
 	{
 		(*i)++;
-		var = ft_strdup("?");
-		return (var);
+		return (ft_strdup("?"));
 	}
 	while (str[*i + len] && (ft_isalnum(str[*i + len]) || str[*i + len] == '_'))
 		len++;
 	if (!len)
 	{
-		var = malloc(sizeof(char));
-		var[0] = 0;
+		var = malloc(sizeof(char) * 2);
+		var[0] = -1;
+		var[1] = '\0';
 	}
 	else
 	{
@@ -55,22 +55,21 @@ char	*concat_var(t_env *env, char **array, int *i, int exit_status)
 	char	*previous;
 	char	*raw;
 
-	previous = array[1];
 	raw = array[0];
 	(*i)++;
+	var = get_var(env, copy_key(raw, i));
+	previous = array[1];
 	if (!previous)
 		return (NULL);
-	var = get_var(env, copy_key(raw, i));
 	if (var)
 	{
-		if (!var[0])
+		if (var[0] < 0)
 			result = ft_strjoin(previous, "$");
 		else if (var[0] == '?')
 			result = ft_strjoin(previous, ft_itoa(exit_status));
 		else
 			result = ft_strjoin(previous, var);
-		free(previous);
-		return (result);
+		return (free(previous), free(var), result);
 	}
 	return (previous);
 }
