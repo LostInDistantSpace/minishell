@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:35:28 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/16 15:57:19 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/20 15:52:00 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	syntax_checker(char *str)
 		if (!quote)
 		{
 			if (is_forbiddenchar(str[i]))
-				return (1);
+				return (char_not_handled(str[i]));
 			if (is_spechar(str[i]) && check_special_char(str, i))
 				return (1);
 		}

@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 17:12:55 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/16 15:57:34 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/20 16:11:02 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		word_num(char *input, int pos);
 char	*ft_double_join(char *l, char *m, char *r);
 
 char	*get_var(t_env *env, char *key);
-char	*get_dir(t_env *env);
+char	*get_home(t_env *env);
 
 int		is_spechar(char c);
 char	*ft_substr_del(char *s, unsigned int start, size_t len);
@@ -61,6 +61,9 @@ char	*concat_var(t_env *env, char **array, int *i, int exit_status);
 char	*fill_from_step(char *prev, char *str, int start, int stop);
 char	*expand(char *str, t_env *env, char q, int exit_status);
 void	clean_tokens(t_token **tok, t_env *env, int exit_status);
+
+int		char_not_handled(char c);
+int		unclosed_quote(void);
 
 /******************/
 /* TESTS FUNCTIONS*/
