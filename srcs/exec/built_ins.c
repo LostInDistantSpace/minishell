@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:04:27 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/20 15:12:38 by marvin           ###   ########.fr       */
+/*   Updated: 2025/01/20 17:19:02 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,11 @@ void	ft_echo(t_ast *node, t_data *data)
 
 	i = 1;
 	line = 0;
-	if (ft_strcmp(node->args[i], "-n") == 0)
+	
+	if (ft_strncmp(node->args[1], "-n", 2) == 0)
 	{
 		line = 1;
-		while (ft_strcmp(node->args[i], "-n") == 0)
+		while (node->args[i] && check_echo_flag(node->args[i]))
 			i++;
 	}
 	while (node->args[i])

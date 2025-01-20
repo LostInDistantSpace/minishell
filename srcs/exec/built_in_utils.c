@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export_utils.c                                     :+:      :+:    :+:   */
+/*   built_in_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:29:22 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/16 17:13:22 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/20 17:20:37 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,18 @@ char	*get_key(char *var)
 	}
 	key[i] = 0;
 	return (key);
+}
+
+int	check_echo_flag(char *flag)
+{
+	int	i;
+
+	i = 1;
+	while (flag[i])
+	{
+		if (flag[0] != '-' || flag[i] != 'n')
+			return (0);
+		i++;
+	}
+	return (1);
 }
