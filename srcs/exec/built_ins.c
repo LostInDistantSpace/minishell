@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_ins.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:04:27 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/16 17:09:49 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/20 15:12:38 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,28 +39,25 @@ void	ft_exit(t_ast *node, t_data *data)
 void	ft_echo(t_ast *node, t_data *data)
 {
 	int	i;
+	int	line;
 
-	if (!(ft_strcmp(node->args[1], "-n")))
+	i = 1;
+	line = 0;
+	if (ft_strcmp(node->args[i], "-n") == 0)
 	{
-		i = 2;
-		while (node->args[i])
-		{
-			ft_putstr_fd(node->args[i], STDOUT_FILENO);
-			ft_putstr_fd(" ", STDOUT_FILENO);
+		line = 1;
+		while (ft_strcmp(node->args[i], "-n") == 0)
 			i++;
-		}
 	}
-	else
+	while (node->args[i])
 	{
-		i = 1;
-		while (node->args[i])
-		{
-			ft_putstr_fd(node->args[i], STDOUT_FILENO);
+		ft_putstr_fd(node->args[i], STDOUT_FILENO);
+		if (node->args[i + 1] != NULL)
 			ft_putstr_fd(" ", STDOUT_FILENO);
-			i++;
-		}
+		i++;
+	}
+	if (line == 0)
 		ft_putstr_fd("\n", STDOUT_FILENO);
-	}
 	*data->exit_status = 0;
 }
 
