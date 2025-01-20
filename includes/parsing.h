@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 17:12:55 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/20 18:20:48 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/20 18:52:31 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	clean_tokens(t_token **tok, t_env *env, int exit_status);
 
 int		char_not_handled(char c);
 int		unclosed_quote(void);
+int		unexpected_token(char *token);
 
 /******************/
 /* TESTS FUNCTIONS*/

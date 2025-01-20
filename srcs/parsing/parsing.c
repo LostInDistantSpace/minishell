@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:49:05 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/20 18:15:37 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/20 19:11:57 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,7 @@ t_token	*parse(t_env *env, int exit_status, char *home)
 	if (check_input(&env, line))
 		return (NULL);
 	syntax = syntax_checker(line);
-	if (syntax == 1 || syntax == 2)
-		printf("Incorrect line\n");
-	// specific errors needed
-	else if (syntax != 3)
+	if (!syntax)
 	{
 		token_list = tokenize_input(line);
 		handle_heredocs(token_list, env, exit_status);
