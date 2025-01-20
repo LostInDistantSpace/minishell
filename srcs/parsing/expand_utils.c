@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 18:39:29 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/20 17:57:24 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/20 18:07:52 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,17 @@ char	*copy_key(char *str, int *i)
 	return (var);
 }
 
+char	*get_var_from_ket(t_env *env, char *raw, int *i)
+{
+	char	*key;
+	char	*var;
+
+	key = copy_key(raw, i);
+	var = get_var(env, key);
+	free(key);
+	return (var);
+}
+
 /*
 ** Concatenates the variable if it exists to previous
 ** previous 
@@ -51,16 +62,12 @@ char	*copy_key(char *str, int *i)
 char	*concat_var(t_env *env, char **array, int *i, int exit_status)
 {
 	char	*var;
+	char	*num;
 	char	*result;
 	char	*previous;
-	char	*raw;
-	char	*key;
 
-	raw = array[0];
 	(*i)++;
-	key = copy_key(raw, i);
-	var = get_var(env, key);
-	free(key);
+	var = get_var_from_ket(env, array[0], i);
 	previous = array[1];
 	if (!previous)
 		return (free(var), NULL);
@@ -69,7 +76,11 @@ char	*concat_var(t_env *env, char **array, int *i, int exit_status)
 		if (*var < 0)
 			result = ft_strjoin(previous, "$");
 		else if (*var == '?')
-			result = ft_strjoin(previous, ft_itoa(exit_status));
+		{
+			num = ft_itoa(exit_status);
+			result = ft_strjoin(previous, num);
+			free(num);
+		}
 		else
 			result = ft_strjoin(previous, var);
 		return (free(previous), free(var), result);
