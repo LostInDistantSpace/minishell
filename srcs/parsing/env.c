@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 22:05:21 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/20 17:57:37 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/20 18:22:22 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*get_var(t_env *env, char *key)
 	while (env)
 	{
 		if (!ft_strcmp(env->key, key))
-			return (env->value);
+			return (ft_strdup(env->value));
 		env = env->next;
 	}
 	return (NULL);

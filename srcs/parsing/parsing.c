@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:49:05 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/20 15:05:01 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/20 18:15:37 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ int	check_input(t_env **env, char *line)
 	return (0);
 }
 
-t_token	*parse(t_env *env, int exit_status)
+t_token	*parse(t_env *env, int exit_status, char *home)
 {
 	int		syntax;
 	char	*line;
 	t_token	*token_list;
 
 	token_list = NULL;
-	line = get_input(prompt(env));
+	line = get_input(prompt(env, home));
 	if (check_input(&env, line))
 		return (NULL);
 	syntax = syntax_checker(line);

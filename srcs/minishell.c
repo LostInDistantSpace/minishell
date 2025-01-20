@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:27:25 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/16 14:03:37 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/20 18:28:44 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@ void	executor(t_env **env, int exit_status)
 {
 	t_token				*token;
 	t_ast				*ast_root;
+	char				*home;
 
-	token = parse(*env, exit_status);
+	home = get_var(*env, "HOME");
+	token = parse(*env, exit_status, home);
 	if (token)
 	{
 		ast_root = parse_tokens(token);
