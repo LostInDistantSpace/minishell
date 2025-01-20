@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/10 16:41:52 by bmouhib           #+#    #+#              #
-#    Updated: 2025/01/20 17:03:18 by marvin           ###   ########.fr        #
+#    Updated: 2025/01/20 17:44:37 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SRC			+=	$(PARS_PATH)parsing.c
 SRC			+=	$(PARS_PATH)prompt.c
 SRC			+=	$(PARS_PATH)signal.c
 SRC			+=	$(PARS_PATH)str_utils.c
+SRC			+=	$(PARS_PATH)syntax_errors.c
 SRC			+=	$(PARS_PATH)syntax_utils.c
 SRC			+=	$(PARS_PATH)syntax.c
 SRC			+=	$(PARS_PATH)token_utils.c

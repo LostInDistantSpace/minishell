@@ -6,13 +6,13 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 23:00:40 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/13 14:10:50 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/20 15:44:23 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_dir(t_env *env)
+char	*get_home(t_env *env)
 {
 	int		home_len;
 	char	*home;
@@ -44,7 +44,7 @@ char	*prompt(t_env *env)
 		user = ft_strjoin(NON_PRINT GREEN BOLD END_NP, getenv("USER"));
 	else
 		user = NULL;
-	dir = get_dir(env);
+	dir = get_home(env);
 	if (user)
 	{
 		tmp = ft_double_join(user, " ", dir);
