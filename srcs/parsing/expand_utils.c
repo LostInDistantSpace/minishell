@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 18:39:29 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/20 17:24:49 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/20 17:37:42 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,13 @@ char	*concat_var(t_env *env, char **array, int *i, int exit_status)
 	char	*result;
 	char	*previous;
 	char	*raw;
+	char	*key;
 
 	raw = array[0];
 	(*i)++;
-	var = get_var(env, copy_key(raw, i));
+	key = copy_key(raw, i);
+	var = get_var(env, key);
+	free(key);
 	previous = array[1];
 	if (!previous)
 		return (NULL);
