@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_ins.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:04:27 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/16 14:12:44 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/20 17:19:02 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_exit(t_ast *node, t_data *data)
 	int	final_exit;
 
 	if (data->is_child == true || data->piped == true)
-		return;
+		return ;
 	if (!node->args[1])
 		final_exit = *data->exit_status;
 	else
@@ -31,6 +31,7 @@ void	ft_exit(t_ast *node, t_data *data)
 	}
 	free_ast(data->ast);
 	free_env(data->env);
+	restore_in_out(data);
 	free(data);
 	exit(final_exit);
 }
@@ -38,28 +39,26 @@ void	ft_exit(t_ast *node, t_data *data)
 void	ft_echo(t_ast *node, t_data *data)
 {
 	int	i;
+	int	line;
 
-	if (!(ft_strcmp(node->args[1], "-n")))
+	i = 1;
+	line = 0;
+	
+	if (ft_strncmp(node->args[1], "-n", 2) == 0)
 	{
-		i = 2;
-		while (node->args[i])
-		{
-			ft_putstr_fd(node->args[i], STDOUT_FILENO);
-			ft_putstr_fd(" ", STDOUT_FILENO);
+		line = 1;
+		while (node->args[i] && check_echo_flag(node->args[i]))
 			i++;
-		}
 	}
-	else
+	while (node->args[i])
 	{
-		i = 1;
-		while (node->args[i])
-		{
-			ft_putstr_fd(node->args[i], STDOUT_FILENO);
+		ft_putstr_fd(node->args[i], STDOUT_FILENO);
+		if (node->args[i + 1] != NULL)
 			ft_putstr_fd(" ", STDOUT_FILENO);
-			i++;
-		}
+		i++;
+	}
+	if (line == 0)
 		ft_putstr_fd("\n", STDOUT_FILENO);
-	}
 	*data->exit_status = 0;
 }
 
@@ -107,6 +106,8 @@ void	ft_cd(t_ast *node, t_env **env, t_data *data)
 	buff = NULL;
 	old_pwd = getcwd(buff, PATH_MAX);
 	free(buff);
+	if (!old_pwd)
+		return (perror(NULL));
 	if (chdir(node->args[1]) == -1)
 	{	
 		*data->exit_status = 1;
@@ -118,6 +119,4 @@ void	ft_cd(t_ast *node, t_env **env, t_data *data)
 	if (current->value)
 		free(current->value);
 	current->value = old_pwd;
-	if (!current->value)
-		return (ft_error(data));
 }

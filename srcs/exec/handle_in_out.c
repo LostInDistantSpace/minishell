@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:29:59 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/14 14:35:40 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/16 17:17:00 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,16 +75,16 @@ void	ft_redirect(t_ast *node, t_data *data)
 		if (node->type == REDIR_IN || node->type == REDIR_HEREDOC)
 		{	
 			if (!change_input(node))
-				return;
+				return ;
 		}
 		else if (node->type == REDIR_OUT || node->type == REDIR_APPEND)
 		{	
 			if (!change_output(node))
-				return;
+				return ;
 		}
 		node = node->right;
 	}
 	if (!command)
-		return;//free?
+		return ;//free?
 	handle_commands(command, data);
 }

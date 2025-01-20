@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+         #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/10 16:41:52 by bmouhib           #+#    #+#              #
-#    Updated: 2025/01/20 16:09:37 by bmouhib          ###   ########.fr        #
+#    Updated: 2025/01/20 17:44:37 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ SRC			+=	$(PARS_PATH)token_utils.c
 SRC			+=	$(PARS_PATH)tokenization.c
 SRC			+=	TESTS.c
 SRC			+=	$(EXEC_PATH)built_ins.c
-SRC			+=	$(EXEC_PATH)export_utils.c
+SRC			+=	$(EXEC_PATH)built_in_utils.c
 SRC			+=	$(EXEC_PATH)export.c
 SRC			+=	$(EXEC_PATH)find_path.c
 SRC			+=	$(EXEC_PATH)get_env.c

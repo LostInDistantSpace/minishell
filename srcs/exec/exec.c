@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:23:12 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/16 14:11:45 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/16 17:09:07 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ int	init_data(t_data *data, t_ast **head, t_env **start, int *e_status)
 	if (data->save_in == -1)
 	{	
 		perror(strerror(errno));
-		return(0);
+		return (0);
 	}
 	data->save_out = dup(STDOUT_FILENO);
 	if (data->save_out == -1)
 	{	
 		perror(strerror(errno));
-		return(0);
+		return (0);
 	}
 	data->exit_status = e_status;
 	data->is_child = false;
@@ -51,10 +51,12 @@ void	exec(t_ast **head, t_env **start, int *e_status)
 	t_data	*data;
 
 	data = (t_data *)malloc(sizeof(t_data));
-	if (!data)//idk
+	if (!data)
 	{
-		printf("malloc failed exec\n");
-		return;
+		free_ast(head);
+		free_env(start);
+		printf("Error\n");
+		exit(EXIT_FAILURE);
 	}
 	if (!init_data(data, head, start, e_status))
 		return (ft_error(data));//stop everything?
