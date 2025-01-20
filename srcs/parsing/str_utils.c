@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 22:04:20 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/13 18:52:37 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/20 15:25:09 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,12 @@ int	word_num(char *input, int pos)
 	{
 		if (input[i] == '\'' || input[i] == '"')
 		{
-			if (!quote)
+			if (!quote && (i == 0 || (i > 0 && ft_iswhitespace(input[i - 1]))))
 				words++;
-			quote = input[i++] - quote;
+			if (!quote || quote == input[i])
+				quote = input[i] - quote;
 		}
-		if (!quote && input[i] > 0 && !ft_iswhitespace(input[i]))
+		else if (!quote && input[i] > 0 && !ft_iswhitespace(input[i]))
 		{
 			if (i == pos || ft_iswhitespace(input[i - 1]))
 				words++;
