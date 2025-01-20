@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:43:30 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/14 17:11:31 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/20 15:25:16 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,10 +110,7 @@ int	handle_words(char *input, int *pos, t_token **head)
 	while (input[*pos] && input[*pos] != '|')
 	{
 		if (input[*pos] > 0 && !ft_iswhitespace(input[*pos]))
-		{
-			array[cur_word] = handle_word(&input, pos);
-			cur_word++;
-		}
+			array[cur_word++] = handle_word(&input, pos);
 		else
 			(*pos)++;
 	}
