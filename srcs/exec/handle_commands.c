@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:36:54 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/21 14:49:07 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/21 17:20:34 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	exec_command(t_ast *node, t_data *data, char *path, char **env)
 		printf("%s: Command not found\n", node->args[0]);
 		free_array(&env);
 		free(path);
-		ft_error(data);
+		free_data(data);
+		exit(EXIT_FAILURE);
 	}
 }
 
@@ -59,7 +60,7 @@ void	find_command(t_ast *node, t_data *data)
 	if (access(node->args[0], X_OK == -1))
 		path = get_path(node->args[0], data);
 	else
-		path = node->args[0];
+		path = ft_strdup(node->args[0]);
 	if (!path)
 	{
 		printf("%s: Command not found\n", node->args[0]);
