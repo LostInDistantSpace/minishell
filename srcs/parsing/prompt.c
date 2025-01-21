@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 23:00:40 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/20 18:30:08 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/21 15:02:06 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*get_home(char *home)
 	if (!home)
 		return (ft_strjoin(NON_PRINT B_BLUE BOLD END_NP, cwd));
 	home_len = ft_strlen(home);
-	if (home && !ft_strncmp(cwd, home, home_len))
+	if (home && !ft_strcmp(cwd, home))
 	{
 		gwd = ft_strjoin(NON_PRINT B_BLUE BOLD END_NP "~", cwd + home_len);
 		free(cwd);
