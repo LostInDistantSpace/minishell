@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:29:22 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/21 13:24:22 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/21 14:37:48 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	check_key_name(char *key)
 	int	i;
 
 	i = 0;
+	if (key[0] == '=')
+		return (0);
 	while (key[i])
 	{
 		if (!ft_isalnum(key[i]) && key[i] != '_')
@@ -59,6 +61,8 @@ char	*get_key(char *var)
 		i++;
 	}
 	key[i] = 0;
+	if (key[0] == 0)
+		printf("export : %s not a valid identifier\n", var);
 	return (key);
 }
 

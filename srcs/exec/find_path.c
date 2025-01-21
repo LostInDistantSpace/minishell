@@ -6,17 +6,11 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:33:19 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/16 17:13:56 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/21 14:40:50 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
-
-/*
-- check if command is absolute path to command (access)
-- if not
-
-*/
 
 char	*test_path(char *path, char *cmd, t_data *data)
 {
