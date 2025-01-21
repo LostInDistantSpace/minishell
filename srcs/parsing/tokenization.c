@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:43:30 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/20 15:25:16 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/21 22:32:43 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char	*handle_word(char **s, int *pos)
 	return (value);
 }
 
-void	handle_redirs(char **input, int pos, t_token **head)
+void	handle_redirs(char **input, int pos, t_token **head, t_parse data)
 {
 	int		type;
 	char	*value;
@@ -76,8 +76,7 @@ void	handle_redirs(char **input, int pos, t_token **head)
 	value = NULL;
 	while ((*input)[pos] && (*input)[pos] != '|')
 	{
-		while ((*input)[pos] && !is_spechar((*input)[pos]))
-			pos++;
+		pos = seek_spe_char(*input, pos);
 		if (!(*input)[pos] || (*input)[pos] == '|')
 			return ;
 		type = handle_redir(*input, &pos);
@@ -86,59 +85,34 @@ void	handle_redirs(char **input, int pos, t_token **head)
 		while ((*input)[pos] && ft_iswhitespace((*input)[pos]))
 			pos++;
 		value = handle_word(input, &pos);
+		if (type != REDIR_HEREDOC)
+			value = expand(value, data.env, '\'', data.exit_status);
 		token = new_token(value, type);
 		free(value);
 		add_token(head, token);
 	}
 }
 
-int	handle_words(char *input, int *pos, t_token **head)
-{
-	int		cur_word;
-	int		num_word;
-	char	**array;
-
-	num_word = word_num(input, *pos);
-	if (!num_word)
-		return (0);
-	array = malloc((num_word + 1) * sizeof(char *));
-	if (!array)
-		return (-1);
-	while (ft_iswhitespace(input[*pos]))
-		(*pos)++;
-	cur_word = 0;
-	while (input[*pos] && input[*pos] != '|')
-	{
-		if (input[*pos] > 0 && !ft_iswhitespace(input[*pos]))
-			array[cur_word++] = handle_word(&input, pos);
-		else
-			(*pos)++;
-	}
-	array[num_word] = NULL;
-	add_token(head, word_token(&array, num_word));
-	return (num_word);
-}
-
 /*
  Iterates through the input, creating tokens for words separated by spaces.
 */
-t_token	*tokenize_input(char *input)
+t_token	*tokenize_input(char *input, t_env *env, int exit_status)
 {
 	int		i;
 	int		words_num;
 	t_token	*head;
+	t_parse	data;
 
 	i = 0;
 	head = NULL;
+	data = create_data(env, exit_status);
 	while (input[i])
 	{
-		handle_redirs(&input, i, &head);
-		words_num = handle_words(input, &i, &head);
+		handle_redirs(&input, i, &head, data);
+		words_num = handle_words(input, &i, &head, data);
 		if (!words_num)
-		{
 			while (input[i] && input[i] != '|')
 				i++;
-		}
 		else if (words_num < 0)
 			return (free_tokens(&head), NULL);
 		if (input[i] == '|')

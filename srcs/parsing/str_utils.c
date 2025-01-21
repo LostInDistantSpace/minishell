@@ -6,11 +6,31 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 22:04:20 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/21 19:14:23 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/21 20:13:07 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	seek_spe_char(char *input, int i)
+{
+	char	quote;
+
+	quote = 0;
+	while (input[i] && !is_spechar(input[i]))
+	{
+		if (input[i] == '\'' || input[i] == '"')
+		{
+			quote = input[i++];
+			while (input[i] != quote && input[i])
+				i++;
+			quote = 0;
+		}
+		else
+			i++;
+	}
+	return (i);
+}
 
 int	is_spechar(char c)
 {
@@ -28,36 +48,6 @@ char	*ft_double_join(char *left, char *middle, char *right)
 	str = ft_strjoin(tmp, right);
 	free(tmp);
 	return (str);
-}
-
-int	word_num(char *input, int pos)
-{
-	int		i;
-	int		words;
-	char	quote;
-
-	i = pos;
-	words = 0;
-	quote = 0;
-	while (input[i] < 0 || ft_iswhitespace(input[i]))
-		i++;
-	while (input[i] && input[i] != '|')
-	{
-		if (input[i] == '\'' || input[i] == '"')
-		{
-			if (!quote && (i == 0 || (i > 0 && ft_iswhitespace(input[i - 1]))))
-				words++;
-			if (!quote || quote == input[i])
-				quote = input[i] - quote;
-		}
-		else if (!quote && input[i] > 0 && !ft_iswhitespace(input[i]))
-		{
-			if (i == pos || ft_iswhitespace(input[i - 1]))
-				words++;
-		}
-		i++;
-	}
-	return (words);
 }
 
 char	*ft_substr_del(char *s, unsigned int start, size_t len)

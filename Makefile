@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#    By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/10 16:41:52 by bmouhib           #+#    #+#              #
-#    Updated: 2025/01/20 17:44:37 by marvin           ###   ########.fr        #
+#    Updated: 2025/01/21 19:45:16 by bmouhib          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ SRC			+=	$(PARS_PATH)syntax_errors.c
 SRC			+=	$(PARS_PATH)syntax_utils.c
 SRC			+=	$(PARS_PATH)syntax.c
 SRC			+=	$(PARS_PATH)token_utils.c
+SRC			+=	$(PARS_PATH)token_words.c
 SRC			+=	$(PARS_PATH)tokenization.c
 SRC			+=	TESTS.c
 SRC			+=	$(EXEC_PATH)built_ins.c

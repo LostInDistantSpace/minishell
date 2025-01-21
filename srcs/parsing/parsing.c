@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:49:05 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/21 15:57:27 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/21 22:28:37 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,35 +39,6 @@ int	check_input(t_env **env, char *line)
 	return (0);
 }
 
-char	*expand_var(char *str, t_env *env, int exit_status)
-{
-	int		i;
-	int		step;
-	char	quote;
-	char	*array[2];
-
-	array[0] = str;
-	i = 0;
-	init_expand(&array[1], &quote, &step, &i);
-	while (str[i])
-	{
-		if (str[i] == '\'')
-			quote = str[i] - quote;
-		if (!quote && str[i] == '$')
-		{
-			array[1] = fill_from_step(array[1], str, step, i);
-			array[1] = concat_var(env, array, &i, exit_status);
-			if (!array[1])
-				return (free(str), NULL);//error management
-			step = i;
-		}
-		else
-			i++;
-	}
-	array[1] = fill_from_step(array[1], str, step, i);
-	return (free(str), array[1]);
-}
-
 t_token	*parse(t_env *env, int exit_status, char *home)
 {
 	int		syntax;
@@ -78,10 +49,10 @@ t_token	*parse(t_env *env, int exit_status, char *home)
 	line = get_input(prompt(env, home));
 	if (check_input(&env, line))
 		return (NULL);
-	syntax = syntax_checker(line);
+	syntax = syntax_checker(line); //should modify exit_status
 	if (!syntax)
 	{
-		token_list = tokenize_input(line);
+		token_list = tokenize_input(line, env, exit_status);
 		handle_heredocs(token_list, env, exit_status);
 		if (g_signal == SIGINT)
 		{

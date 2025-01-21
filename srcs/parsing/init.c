@@ -6,11 +6,20 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 22:07:47 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/13 17:40:35 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/21 22:31:41 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+t_parse	create_data(t_env *env, int exit_status)
+{
+	t_parse	data;
+
+	data.env = env;
+	data.exit_status = exit_status;
+	return (data);
+}
 
 t_env	*init(struct sigaction *sa, char **ep, int *exit_status)
 {
