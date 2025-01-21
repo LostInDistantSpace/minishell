@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:18:08 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/14 15:51:26 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/21 15:15:21 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,7 @@ char	*expand(char *str, t_env *env, char q, int exit_status)
 			i++;
 	}
 	array[1] = fill_from_step(array[1], str, step, i);
-	free(str);
-	return (array[1]);
+	return (free(str), array[1]);
 }
 
 char	*clean_whitespace(char *str)
