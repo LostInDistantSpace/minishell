@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 12:29:17 by bmouhib           #+#    #+#             */
-/*   Updated: 2024/12/19 19:29:04 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/21 18:32:59 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ int		ft_atoi_base(const char *str, int base);
 int		ft_has_prefix(const char *str, int base);
 long	ft_min(long a, long b);
 long	ft_max(long a, long b);
+int		ft_strcmp(char *s1, char *s2);
 
 /***********************/
 /****** FT_PRINTF ******/
