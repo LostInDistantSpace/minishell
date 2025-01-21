@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:29:22 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/20 17:20:37 by marvin           ###   ########.fr       */
+/*   Updated: 2025/01/21 13:24:22 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,11 @@ int	check_echo_flag(char *flag)
 	int	i;
 
 	i = 1;
+	if (flag[0] != '-')
+		return (0);
 	while (flag[i])
 	{
-		if (flag[0] != '-' || flag[i] != 'n')
+		if (flag[i] != 'n')
 			return (0);
 		i++;
 	}
