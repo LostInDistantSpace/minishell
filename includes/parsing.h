@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 17:12:55 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/20 16:11:02 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/20 18:52:31 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef struct s_ast		t_ast;
 typedef struct s_env		t_env;
 typedef struct sigaction	t_sigac;
 
-t_token	*parse(t_env *env, int exit_status);
+t_token	*parse(t_env *env, int exit_status, char *home);
 
 int		syntax_checker(char *line);
 int		syntax_init(char *line, char *q, int *i);
@@ -41,7 +41,6 @@ int		word_num(char *input, int pos);
 char	*ft_double_join(char *l, char *m, char *r);
 
 char	*get_var(t_env *env, char *key);
-char	*get_home(t_env *env);
 
 int		is_spechar(char c);
 char	*ft_substr_del(char *s, unsigned int start, size_t len);
@@ -64,6 +63,7 @@ void	clean_tokens(t_token **tok, t_env *env, int exit_status);
 
 int		char_not_handled(char c);
 int		unclosed_quote(void);
+int		unexpected_token(char *token);
 
 /******************/
 /* TESTS FUNCTIONS*/

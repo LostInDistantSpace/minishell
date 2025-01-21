@@ -6,21 +6,19 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 23:00:40 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/20 15:44:23 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/20 18:30:08 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_home(t_env *env)
+char	*get_home(char *home)
 {
 	int		home_len;
-	char	*home;
 	char	*cwd;
 	char	*gwd;
 
 	cwd = getcwd(NULL, 0);
-	home = get_var(env, "HOME");
 	if (!home)
 		return (ft_strjoin(NON_PRINT B_BLUE BOLD END_NP, cwd));
 	home_len = ft_strlen(home);
@@ -33,18 +31,22 @@ char	*get_home(t_env *env)
 	return (ft_strjoin(NON_PRINT B_BLUE BOLD END_NP, cwd));
 }
 
-char	*prompt(t_env *env)
+char	*prompt(t_env *env, char *home)
 {
 	char	*tmp;
 	char	*dir;
 	char	*user;
 	char	*prompt;
 
-	if (get_var(env, "USER"))
-		user = ft_strjoin(NON_PRINT GREEN BOLD END_NP, getenv("USER"));
-	else
-		user = NULL;
-	dir = get_home(env);
+	user = get_var(env, "USER");
+	if (user)
+	{
+		tmp = user;
+		user = ft_strjoin(NON_PRINT GREEN BOLD END_NP, tmp);
+		free(tmp);
+	}
+	dir = get_home(home);
+	free(home);
 	if (user)
 	{
 		tmp = ft_double_join(user, " ", dir);
