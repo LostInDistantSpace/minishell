@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:04:27 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/21 14:52:16 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/21 15:27:45 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	ft_echo(t_ast *node, t_data *data)//space compression?
 
 	i = 1;
 	line = 0;
-	printf("node 1 %s\n", node->args[1]);
 	if (node->args[1] != NULL)
 	{
 		if (ft_strncmp(node->args[1], "-n", 2) == 0)
