@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:43:30 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/21 22:32:43 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/22 15:04:24 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,7 @@ int	handle_redir(char *input, int *pos)
 	return (type);
 }
 
-/*
-Handles the words in the input string.
-*/
-char	*handle_word(char **s, int *pos)
+char	*handle_delim(char **s, int *pos)
 {
 	int		i;
 	char	quote;
@@ -84,7 +81,7 @@ void	handle_redirs(char **input, int pos, t_token **head, t_parse data)
 			return ; // handle error
 		while ((*input)[pos] && ft_iswhitespace((*input)[pos]))
 			pos++;
-		value = handle_word(input, &pos);
+		value = handle_delim(input, &pos);
 		if (type != REDIR_HEREDOC)
 			value = expand(value, data.env, '\'', data.exit_status);
 		token = new_token(value, type);

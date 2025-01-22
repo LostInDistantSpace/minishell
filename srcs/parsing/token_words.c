@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 19:43:32 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/21 22:35:26 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/22 15:05:02 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,25 @@ int	word_num(char *input, int pos)
 	return (words);
 }
 
+char	*get_words(char *input, int pos)
+{
+	int		i;
+	char	*tmp;
+	char	*result;
+
+	i = 0;
+	result = malloc(ft_strlen(input) + 1);
+	while (input[pos] && input[pos] != '|')
+	{
+		if (input[pos] > 0)
+			result[i++] = input[pos];
+		pos++;
+	}
+	result[i] = 0;
+	tmp = ft_strdup(result);
+	return (free(result), tmp);
+}
+
 char	*expand_var(char *str, t_env *env, int exit_status)
 {
 	int		i;
@@ -68,23 +87,31 @@ char	*expand_var(char *str, t_env *env, int exit_status)
 	return (free(str), array[1]);
 }
 
-char	*get_words(char *input, int pos)
+/*
+Handles the words in the input string.
+*/
+char	*handle_word(char **s, int *pos)
 {
 	int		i;
-	char	*tmp;
-	char	*result;
+	char	quote;
+	char	*value;
 
-	i = 0;
-	result = malloc(ft_strlen(input) + 1);
-	while (input[pos] && input[pos] != '|')
+	i = *pos;
+	quote = 0;
+	while ((*s)[i] && !ft_iswhitespace((*s)[i]))
 	{
-		if (input[pos] > 0)
-			result[i++] = input[pos];
-		pos++;
+		if ((!quote || (*s)[i] == quote) && ((*s)[i] == '"' || (*s)[i] == '\''))
+		{
+			quote = (*s)[i++];
+			while ((*s)[i] != quote)
+				i++;
+			quote = 0;
+		}
+		i++;
 	}
-	result[i] = 0;
-	tmp = ft_strdup(result);
-	return (free(result), tmp);
+	value = ft_substr_del(*s, *pos, i - *pos);
+	*pos = i;
+	return (value);
 }
 
 int	handle_words(char *input, int *pos, t_token **head, t_parse data)
@@ -110,5 +137,5 @@ int	handle_words(char *input, int *pos, t_token **head, t_parse data)
 	}
 	array[num_word] = NULL;
 	add_token(head, word_token(&array, num_word));
-	return (num_word);
+	return (free(input), num_word);
 }
