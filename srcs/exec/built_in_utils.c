@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:29:22 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/20 17:20:37 by marvin           ###   ########.fr       */
+/*   Updated: 2025/01/22 14:26:35 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@ int	check_key_name(char *key)
 	int	i;
 
 	i = 0;
+	if (key[0] == '=')
+		return (0);
+	if (ft_isdigit(key[0]))
+		return (0);
 	while (key[i])
 	{
 		if (!ft_isalnum(key[i]) && key[i] != '_')
@@ -59,6 +63,8 @@ char	*get_key(char *var)
 		i++;
 	}
 	key[i] = 0;
+	if (key[0] == 0)
+		printf("export : %s not a valid identifier\n", var);
 	return (key);
 }
 
@@ -67,11 +73,36 @@ int	check_echo_flag(char *flag)
 	int	i;
 
 	i = 1;
+	if (flag[0] != '-')
+		return (0);
 	while (flag[i])
 	{
-		if (flag[0] != '-' || flag[i] != 'n')
+		if (flag[i] != 'n')
 			return (0);
 		i++;
 	}
 	return (1);
+}
+
+void	go_home(t_env **env, t_data *data)
+{
+	t_env	*current;
+
+	current = *env;
+	while (current)
+	{
+		if (ft_strcmp(current->key, "HOME") == 0)
+		{
+			if (chdir(current->value) == -1)
+			{
+				*data->exit_status = 1;
+				return (perror(NULL));
+			}
+			return;
+		}
+		current = current->next;
+	}
+	printf("cd : HOME not set\n");
+	*data->exit_status = 1;
+	return;
 }

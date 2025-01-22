@@ -6,17 +6,25 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:33:19 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/16 17:13:56 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/22 14:54:23 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-/*
-- check if command is absolute path to command (access)
-- if not
+char	*check_command(char *command)
+{
+	struct stat	stats;
 
-*/
+	stat(command, &stats);
+	if (S_ISDIR(stats.st_mode))
+	{	
+		printf("%s : is a directory\n", command);
+		return (NULL);
+	}
+	else
+		return (command);
+}
 
 char	*test_path(char *path, char *cmd, t_data *data)
 {
@@ -75,5 +83,7 @@ char	*get_path(char *cmd, t_data *data)
 		return (ft_error(data), NULL);
 	correct_path = find_cmd_path(cmd, paths, data);
 	free_array(&paths);
+	if (!correct_path)
+		printf("%s : command not found\n", cmd);
 	return (correct_path);
 }
