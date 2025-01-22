@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:04:27 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/22 12:12:30 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/22 14:26:55 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,25 +100,30 @@ void	ft_env(t_env **env, t_data *data)
 
 void	ft_cd(t_ast *node, t_env **env, t_data *data)
 {
-	t_env	*current;
+	t_env	*traverse_1;
+	t_env	*traverse_2;
 	char	*buff;
-	char	*old_pwd;
 
-	current = *env;
+	traverse_1 = *env;
+	traverse_2 = *env;
 	buff = NULL;
-	old_pwd = getcwd(buff, PATH_MAX);
-	free(buff);
-	if (!old_pwd)
-		return (perror(NULL));
+	if (!node->args[1])
+		return(go_home(env, data));
 	if (chdir(node->args[1]) == -1)
 	{	
 		*data->exit_status = 1;
-		free(old_pwd);
 		return (perror(NULL));
 	}
-	while (ft_strcmp(current->key, "OLDPWD"))
-		current = current->next;
-	if (current->value)
-		free(current->value);
-	current->value = old_pwd;
+	while (ft_strcmp(traverse_1->key, "OLDPWD"))
+		traverse_1 = traverse_1->next;
+	if (traverse_1->value)
+		free(traverse_1->value);
+	while (ft_strcmp(traverse_2->key, "PWD"))
+		traverse_2 = traverse_2->next;
+	traverse_1->value = ft_strdup(traverse_2->value);
+	if (!traverse_1->value)
+		ft_error(data);
+	free(traverse_2->value);
+	traverse_2->value = getcwd(buff, PATH_MAX);
+	free(buff);
 }

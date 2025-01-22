@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:29:22 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/22 11:30:51 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/22 14:26:35 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,27 @@ int	check_echo_flag(char *flag)
 		i++;
 	}
 	return (1);
+}
+
+void	go_home(t_env **env, t_data *data)
+{
+	t_env	*current;
+
+	current = *env;
+	while (current)
+	{
+		if (ft_strcmp(current->key, "HOME") == 0)
+		{
+			if (chdir(current->value) == -1)
+			{
+				*data->exit_status = 1;
+				return (perror(NULL));
+			}
+			return;
+		}
+		current = current->next;
+	}
+	printf("cd : HOME not set\n");
+	*data->exit_status = 1;
+	return;
 }
