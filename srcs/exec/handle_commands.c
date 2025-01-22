@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:36:54 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/21 17:20:34 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/22 11:55:41 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,11 @@ void	find_command(t_ast *node, t_data *data)
 	char	**env;
 	char	*path;
 
-	if (access(node->args[0], X_OK == -1))
+	if (access(node->args[0], X_OK == -1))//switch order
 		path = get_path(node->args[0], data);
 	else
-		path = ft_strdup(node->args[0]);
-	if (!path)
+		path = ft_strdup(node->args[0]);//switch, check if is directory/permission
+	if (!path)//change, print in get_path
 	{
 		printf("%s: Command not found\n", node->args[0]);
 		if (data->is_child == true)

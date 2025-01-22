@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 14:04:00 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/16 17:17:47 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/22 13:47:43 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	delete_var(char *key, t_env **env)
 	delete = NULL;
 	while (current)
 	{
-		if (ft_strcmp(key, current->next->key) == 0)
+		if (current->next && ft_strcmp(key, current->next->key) == 0)
 		{
 			delete = current->next;
 			current->next = current->next->next;

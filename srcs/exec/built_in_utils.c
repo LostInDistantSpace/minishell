@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:29:22 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/21 14:37:48 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/22 11:30:51 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	check_key_name(char *key)
 
 	i = 0;
 	if (key[0] == '=')
+		return (0);
+	if (ft_isdigit(key[0]))
 		return (0);
 	while (key[i])
 	{
