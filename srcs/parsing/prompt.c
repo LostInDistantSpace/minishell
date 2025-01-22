@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 23:00:40 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/21 15:42:19 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/22 15:21:37 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,15 @@ char	*get_home(char *home)
 
 	cwd = getcwd(NULL, 0);
 	if (!home || !cwd)
-		return (ft_strjoin(NON_PRINT B_BLUE BOLD END_NP, cwd));
+		return (ft_strjoin(NON_PRINT B_MAGENTA BOLD END_NP, cwd));
 	home_len = ft_strlen(home);
 	if (home && !ft_strncmp(cwd, home, home_len))
 	{
-		gwd = ft_strjoin(NON_PRINT B_BLUE BOLD END_NP "~", cwd + home_len);
+		gwd = ft_strjoin(NON_PRINT B_MAGENTA BOLD END_NP "~", cwd + home_len);
 		free(cwd);
 		return (gwd);
 	}
-	return (ft_strjoin(NON_PRINT B_BLUE BOLD END_NP, cwd));
+	return (ft_strjoin(NON_PRINT B_MAGENTA BOLD END_NP, cwd));
 }
 
 char	*prompt(t_env *env, char *home)
@@ -42,7 +42,7 @@ char	*prompt(t_env *env, char *home)
 	if (user)
 	{
 		tmp = user;
-		user = ft_strjoin(NON_PRINT GREEN BOLD END_NP, tmp);
+		user = ft_strjoin(NON_PRINT B_GREEN BOLD END_NP, tmp);
 		free(tmp);
 	}
 	dir = get_home(home);
