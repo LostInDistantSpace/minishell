@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:04:27 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/22 14:26:55 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/22 16:03:34 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,15 @@ void	ft_pwd(t_data *data)
 	}
 }
 
-void	ft_env(t_env **env, t_data *data)
+void	ft_env(t_ast *node, t_env **env, t_data *data)
 {
 	t_env	*current;
 
+	if (node->args[1] != NULL)
+	{	
+		*data->exit_status = 1;
+		return;
+	}
 	current = *env;
 	while (current)
 	{

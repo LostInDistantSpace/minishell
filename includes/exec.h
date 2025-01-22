@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:22:40 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/22 14:55:02 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/22 15:53:14 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	ft_error(t_data *data);
 void	ft_echo(t_ast *node, t_data *data);
 int		check_echo_flag(char *flag);
 void	ft_pwd(t_data *data);
-void	ft_env(t_env **env, t_data *data);
+void	ft_env(t_ast *node, t_env **env, t_data *data);
 void	ft_unset(t_ast *node, t_data *data);
 void	ft_cd(t_ast *node, t_env **env, t_data *data);
 void	go_home(t_env **env, t_data *data);

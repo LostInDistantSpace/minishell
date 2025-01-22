@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:52:04 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/22 12:12:36 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/22 15:58:22 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,14 +75,14 @@ void	check_value(char *var, char *key, t_env *node, t_data *data)
 	}
 }
 
-void	check_key(char *var, t_env **env, t_data *data)
+void	check_key(char *var, t_env **env, t_data *data)//tweak exit status
 {
 	t_env	*current;
 	char	*key;
 
 	key = get_key(var);
 	if (key[0] == 0)
-		return;
+		return(free(key));
 	current = *env;
 	if (!key)
 		return (ft_error(data));

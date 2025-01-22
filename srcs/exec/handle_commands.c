@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:36:54 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/22 15:00:14 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/22 15:53:23 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	handle_commands(t_ast *node, t_data *data)
 	else if (ft_strcmp(node->args[0], "unset") == 0)
 		ft_unset(node, data);
 	else if (ft_strcmp(node->args[0], "env") == 0)
-		ft_env(data->env, data);
+		ft_env(node, data->env, data);
 	else if (ft_strcmp(node->args[0], "exit") == 0)
 		ft_exit(node, data);
 	else

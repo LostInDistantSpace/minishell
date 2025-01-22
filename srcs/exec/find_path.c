@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:33:19 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/22 14:54:23 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/22 17:19:11 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,15 @@ char	*get_path(char *cmd, t_data *data)
 		current = current->next;
 	}
 	if (!path_str)//if PATH var was deleted or NULL
+	{
+		printf("%s : No such file or directory\n", cmd);
 		return (NULL);
+	}
 	paths = ft_split(path_str, ':');
 	if (!paths)
 		return (ft_error(data), NULL);
 	correct_path = find_cmd_path(cmd, paths, data);
-	free_array(&paths);
 	if (!correct_path)
 		printf("%s : command not found\n", cmd);
-	return (correct_path);
+	return (free_array(&paths), correct_path);
 }
