@@ -6,15 +6,16 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:33:19 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/22 17:19:11 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/22 17:26:15 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-char	*check_command(char *command)
+char	*check_command(char *command, t_data *data)
 {
 	struct stat	stats;
+	char	*path;
 
 	stat(command, &stats);
 	if (S_ISDIR(stats.st_mode))
@@ -22,8 +23,10 @@ char	*check_command(char *command)
 		printf("%s : is a directory\n", command);
 		return (NULL);
 	}
-	else
-		return (command);
+	path = ft_strdup(command);
+	if (!path)
+		ft_error(data);
+	return (path);
 }
 
 char	*test_path(char *path, char *cmd, t_data *data)

@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:36:54 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/22 15:53:23 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/22 17:26:35 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	find_command(t_ast *node, t_data *data)
 	char	*path;
 
 	if (access(node->args[0], X_OK) == 0)
-		path = check_command(node->args[0]);
+		path = check_command(node->args[0], data);
 	else
 		path = get_path(node->args[0], data);
 	if (!path)
