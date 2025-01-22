@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:32:10 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/13 18:04:41 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/21 17:29:31 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,23 @@ char	*get_heredoc_name(void)
 	return (name);
 }
 
+char	*heredoc_exit(char *input, char **name, char *delim, int heredoc)
+{
+	close(heredoc);
+	if (g_signal)
+	{
+		unlink(*name);
+		free(*name);
+		*name = NULL;
+	}
+	if (!input)
+	{
+		printf("minishell: warning: ");
+		printf("here-document delimited by end-of-file (wanted `%s')\n", delim);
+	}
+	return (*name);
+}
+
 char	*create_heredoc(char *delim, t_env *env, int exit_status)
 {
 	int		heredoc;
@@ -43,23 +60,8 @@ char	*create_heredoc(char *delim, t_env *env, int exit_status)
 	while (ft_strcmp(input, delim) != 0)
 	{
 		if (g_signal || !input)
-		{
-			close(heredoc);
-			if (g_signal)
-			{
-				unlink(name);
-				free(name);
-				return (NULL);
-			}
-			if (!input)
-			{
-				// print warning
-				return (name);
-			}
-		}
-		/*
-		** Maybe delete the files if smth went wrong ???
-		*/
+			return (heredoc_exit(input, &name, delim, heredoc));
+		// Maybe delete the files if smth went wrong ???
 		input = expand(input, env, 0, exit_status);
 		if (!input)
 			return (NULL);
@@ -68,9 +70,8 @@ char	*create_heredoc(char *delim, t_env *env, int exit_status)
 		free(input);
 		input = readline("> ");
 	}
-	free(input);
 	close(heredoc);
-	return (name);
+	return (free(input), name);
 }
 
 void	handle_heredocs(t_token *token, t_env *env, int exit_status)

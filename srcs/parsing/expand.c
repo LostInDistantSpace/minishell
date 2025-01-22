@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:18:08 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/21 15:15:21 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/21 16:11:40 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ void	clean_tokens(t_token **token, t_env *env, int exit_status)
 			if (tok->type == !REDIR_HEREDOC && tok->type == !PIPE)
 				array[i] = expand(array[i], env, '\'', exit_status);
 			if (tok->type == WORD)
-				array[i] = clean_whitespace(array[i]);
+				array[i] = clean_whitespace(array[i]); //only in echo
 			i++;
 		}
 		i = 0;
