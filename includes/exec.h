@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:22:40 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/22 14:23:47 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/22 14:55:02 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "minishell.h"
 #include <stdbool.h>
 #include <limits.h>
+#include <sys/stat.h>
 
 typedef struct s_data
 {
@@ -41,8 +42,8 @@ void	restore_in_out(t_data *data);
 char	**get_env(t_env **env);
 
 void	handle_commands(t_ast *node, t_data *data);
-//char	*get_path(char *cmd, char **env);
 char	*get_path(char *cmd, t_data *data);
+char	*check_command(char *command);
 
 void	free_env(t_env **start);
 void	free_data(t_data *data);
