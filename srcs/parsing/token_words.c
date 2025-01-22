@@ -6,19 +6,19 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 19:43:32 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/22 15:05:02 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/22 18:00:26 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	word_num(char *input, int pos)
+int	word_num(char *input)
 {
 	int		i;
 	int		words;
 	char	quote;
 
-	i = pos;
+	i = 0;
 	words = 0;
 	quote = 0;
 	while (input[i] && input[i] != '|')
@@ -32,7 +32,7 @@ int	word_num(char *input, int pos)
 		}
 		else if (!quote && input[i] > 0 && !ft_iswhitespace(input[i]))
 		{
-			if (i == pos || ft_iswhitespace(input[i - 1]))
+			if (i == 0 || ft_iswhitespace(input[i - 1]))
 				words++;
 		}
 		i++;
@@ -59,7 +59,7 @@ char	*get_words(char *input, int pos)
 	return (free(result), tmp);
 }
 
-char	*expand_var(char *str, t_env *env, int exit_status)
+char	*expand_var(char *str, t_env *env, int exit_status, int *pos)
 {
 	int		i;
 	int		step;
@@ -84,6 +84,7 @@ char	*expand_var(char *str, t_env *env, int exit_status)
 			i++;
 	}
 	array[1] = fill_from_step(array[1], str, step, i);
+	(*pos) += i;
 	return (free(str), array[1]);
 }
 
@@ -103,7 +104,7 @@ char	*handle_word(char **s, int *pos)
 		if ((!quote || (*s)[i] == quote) && ((*s)[i] == '"' || (*s)[i] == '\''))
 		{
 			quote = (*s)[i++];
-			while ((*s)[i] != quote)
+			while ((*s)[i] != quote && (*s)[i])
 				i++;
 			quote = 0;
 		}
@@ -116,24 +117,26 @@ char	*handle_word(char **s, int *pos)
 
 int	handle_words(char *input, int *pos, t_token **head, t_parse data)
 {
+	int		i;
 	int		cur_word;
 	int		num_word;
 	char	**array;
 
-	input = expand_var(get_words(input, *pos), data.env, data.exit_status);
-	num_word = word_num(input, *pos);
+	i = 0;
+	input = expand_var(get_words(input, *pos), data.env, data.exit_status, pos);
+	num_word = word_num(input);
 	if (!num_word)
 		return (0);
 	array = malloc((num_word + 1) * sizeof(char *));
 	if (!array)
 		return (-1);
 	cur_word = 0;
-	while (input[*pos] && input[*pos] != '|')
+	while (input[i] && input[i] != '|')
 	{
-		if (input[*pos] > 0 && !ft_iswhitespace(input[*pos]))
-			array[cur_word++] = handle_word(&input, pos);
+		if (input[i] > 0 && !ft_iswhitespace(input[i]))
+			array[cur_word++] = handle_word(&input, &i);
 		else
-			(*pos)++;
+			i++;
 	}
 	array[num_word] = NULL;
 	add_token(head, word_token(&array, num_word));
