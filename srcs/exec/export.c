@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:52:04 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/22 15:58:22 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/23 13:33:44 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,13 +82,17 @@ void	check_key(char *var, t_env **env, t_data *data)//tweak exit status
 
 	key = get_key(var);
 	if (key[0] == 0)
+	{	
+		*data->exit_status = 1;
 		return(free(key));
+	}
 	current = *env;
 	if (!key)
 		return (ft_error(data));
 	if (!check_key_name(key))
 	{	
 		printf("export: %s: not a valid identifier\n", key);
+		*data->exit_status = 1;
 		return ;
 	}
 	while (current)
@@ -110,9 +114,13 @@ void	ft_export(t_ast *node, t_data *data)
 
 	i = 1;
 	if (node->args[1] == NULL)
+	{
+		*data->exit_status = 0;
 		return (print_export(data->env));
+	}
 	while (node->args[i])
 	{
+		*data->exit_status = 0;
 		check_key(node->args[i], data->env, data);
 		i++;
 	}

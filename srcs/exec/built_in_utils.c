@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:29:22 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/22 14:26:35 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/23 13:33:19 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ void	go_home(t_env **env, t_data *data)
 				*data->exit_status = 1;
 				return (perror(NULL));
 			}
+			*data->exit_status = 0;
 			return;
 		}
 		current = current->next;

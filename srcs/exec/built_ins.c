@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:04:27 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/22 16:03:34 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/23 13:39:16 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,4 +131,5 @@ void	ft_cd(t_ast *node, t_env **env, t_data *data)
 	free(traverse_2->value);
 	traverse_2->value = getcwd(buff, PATH_MAX);
 	free(buff);
+	*data->exit_status = 0;
 }
