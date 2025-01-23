@@ -6,7 +6,7 @@
 #    By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/10 16:41:52 by bmouhib           #+#    #+#              #
-#    Updated: 2025/01/21 19:45:16 by bmouhib          ###   ########.fr        #
+#    Updated: 2025/01/23 22:58:01 by bmouhib          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SRC			+=	$(PARS_PATH)parsing.c
 SRC			+=	$(PARS_PATH)prompt.c
 SRC			+=	$(PARS_PATH)signal.c
 SRC			+=	$(PARS_PATH)str_utils.c
+SRC			+=	$(PARS_PATH)substr_del.c
 SRC			+=	$(PARS_PATH)syntax_errors.c
 SRC			+=	$(PARS_PATH)syntax_utils.c
 SRC			+=	$(PARS_PATH)syntax.c

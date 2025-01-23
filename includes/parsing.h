@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 17:12:55 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/22 17:15:24 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/23 23:05:18 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,9 @@ char	*ft_double_join(char *l, char *m, char *r);
 
 char	*get_var(t_env *env, char *key);
 
+int		is_quotes(char c);
 int		is_spechar(char c);
-char	*ft_substr_del(char *s, unsigned int start, size_t len);
+char	*substr_del(char *s, unsigned int start, size_t len);
 
 void	sig_handler(int signum);
 t_sigac	init_sigaction(void);

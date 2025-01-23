@@ -6,13 +6,13 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 19:43:32 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/22 18:00:26 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/23 23:05:18 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	word_num(char *input)
+int	word_num(const char *input)
 {
 	int		i;
 	int		words;
@@ -23,18 +23,14 @@ int	word_num(char *input)
 	quote = 0;
 	while (input[i] && input[i] != '|')
 	{
-		if (input[i] == '\'' || input[i] == '"')
-		{
-			if (!quote && (i == 0 || (i > 0 && ft_iswhitespace(input[i - 1]))))
-				words++;
-			if (!quote || quote == input[i])
-				quote = input[i] - quote;
-		}
-		else if (!quote && input[i] > 0 && !ft_iswhitespace(input[i]))
-		{
+		if (!quote && !ft_iswhitespace(input[i]))
 			if (i == 0 || ft_iswhitespace(input[i - 1]))
 				words++;
-		}
+		if (input[i] == -2)
+			i++;
+		else if (is_quotes(input[i]) && (i == 0 || input[i - 1] > 0))
+			if (quote == input[i] || !quote)
+				quote = input[i] - quote;
 		i++;
 	}
 	return (words);
@@ -43,16 +39,26 @@ int	word_num(char *input)
 char	*get_words(char *input, int pos)
 {
 	int		i;
+	char	quote;
 	char	*tmp;
 	char	*result;
 
 	i = 0;
+	quote = 0;
 	result = malloc(ft_strlen(input) + 1);
 	while (input[pos] && input[pos] != '|')
 	{
-		if (input[pos] > 0)
-			result[i++] = input[pos];
-		pos++;
+		if (input[pos] == '"' || input[pos] == '\'')
+		{
+			quote = input[pos];
+			result[i++] = input[pos++];
+			while (input[pos] != quote && input[pos])
+				result[i++] = input[pos++];
+			result[i++] = input[pos++];
+			quote = 0;
+		}
+		else if (input[pos] > 0)
+			result[i++] = input[pos++];
 	}
 	result[i] = 0;
 	tmp = ft_strdup(result);
@@ -101,7 +107,7 @@ char	*handle_word(char **s, int *pos)
 	quote = 0;
 	while ((*s)[i] && !ft_iswhitespace((*s)[i]))
 	{
-		if ((!quote || (*s)[i] == quote) && ((*s)[i] == '"' || (*s)[i] == '\''))
+		if ((*s)[i] == '"' || (*s)[i] == '\'')
 		{
 			quote = (*s)[i++];
 			while ((*s)[i] != quote && (*s)[i])
@@ -110,7 +116,7 @@ char	*handle_word(char **s, int *pos)
 		}
 		i++;
 	}
-	value = ft_substr_del(*s, *pos, i - *pos);
+	value = substr_del(*s, *pos, i - *pos);
 	*pos = i;
 	return (value);
 }
@@ -133,8 +139,10 @@ int	handle_words(char *input, int *pos, t_token **head, t_parse data)
 	cur_word = 0;
 	while (input[i] && input[i] != '|')
 	{
-		if (input[i] > 0 && !ft_iswhitespace(input[i]))
+		if ((input[i] > 0 || input[i] == -2) && !ft_iswhitespace(input[i]))
+		{
 			array[cur_word++] = handle_word(&input, &i);
+		}
 		else
 			i++;
 	}

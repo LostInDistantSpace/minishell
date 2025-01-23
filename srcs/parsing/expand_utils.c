@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 18:39:29 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/22 17:12:54 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/23 19:49:27 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,28 @@ char	*copy_key(char *str, int *i)
 
 char	*get_var_from_key(t_env *env, char *raw, int *i)
 {
+	int		idx;
+	int		j;
 	char	*key;
 	char	*var;
+	char	*result;
 
 	key = copy_key(raw, i);
 	var = get_var(env, key);
 	free(key);
-	return (var);
+	if (!var)
+		return (NULL);
+	result = malloc(sizeof(char) * (ft_strlen(var) * 2 + 1));
+	idx = -1;
+	j = 0;
+	while (var[++idx])
+	{
+		if (is_spechar(var[idx]) || var[idx] == '"' || var[idx] == '\'')
+			result[j++] = -2;
+		result[j++] = var[idx];
+	}
+	result[j] = 0;
+	return (free (var), result);
 }
 
 /*
