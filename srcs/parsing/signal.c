@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 18:52:05 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/21 19:31:20 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/22 18:07:54 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,6 @@ struct sigaction	init_sigaction(void)
 	sa.sa_handler = SIG_IGN;
 	sa.sa_flags = 0;
 	sigemptyset(&sa.sa_mask);
-	//sigaction(SIGQUIT, &sa, NULL);
+	sigaction(SIGQUIT, &sa, NULL);
 	return (sa);
 }

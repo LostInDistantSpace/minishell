@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 17:12:55 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/21 22:34:34 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/22 17:15:24 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ int		handle_words(char *input, int *pos, t_token **head, t_parse p);
 char	*handle_word(char **s, int *pos);
 
 int		ft_strcmp(char *s1, char *s2);
-int		word_num(char *input, int pos);
 char	*ft_double_join(char *l, char *m, char *r);
 
 char	*get_var(t_env *env, char *key);
@@ -69,7 +68,6 @@ char	*copy_key(char *str, int *i);
 char	*concat_var(t_env *env, char **array, int *i, int exit_status);
 char	*fill_from_step(char *prev, char *str, int start, int stop);
 void	clean_tokens(t_token **tok, t_env *env, int exit_status);
-char	*expand_var(char *str, t_env *env, int exit_status);
 char	*expand(char *str, t_env *env, char q, int exit_status);
 
 int		char_not_handled(char c);

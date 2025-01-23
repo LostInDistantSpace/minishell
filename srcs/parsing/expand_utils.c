@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 18:39:29 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/20 18:07:52 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/22 17:12:54 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*copy_key(char *str, int *i)
 	return (var);
 }
 
-char	*get_var_from_ket(t_env *env, char *raw, int *i)
+char	*get_var_from_key(t_env *env, char *raw, int *i)
 {
 	char	*key;
 	char	*var;
@@ -67,7 +67,7 @@ char	*concat_var(t_env *env, char **array, int *i, int exit_status)
 	char	*previous;
 
 	(*i)++;
-	var = get_var_from_ket(env, array[0], i);
+	var = get_var_from_key(env, array[0], i);
 	previous = array[1];
 	if (!previous)
 		return (free(var), NULL);
@@ -99,11 +99,13 @@ char	*fill_from_step(char *prev, char *str, int start, int stop)
 	char	*result;
 
 	i = -1;
-	len = ft_strlen(prev);
-	result = malloc(sizeof(char) * (len + stop - start + 1));
+	len = ft_strlen(prev) + stop - start + 1;
+	if (!prev || (int)len == stop - start + 1)
+		return (ft_substr(str, start, stop - start));
+	result = malloc(sizeof(char) * len);
 	if (!result)
 		return (free(prev), NULL);
-	while (++i < len)
+	while (prev[++i])
 		result[i] = prev[i];
 	free(prev);
 	while (start < stop)
