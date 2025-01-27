@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 17:12:55 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/23 23:05:18 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/27 17:32:02 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,11 @@ void	handle_heredocs(t_token *token, t_env *env, int exit_status);
 
 void	init_expand(char **result, char *quote, int *step, int *i);
 char	*copy_key(char *str, int *i);
-char	*concat_var(t_env *env, char **array, int *i, int exit_status);
-char	*fill_from_step(char *prev, char *str, int start, int stop);
 void	clean_tokens(t_token **tok, t_env *env, int exit_status);
 char	*expand(char *str, t_env *env, char q, int exit_status);
+char	*get_var_from_key(t_env *env, char *raw, int *i);
+char	*concat_var(t_env *env, char **array, int *i, int exit_status);
+char	*fill_from_step(char *prev, char *str, int start, int stop);
 
 int		char_not_handled(char c);
 int		unclosed_quote(void);

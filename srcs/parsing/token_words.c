@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 19:43:32 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/27 14:30:55 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/27 17:42:19 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ char	*get_words(char *input, int pos)
 	char	*result;
 
 	i = 0;
-	quote = 0;
 	result = malloc(ft_strlen(input) + 1);
 	while (input[pos] && input[pos] != '|')
 	{
@@ -54,13 +53,12 @@ char	*get_words(char *input, int pos)
 			result[i++] = input[pos++];
 			while (input[pos] != quote && input[pos])
 				result[i++] = input[pos++];
-			result[i++] = input[pos++];
+			result[i++] = input[pos];
 			quote = 0;
 		}
 		else if (input[pos] > 0)
-			result[i++] = input[pos++];
-		else
-			pos++;
+			result[i++] = input[pos];
+		pos++;
 	}
 	result[i] = 0;
 	tmp = ft_strdup(result);
@@ -109,7 +107,9 @@ char	*handle_word(char **s, int *pos)
 	quote = 0;
 	while ((*s)[i] && !ft_iswhitespace((*s)[i]))
 	{
-		if ((*s)[i] == '"' || (*s)[i] == '\'')
+		if ((*s)[i] == -2)
+			i++;
+		else if ((*s)[i] == '"' || (*s)[i] == '\'')
 		{
 			quote = (*s)[i++];
 			while ((*s)[i] != quote && (*s)[i])
