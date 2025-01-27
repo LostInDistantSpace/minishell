@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 17:18:59 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/27 14:28:31 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/27 15:06:39 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,28 @@ int	count_size(t_env **start)
 	return (size);
 }
 
+char	*join_env(t_env *var, t_data *data)
+{
+	char	*join;
+	char	*big_join;
+
+	join = ft_strjoin(var->key, "=");
+	if (!join)
+		return (ft_error(data), NULL);
+	big_join = ft_strjoin(join, var->value);
+	if (!big_join)
+	{	
+		free(join);
+		return (ft_error(data), NULL);
+	}
+	return (big_join);
+}
+
 char	**get_env(t_env **env, t_data *data)
 {
 	char	**new_env;
 	int		i;
 	t_env	*current;
-	char	*join;
-	char	*var;
 
 	new_env = malloc(sizeof(char *) * (count_size(env) + 1));
 	if (!new_env)
@@ -42,13 +57,7 @@ char	**get_env(t_env **env, t_data *data)
 	current = *env;
 	while (current)
 	{
-		join = ft_strjoin(current->key, "=");
-		var = ft_strjoin(join, current->value);
-		new_env[i] = ft_strdup(var);
-		if (!join || !var || !new_env[i])
-			return (free(join), free(var), free(new_env[i]), ft_error(data), NULL);//too long
-		free(join);
-		free(var);
+		new_env[i] = join_env(current, data);
 		i++;
 		current = current->next;
 	}

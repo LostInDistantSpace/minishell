@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:26:27 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/27 14:25:19 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/27 14:40:45 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,15 @@ void	free_child(t_data *data)
 	free(data);
 }
 
-void	child_pipe(int pipe[2])//data?
+void	child_pipe(int pipe[2], t_data *data)
 {
 	close(pipe[0]);
-	dup2(pipe[1], STDOUT_FILENO);//protect, error?
+	if (dup2(pipe[1], STDOUT_FILENO) == -1)
+	{
+		close(pipe[1]);
+		free_child(data);
+		exit(EXIT_FAILURE);
+	}
 	close(pipe[1]);
 }
 
@@ -40,10 +45,10 @@ void	fork_pipe(t_ast *node, t_data *data)
 	else if (child == 0)
 	{
 		data->is_child = true;
-		child_pipe(fd);
+		child_pipe(fd, data);
 		ft_ast(node->left, data);
 		free_child(data);
-		exit(EXIT_SUCCESS);//does it matter?
+		exit(EXIT_SUCCESS);
 	}
 	else
 	{

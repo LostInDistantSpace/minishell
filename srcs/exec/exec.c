@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:23:12 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/27 14:21:32 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/27 14:36:18 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	exec(t_ast **head, t_env **start, int *e_status)
 {
 	t_data	*data;
 
-	printf("test\n");
 	data = (t_data *)malloc(sizeof(t_data));
 	if (!data)
 	{
@@ -60,7 +59,7 @@ void	exec(t_ast **head, t_env **start, int *e_status)
 		exit(EXIT_FAILURE);
 	}
 	if (!init_data(data, head, start, e_status))
-		return (ft_error(data));//stop everything?
+		return (ft_error(data));
 	ft_ast(*head, data);
 	restore_in_out(data);
 	free(data);

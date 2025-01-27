@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:52:04 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/27 14:29:15 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/27 14:57:02 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	check_value(char *var, char *key, t_env *node, t_data *data)
 	}
 }
 
-void	check_key(char *var, t_env **env, t_data *data)//too long
+void	check_key(char *var, t_env **env, t_data *data)
 {
 	t_env	*current;
 	char	*key;
@@ -89,12 +89,8 @@ void	check_key(char *var, t_env **env, t_data *data)//too long
 	current = *env;
 	if (!key)
 		return (ft_error(data));
-	if (!check_key_name(key))
-	{	
-		printf("export: %s: not a valid identifier\n", key);
-		*data->exit_status = 1;
+	if (!check_key_name(key, data))
 		return ;
-	}
 	while (current)
 	{
 		if (ft_strcmp(current->key, key) == 0)

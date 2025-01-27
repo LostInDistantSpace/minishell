@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+         #
+#    By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/10 16:41:52 by bmouhib           #+#    #+#              #
-#    Updated: 2025/01/23 22:58:01 by bmouhib          ###   ########.fr        #
+#    Updated: 2025/01/27 14:44:53 by lemarian         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ SRC			+=	TESTS.c
 SRC			+=	$(EXEC_PATH)built_ins.c
 SRC			+=	$(EXEC_PATH)built_in_utils.c
 SRC			+=	$(EXEC_PATH)export.c
+SRC			+=	$(EXEC_PATH)export_utils.c
 SRC			+=	$(EXEC_PATH)find_path.c
 SRC			+=	$(EXEC_PATH)get_env.c
 SRC			+=	$(EXEC_PATH)handle_commands.c

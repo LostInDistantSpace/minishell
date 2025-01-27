@@ -6,67 +6,11 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:29:22 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/27 14:27:14 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/27 14:47:20 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
-
-int	check_key_name(char *key)
-{
-	int	i;
-
-	i = 0;
-	if (key[0] == '=')
-		return (0);
-	if (ft_isdigit(key[0]))
-		return (0);
-	while (key[i])
-	{
-		if (!ft_isalnum(key[i]) && key[i] != '_')
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-char	*get_value(char *var)
-{
-	int	i;
-
-	i = 0;
-	while (var[i])
-	{
-		if (var[i] == '=')
-			return (&var[i]);
-		i++;
-	}
-	return (&var[i]);
-}
-
-char	*get_key(char *var)
-{
-	int		i;
-	char	*key;
-
-	i = 0;
-	key = NULL;
-	while (var[i] && var[i] != '=')
-		i++;
-	key = malloc(sizeof(char) * (i + 1));
-	if (!key)
-		return (NULL);
-	i = 0;
-	while (var[i] && var[i] != '=')
-	{
-		key[i] = var[i];
-		i++;
-	}
-	key[i] = 0;
-	if (key[0] == 0)
-		printf("export : %s not a valid identifier\n", var);
-	return (key);
-}
 
 int	check_echo_flag(char *flag)
 {
@@ -82,6 +26,30 @@ int	check_echo_flag(char *flag)
 		i++;
 	}
 	return (1);
+}
+
+void	update_pwd(t_env **env, t_data *data)
+{
+	t_env	*traverse_1;
+	t_env	*traverse_2;
+	char	*buff;
+
+	traverse_1 = *env;
+	traverse_2 = *env;
+	buff = NULL;
+	while (ft_strcmp(traverse_1->key, "OLDPWD"))
+		traverse_1 = traverse_1->next;
+	if (traverse_1->value)
+		free(traverse_1->value);
+	while (ft_strcmp(traverse_2->key, "PWD"))
+		traverse_2 = traverse_2->next;
+	traverse_1->value = ft_strdup(traverse_2->value);
+	if (!traverse_1->value)
+		ft_error(data);
+	free(traverse_2->value);
+	traverse_2->value = getcwd(buff, PATH_MAX);
+	free(buff);
+	*data->exit_status = 0;
 }
 
 void	go_home(t_env **env, t_data *data)
