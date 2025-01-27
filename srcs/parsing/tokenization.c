@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:43:30 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/23 23:05:18 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/27 14:30:11 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ t_token	*tokenize_input(char *input, t_env *env, int exit_status)
 			add_token(&head, new_token("|", PIPE));
 			i++;
 		}
+
 	}
 	return (head);
 }
