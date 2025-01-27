@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:33:19 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/22 17:26:15 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/27 14:29:30 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	*check_command(char *command, t_data *data)
 {
 	struct stat	stats;
-	char	*path;
+	char		*path;
 
 	stat(command, &stats);
 	if (S_ISDIR(stats.st_mode))
@@ -79,7 +79,7 @@ char	*get_path(char *cmd, t_data *data)
 			path_str = current->value;
 		current = current->next;
 	}
-	if (!path_str)//if PATH var was deleted or NULL
+	if (!path_str)
 	{
 		printf("%s : No such file or directory\n", cmd);
 		return (NULL);

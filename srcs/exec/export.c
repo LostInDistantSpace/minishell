@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:52:04 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/23 13:33:44 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/27 14:29:15 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	check_value(char *var, char *key, t_env *node, t_data *data)
 	}
 }
 
-void	check_key(char *var, t_env **env, t_data *data)//tweak exit status
+void	check_key(char *var, t_env **env, t_data *data)//too long
 {
 	t_env	*current;
 	char	*key;
@@ -84,7 +84,7 @@ void	check_key(char *var, t_env **env, t_data *data)//tweak exit status
 	if (key[0] == 0)
 	{	
 		*data->exit_status = 1;
-		return(free(key));
+		return (free(key));
 	}
 	current = *env;
 	if (!key)

@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:26:27 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/16 17:17:15 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/27 14:25:19 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,27 @@ void	free_child(t_data *data)
 	free(data);
 }
 
-void	create_pipe(t_ast *node, t_data *data)
+void	child_pipe(int pipe[2])//data?
+{
+	close(pipe[0]);
+	dup2(pipe[1], STDOUT_FILENO);//protect, error?
+	close(pipe[1]);
+}
+
+void	fork_pipe(t_ast *node, t_data *data)
 {
 	pid_t	child;
 	int		fd[2];
 
 	if (pipe(fd) == -1)
-		perror(strerror(errno));
+		perror(NULL);
 	child = fork();
 	if (child == -1)
-		perror(strerror(errno));
+		perror(NULL);
 	else if (child == 0)
 	{
 		data->is_child = true;
-		close(fd[0]);
-		dup2(fd[1], STDOUT_FILENO);//protect
-		close(fd[1]);
+		child_pipe(fd);
 		ft_ast(node->left, data);
 		free_child(data);
 		exit(EXIT_SUCCESS);//does it matter?
@@ -47,6 +52,6 @@ void	create_pipe(t_ast *node, t_data *data)
 		dup2(fd[0], STDIN_FILENO);
 		close(fd[0]);
 		ft_ast(node->right, data);
-		wait(NULL);//update with exit status
+		wait(NULL);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:36:54 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/22 17:26:35 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/27 13:55:01 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	fork_command(t_ast *node, t_data *data, char *path, char **env)
 	{	
 		waitpid(child, &status, 0);
 		if (WIFEXITED(status))
-			*data->exit_status = WEXITSTATUS(status);//check this
+			*data->exit_status = WEXITSTATUS(status);
 		else
 			*data->exit_status = 0;
 		free(path);
@@ -68,7 +68,7 @@ void	find_command(t_ast *node, t_data *data)
 		*data->exit_status = 127;
 		return ;
 	}
-	env = get_env(data->env);
+	env = get_env(data->env, data);
 	if (!env)
 		return (ft_error(data));
 	if (data->is_child == false)

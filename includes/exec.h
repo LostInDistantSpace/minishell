@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:22:40 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/22 17:26:26 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/27 13:57:20 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,14 @@ typedef struct s_data
 void	ft_ast(t_ast *node, t_data *data);
 
 void	exec(t_ast **head, t_env **start, int *e_status);
-void	create_pipe(t_ast *node, t_data *data);
+void	fork_pipe(t_ast *node, t_data *data);
 
 void	ft_redirect(t_ast *node, t_data *data);
 int		change_input(t_ast *node);
 int		change_output(t_ast *node);
 void	restore_in_out(t_data *data);
 
-char	**get_env(t_env **env);
+char	**get_env(t_env **env, t_data *data);
 
 void	handle_commands(t_ast *node, t_data *data);
 char	*get_path(char *cmd, t_data *data);

@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 17:18:59 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/16 17:15:16 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/27 14:28:31 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	count_size(t_env **start)
 	return (size);
 }
 
-char	**get_env(t_env **env)
+char	**get_env(t_env **env, t_data *data)
 {
 	char	**new_env;
 	int		i;
@@ -37,7 +37,7 @@ char	**get_env(t_env **env)
 
 	new_env = malloc(sizeof(char *) * (count_size(env) + 1));
 	if (!new_env)
-		return (NULL);//replace with exit function
+		return (ft_error(data), NULL);
 	i = 0;
 	current = *env;
 	while (current)
@@ -46,7 +46,7 @@ char	**get_env(t_env **env)
 		var = ft_strjoin(join, current->value);
 		new_env[i] = ft_strdup(var);
 		if (!join || !var || !new_env[i])
-			return (free(join), free(var), free(new_env[i]), NULL);
+			return (free(join), free(var), free(new_env[i]), ft_error(data), NULL);//too long
 		free(join);
 		free(var);
 		i++;

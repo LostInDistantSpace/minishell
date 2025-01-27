@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:04:27 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/23 13:39:16 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/27 14:28:12 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	ft_exit(t_ast *node, t_data *data)
 	exit(final_exit);
 }
 
-void	ft_echo(t_ast *node, t_data *data)//space compression?
+void	ft_echo(t_ast *node, t_data *data)
 {
 	int	i;
 	int	line;
@@ -91,7 +91,7 @@ void	ft_env(t_ast *node, t_env **env, t_data *data)
 	if (node->args[1] != NULL)
 	{	
 		*data->exit_status = 1;
-		return;
+		return ;
 	}
 	current = *env;
 	while (current)
@@ -103,7 +103,7 @@ void	ft_env(t_ast *node, t_env **env, t_data *data)
 	*data->exit_status = 0;
 }
 
-void	ft_cd(t_ast *node, t_env **env, t_data *data)
+void	ft_cd(t_ast *node, t_env **env, t_data *data)//too long
 {
 	t_env	*traverse_1;
 	t_env	*traverse_2;
@@ -113,7 +113,7 @@ void	ft_cd(t_ast *node, t_env **env, t_data *data)
 	traverse_2 = *env;
 	buff = NULL;
 	if (!node->args[1])
-		return(go_home(env, data));
+		return (go_home(env, data));
 	if (chdir(node->args[1]) == -1)
 	{	
 		*data->exit_status = 1;
