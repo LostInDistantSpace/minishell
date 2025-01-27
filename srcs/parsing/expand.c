@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:18:08 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/22 18:05:45 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/27 14:30:48 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,35 +41,6 @@ char	*expand(char *str, t_env *env, char q, int exit_status)
 	return (free(str), array[1]);
 }
 
-char	*clean_whitespace(char *str)
-{
-	int		i;
-	int		j;
-	char	quote;
-	char	*res;
-
-	i = -1;
-	j = 0;
-	quote = 0;
-	res = malloc(sizeof(char) * (ft_strlen(str) + 1));
-	if (!res)
-		return (NULL);
-	while (str[++i] != '\0')
-	{
-		if ((str[i] == quote || !quote) && (str[i] == '\'' || str[i] == '"'))
-			quote = str[i] - quote;
-		if (quote || !ft_iswhitespace(str[i]) || (j > 0 && res[j - 1] != ' '))
-			res[j++] = str[i];
-	}
-	if (j > 0 && res[j - 1] == ' ')
-		j--;
-	res[j] = '\0';
-	free(str);
-	str = ft_strdup(res);
-	free(res);
-	return (str);
-}
-
 void	remove_quotes(char **ptr)
 {
 	int		i;
@@ -96,36 +67,6 @@ void	remove_quotes(char **ptr)
 	*ptr = result;
 }
 
-char	**clean_array(char **array)
-{
-	int		i;
-	int		j;
-	int		len;
-	char	**cleaned;
-
-	i = -1;
-	len = 0;
-	while (array[++i])
-		if (array[i][0])
-			len++;
-	if (!len)
-		return (free_array(&array), NULL);
-	cleaned = malloc(sizeof(char *) * (len + 1));
-	if (!cleaned)
-		return (free_array(&array), NULL);
-	cleaned[len] = 0;
-	i = -1;
-	j = -1;
-	while (array[++i])
-	{
-		if (array[i][0])
-			cleaned[++j] = array[i];
-		else
-			free_str(&array[i]);
-	}
-	return (free(array), cleaned);
-}
-
 void	clean_tokens(t_token **token, t_env *env, int exit_status)
 {
 	int		i;
@@ -140,7 +81,7 @@ void	clean_tokens(t_token **token, t_env *env, int exit_status)
 		while (array[i])
 		{
 			if (tok->type != WORD && tok->type != REDIR_HEREDOC
-				&& tok->type != !PIPE)
+				&& tok->type != PIPE)
 				array[i] = expand(array[i], env, '\'', exit_status);
 			i++;
 		}

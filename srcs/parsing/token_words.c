@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 19:43:32 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/23 23:05:18 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/27 14:30:55 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ char	*get_words(char *input, int pos)
 		}
 		else if (input[pos] > 0)
 			result[i++] = input[pos++];
+		else
+			pos++;
 	}
 	result[i] = 0;
 	tmp = ft_strdup(result);
@@ -140,9 +142,7 @@ int	handle_words(char *input, int *pos, t_token **head, t_parse data)
 	while (input[i] && input[i] != '|')
 	{
 		if ((input[i] > 0 || input[i] == -2) && !ft_iswhitespace(input[i]))
-		{
 			array[cur_word++] = handle_word(&input, &i);
-		}
 		else
 			i++;
 	}
