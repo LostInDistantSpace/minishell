@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:52:04 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/27 14:57:02 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/27 16:36:58 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,14 +81,14 @@ void	check_key(char *var, t_env **env, t_data *data)
 	char	*key;
 
 	key = get_key(var);
+	if (!key)
+		return (ft_error(data));
 	if (key[0] == 0)
 	{	
 		*data->exit_status = 1;
 		return (free(key));
 	}
 	current = *env;
-	if (!key)
-		return (ft_error(data));
 	if (!check_key_name(key, data))
 		return ;
 	while (current)

@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 17:18:59 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/27 15:06:39 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/27 15:28:01 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ char	*join_env(t_env *var, t_data *data)
 	if (!join)
 		return (ft_error(data), NULL);
 	big_join = ft_strjoin(join, var->value);
+	free(join);
 	if (!big_join)
 	{	
 		free(join);

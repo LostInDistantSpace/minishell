@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 14:43:00 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/27 14:56:44 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/27 16:37:17 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	check_key_name(char *key, t_data *data)
 	{	
 		printf("export: %s: not a valid identifier\n", key);
 		*data->exit_status = 1;
+		free(key);
 		return (0);
 	}
 	while (key[i])
@@ -43,6 +44,7 @@ int	check_key_name(char *key, t_data *data)
 		{	
 			printf("export: %s: not a valid identifier\n", key);
 			*data->exit_status = 1;
+			free(key);
 			return (0);
 		}
 		i++;
