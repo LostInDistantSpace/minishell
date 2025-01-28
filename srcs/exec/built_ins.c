@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:04:27 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/27 14:48:50 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/27 17:20:35 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,11 @@ void	ft_cd(t_ast *node, t_env **env, t_data *data)
 {
 	if (!node->args[1])
 		return (go_home(env, data));
+	if (node->args[2])
+	{
+		printf("cd : too may arguments\n");
+		return;
+	}
 	if (chdir(node->args[1]) == -1)
 	{	
 		*data->exit_status = 1;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 23:00:40 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/22 15:21:37 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/27 16:51:55 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ char	*get_home(char *home)
 	char	*cwd;
 	char	*gwd;
 
-	cwd = getcwd(NULL, 0);
+	cwd = NULL;
+	cwd = getcwd(cwd, 0);
 	if (!home || !cwd)
 		return (ft_strjoin(NON_PRINT B_MAGENTA BOLD END_NP, cwd));
 	home_len = ft_strlen(home);
