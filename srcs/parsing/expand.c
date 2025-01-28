@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:18:08 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/27 16:46:17 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/28 15:15:56 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,11 @@ char	*fill_from_step(char *prev, char *str, int start, int stop)
 	i = -1;
 	len = ft_strlen(prev) + stop - start + 1;
 	if (!prev || (int)len == stop - start + 1)
+	{
+		if (prev)
+			free(prev);
 		return (ft_substr(str, start, stop - start));
+	}
 	result = malloc(sizeof(char) * len);
 	if (!result)
 		return (free(prev), NULL);
