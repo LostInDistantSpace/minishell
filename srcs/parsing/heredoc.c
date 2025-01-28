@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:32:10 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/28 15:08:47 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/28 17:44:26 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ char	*get_heredoc_name(void)
 {
 	int		i;
 	char	*name;
+	char	*num;
 
 	i = 0;
 	name = ft_strdup("/tmp/heredoc");
@@ -23,7 +24,9 @@ char	*get_heredoc_name(void)
 	{
 		i++;
 		free(name);
-		name = ft_strjoin("/tmp/heredoc", ft_itoa(i));
+		num = ft_itoa(i);
+		name = ft_strjoin("/tmp/heredoc", num);
+		free(num);
 	}
 	return (name);
 }
