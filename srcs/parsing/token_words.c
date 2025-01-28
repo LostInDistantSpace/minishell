@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 19:43:32 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/27 17:42:19 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/28 17:38:18 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ char	*expand_var(char *str, t_env *env, int exit_status, int *pos)
 	char	*array[2];
 
 	array[0] = str;
+	i = 0;
 	init_expand(&array[1], &quote, &step, &i);
 	while (str[i])
 	{
@@ -134,7 +135,7 @@ int	handle_words(char *input, int *pos, t_token **head, t_parse data)
 	input = expand_var(get_words(input, *pos), data.env, data.exit_status, pos);
 	num_word = word_num(input);
 	if (!num_word)
-		return (0);
+		return (free (input), 0);
 	array = malloc((num_word + 1) * sizeof(char *));
 	if (!array)
 		return (-1);
