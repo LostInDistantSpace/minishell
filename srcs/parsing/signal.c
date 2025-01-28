@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 18:52:05 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/27 14:30:17 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/28 17:28:34 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ struct sigaction	init_sigaction(void)
 	sa.sa_handler = SIG_IGN;
 	sa.sa_flags = 0;
 	sigemptyset(&sa.sa_mask);
+	sigaction(SIGPIPE, &sa, NULL);
 	sigaction(SIGQUIT, &sa, NULL);
 	return (sa);
 }
