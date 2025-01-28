@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 23:00:40 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/27 16:51:55 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/28 15:22:44 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,16 @@ char	*get_home(char *home)
 	char	*cwd;
 	char	*gwd;
 
-	cwd = NULL;
-	cwd = getcwd(cwd, 0);
-	if (!home || !cwd)
-		return (ft_strjoin(NON_PRINT B_MAGENTA BOLD END_NP, cwd));
+	gwd = NULL;
+	cwd = getcwd(NULL, 0);
+	if (!cwd)
+		return (free(cwd), NULL);
 	home_len = ft_strlen(home);
 	if (home && !ft_strncmp(cwd, home, home_len))
-	{
 		gwd = ft_strjoin(NON_PRINT B_MAGENTA BOLD END_NP "~", cwd + home_len);
-		free(cwd);
-		return (gwd);
-	}
-	return (ft_strjoin(NON_PRINT B_MAGENTA BOLD END_NP, cwd));
+	else
+		gwd = ft_strjoin(NON_PRINT B_MAGENTA BOLD END_NP, cwd);
+	return (free(cwd), gwd);
 }
 
 char	*prompt(t_env *env, char *home)
