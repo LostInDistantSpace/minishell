@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:32:10 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/21 17:29:31 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/01/28 15:08:47 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void	handle_heredocs(t_token *token, t_env *env, int exit_status)
 			name = create_heredoc(token->value[0], env, exit_status);
 			if (!name)
 				return ;
+			free(token->value[0]);
 			free(token->value);
 			token->value = malloc(2 * sizeof(char *));
 			token->value[0] = name;
