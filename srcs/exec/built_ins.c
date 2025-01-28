@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:04:27 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/27 17:20:35 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/28 14:52:05 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,14 @@ void	ft_exit(t_ast *node, t_data *data)
 
 	if (data->is_child == true || data->piped == true)
 		return ;
-	if (!node->args[1])
+	if (!node->args[1] || !check_exit(node->args[1]))
 		final_exit = *data->exit_status;
+	else if (node->args[2] != NULL)
+	{
+		printf("exit : too many arguments\n");
+		*data->exit_status = 1;
+		return ;
+	}
 	else
 	{
 		if (node->args[1][0] == '-')
@@ -29,10 +35,8 @@ void	ft_exit(t_ast *node, t_data *data)
 		else
 			final_exit = ft_atoui(node->args[1]);
 	}
-	free_ast(data->ast);
-	free_env(data->env);
 	restore_in_out(data);
-	free(data);
+	free_data(data);
 	exit(final_exit);
 }
 
@@ -105,17 +109,25 @@ void	ft_env(t_ast *node, t_env **env, t_data *data)
 
 void	ft_cd(t_ast *node, t_env **env, t_data *data)
 {
-	if (!node->args[1])
+	char	*old_pwd;
+
+	old_pwd = NULL;
+	if (!node->args[1] || ft_strcmp(node->args[1], "~") == 0)
 		return (go_home(env, data));
 	if (node->args[2])
 	{
 		printf("cd : too may arguments\n");
-		return;
+		return ;
 	}
+	old_pwd = getcwd(old_pwd, PATH_MAX);
+	if (!old_pwd)
+		perror(NULL);
 	if (chdir(node->args[1]) == -1)
 	{	
 		*data->exit_status = 1;
 		return (perror(NULL));
 	}
-	update_pwd(env, data);
+	update_old_pwd(old_pwd, env);
+	update_pwd(env);
+	*data->exit_status = 0;
 }
