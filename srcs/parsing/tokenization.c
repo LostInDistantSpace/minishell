@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:43:30 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/27 17:33:15 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/02 16:45:25 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	handle_redirs(char **input, int pos, t_token **head, t_parse data)
 		while ((*input)[pos] && ft_iswhitespace((*input)[pos]))
 			pos++;
 		value = handle_delim(input, &pos);
-		if (type != REDIR_HEREDOC)
+		if (type != HEREDOC)
 			value = expand(value, data.env, '\'', data.exit_status);
 		token = new_token(value, type);
 		free(value);

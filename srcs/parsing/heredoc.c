@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:32:10 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/28 17:44:26 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/02 16:53:05 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,11 @@ char	*create_heredoc(char *delim, t_env *env, int exit_status)
 	heredoc = open(name, O_WRONLY | O_CREAT, 0644);
 	if (heredoc == -1)
 		return (perror(name), free(name), NULL);
-	//also need absolute path
 	input = readline("> ");
 	while (ft_strcmp(input, delim) != 0)
 	{
 		if (g_signal || !input)
 			return (heredoc_exit(input, &name, delim, heredoc));
-		// Maybe delete the files if smth went wrong ???
 		input = expand(input, env, 0, exit_status);
 		if (!input)
 			return (NULL);
@@ -83,16 +81,18 @@ void	handle_heredocs(t_token *token, t_env *env, int exit_status)
 
 	while (token)
 	{
-		if (token->type == REDIR_HEREDOC)
+		if (token->type == HEREDOC)
 		{
 			name = create_heredoc(token->value[0], env, exit_status);
 			if (!name)
 				return ;
 			free(token->value[0]);
-			free(token->value);
-			token->value = malloc(2 * sizeof(char *));
 			token->value[0] = name;
-			token->value[1] = NULL;
+			if (!token->value[0])
+			{
+				// free every heredoc (delete their files)
+				// put exit status to 3
+			}
 		}
 		token = token->next;
 	}

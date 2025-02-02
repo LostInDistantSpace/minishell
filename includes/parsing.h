@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 17:12:55 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/27 17:32:02 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/01 14:52:56 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct s_parse_data
 	int		exit_status;
 }	t_parse;
 
-t_token	*parse(t_env *env, int exit_status, char *home);
+t_token	*parse(t_env *env, int *exit_status, char *home);
 
 int		syntax_checker(char *line);
 int		syntax_init(char *line, char *q, int *i);

@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:27:25 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/27 13:31:54 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/01 14:52:40 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	executor(t_env **env, int *exit_status)
 	char				*home;
 
 	home = get_var(*env, "HOME");
-	token = parse(*env, *exit_status, home);
+	token = parse(*env, exit_status, home);
 	if (token)
 	{
 		ast_root = parse_tokens(token);

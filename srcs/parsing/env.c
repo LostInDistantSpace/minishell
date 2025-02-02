@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 22:05:21 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/20 18:22:22 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/02 16:54:59 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ t_env	*add_env(t_env *head, t_env *var)
 	}
 	tmp = head;
 	while (tmp->next)
-			tmp = tmp->next;
+		tmp = tmp->next;
 	tmp->next = var;
 	return (head);
 }

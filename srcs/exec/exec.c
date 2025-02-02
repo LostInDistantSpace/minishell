@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:23:12 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/27 14:36:18 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/02/02 16:45:38 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ void	ft_ast(t_ast *node, t_data *data)
 {
 	if (node->type == PIPE)
 		fork_pipe(node, data);
-	else if (node->type == REDIR_IN || node->type == REDIR_HEREDOC)
+	else if (node->type == REDIR_IN || node->type == HEREDOC)
 		ft_redirect(node, data);
-	else if (node->type == REDIR_OUT || node->type == REDIR_APPEND)
+	else if (node->type == REDIR_OUT || node->type == APPEND)
 		ft_redirect(node, data);
 	else if (node->type == WORD)
 		handle_commands(node, data);

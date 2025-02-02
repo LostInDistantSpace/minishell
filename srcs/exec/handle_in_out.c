@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_in_out.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:29:59 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/27 14:38:22 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/02/02 16:45:38 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	change_input(t_ast *node)
 		perror(node->args[0]);
 		return (0);
 	}
-	if (node->type == REDIR_HEREDOC)
+	if (node->type == HEREDOC)
 		unlink(node->args[0]);
 	if (dup2(fd_in, STDIN_FILENO) == -1)
 	{
@@ -80,12 +80,12 @@ void	ft_redirect(t_ast *node, t_data *data)
 	command = node->left;
 	while (node)
 	{
-		if (node->type == REDIR_IN || node->type == REDIR_HEREDOC)
+		if (node->type == REDIR_IN || node->type == HEREDOC)
 		{	
 			if (!change_input(node))
 				return (ft_error(data));
 		}
-		else if (node->type == REDIR_OUT || node->type == REDIR_APPEND)
+		else if (node->type == REDIR_OUT || node->type == APPEND)
 		{	
 			if (!change_output(node))
 				return (ft_error(data));

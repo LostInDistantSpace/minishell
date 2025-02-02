@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 19:19:09 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/14 14:37:03 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/02 16:45:38 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ void	print_type(t_token_type type)
 		printf("REDIR_IN");
 	else if (type == REDIR_OUT)
 		printf("REDIR_OUT");
-	else if (type == REDIR_APPEND)
-		printf("REDIR_APPEND");
-	else if (type == REDIR_HEREDOC)
-		printf("REDIR_HEREDOC");
+	else if (type == APPEND)
+		printf("APPEND");
+	else if (type == HEREDOC)
+		printf("HEREDOC");
 }
 
 /*

@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:27:58 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/20 18:17:06 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/02 16:45:38 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ typedef enum e_token_type
 	PIPE,
 	REDIR_IN,
 	REDIR_OUT,
-	REDIR_HEREDOC,
-	REDIR_APPEND,
+	HEREDOC,
+	APPEND,
 }	t_token_type;
 
 // Token structure

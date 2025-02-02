@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 17:23:24 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/14 17:12:59 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/02 16:56:47 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_ast	*new_node(t_token *token)
 	node = malloc(sizeof(t_ast));
 	node->left = NULL;
 	node->right = NULL;
-	node->args = token->value; //deep copy OR put token->value to NULL
+	node->args = token->value;
 	node->type = token->type;
 	token->value = NULL;
 	return (node);
@@ -106,7 +106,7 @@ t_ast	*parse_tokens(t_token *token)
 		{
 			if (node->type == PIPE)
 				place_pipe(&head, node);
-			if (node->type >= REDIR_IN && node->type <= REDIR_APPEND)
+			if (node->type >= REDIR_IN && node->type <= APPEND)
 				place_redir(head, node);
 			if (node->type == WORD)
 				place_word(head, node);

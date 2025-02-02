@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleaner_struct.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 15:22:52 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/16 13:33:45 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/02/02 16:56:29 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,15 +80,3 @@ void	free_ast(t_ast **ast)
 	free_array(&(*ast)->args);
 	free(*ast);
 }
-
-/*void	free_ast(t_ast *ast)
-{
-	if (!ast)
-		return ;
-	if (ast->left)
-		free_ast(ast->left);
-	if (ast->right)
-		free_ast(ast->right);
-	free_array(ast->args);
-	free(ast);
-}*/
