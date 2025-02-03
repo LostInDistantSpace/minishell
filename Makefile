@@ -6,7 +6,7 @@
 #    By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/10 16:41:52 by bmouhib           #+#    #+#              #
-#    Updated: 2025/02/03 13:28:51 by lemarian         ###   ########.fr        #
+#    Updated: 2025/02/03 15:24:54 by lemarian         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ SRC			+=	$(EXEC_PATH)find_path.c
 SRC			+=	$(EXEC_PATH)get_env.c
 SRC			+=	$(EXEC_PATH)handle_commands.c
 SRC			+=	$(EXEC_PATH)handle_in_out.c
-SRC			+=	$(EXEC_PATH)pipe_2.c
+SRC			+=	$(EXEC_PATH)pipe.c
 SRC			+=	$(EXEC_PATH)unset.c
 SRC			+=	$(EXEC_PATH)exec.c
 SRC			+=	$(EXEC_PATH)free_exec.c
