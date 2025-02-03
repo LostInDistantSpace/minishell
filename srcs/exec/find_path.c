@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:33:19 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/28 11:42:03 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/02/03 14:30:39 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*check_command(char *command, t_data *data)
 	}
 	if (access(command, X_OK) == -1)
 	{
-		printf("%s : permission denied\n", command);
+		printf("%s : permission denied\n", command);// 126?
 		return (NULL);
 	}
 	path = ft_strdup(command);
