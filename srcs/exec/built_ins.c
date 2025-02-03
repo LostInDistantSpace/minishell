@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:04:27 by lemarian          #+#    #+#             */
-/*   Updated: 2025/02/03 14:34:40 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/02/03 15:40:45 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,22 +112,23 @@ void	ft_cd(t_ast *node, t_env **env, t_data *data)
 	char	*old_pwd;
 
 	old_pwd = NULL;
-	if (!node->args[1] || ft_strcmp(node->args[1], "~") == 0)//update pwd??
-		return (go_home(env, data));
-	if (node->args[2])
-	{
-		printf("cd : too may arguments\n");//exit status??
-		return ;
-	}
 	old_pwd = getcwd(old_pwd, PATH_MAX);
 	if (!old_pwd)
 		perror(NULL);
+	if (!node->args[1] || ft_strcmp(node->args[1], "~") == 0)
+		return (go_home(env, data, old_pwd));
+	if (node->args[2])
+	{
+		printf("cd : too may arguments\n");
+		*data->exit_status = 1;
+		return ;
+	}
 	if (chdir(node->args[1]) == -1)
 	{	
 		*data->exit_status = 1;
 		return (perror(NULL));
 	}
-	update_old_pwd(old_pwd, env);
+	update_old_pwd(env, old_pwd);
 	update_pwd(env);
 	*data->exit_status = 0;
 }
