@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:29:22 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/28 14:47:09 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/02/03 15:44:47 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	check_exit(char *arg)
 	i = 0;
 	if (!arg)
 		return (0);
+	if (arg[0] == '-' || arg[0] == '+')
+		i++;
 	while (arg[i])
 	{
 		if (!ft_isdigit(arg[i]))
@@ -47,13 +49,11 @@ int	check_echo_flag(char *flag)
 	return (1);
 }
 
-void	update_old_pwd(char *old_pwd, t_env **env)
+void	update_old_pwd(t_env **env, char *old_pwd)
 {
 	t_env	*current;
 
 	current = *env;
-	if (!old_pwd)
-		return ;
 	while (current)
 	{
 		if (ft_strcmp(current->key, "OLDPWD") == 0)
@@ -86,7 +86,7 @@ void	update_pwd(t_env **env)
 	}
 }
 
-void	go_home(t_env **env, t_data *data)
+void	go_home(t_env **env, t_data *data, char *old_pwd)
 {
 	t_env	*current;
 
@@ -102,6 +102,8 @@ void	go_home(t_env **env, t_data *data)
 				*data->exit_status = 1;
 				return (perror(NULL));
 			}
+			update_old_pwd(env, old_pwd);
+			update_pwd(env);
 			*data->exit_status = 0;
 			return ;
 		}

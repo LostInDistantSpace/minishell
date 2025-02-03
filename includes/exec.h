@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:22:40 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/28 14:36:30 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/02/03 15:38:31 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ void	ft_pwd(t_data *data);
 void	ft_env(t_ast *node, t_env **env, t_data *data);
 void	ft_unset(t_ast *node, t_data *data);
 void	ft_cd(t_ast *node, t_env **env, t_data *data);
-void	go_home(t_env **env, t_data *data);
+void	go_home(t_env **env, t_data *data, char *old_pwd);
 void	update_pwd(t_env **env);
-void	update_old_pwd(char *old_pwd, t_env **env);
+void	update_old_pwd(t_env **env, char *old_pwd);
 void	ft_exit(t_ast *node, t_data *data);
 int		check_exit(char *arg);
 
