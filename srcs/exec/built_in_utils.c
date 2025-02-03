@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:29:22 by lemarian          #+#    #+#             */
-/*   Updated: 2025/01/28 14:47:09 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/01/30 12:58:18 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	check_exit(char *arg)
 	i = 0;
 	if (!arg)
 		return (0);
+	if (arg[0] == '-' || arg[0] == '+')
+		i++;
 	while (arg[i])
 	{
 		if (!ft_isdigit(arg[i]))
