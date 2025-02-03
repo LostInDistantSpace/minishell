@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:18:08 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/02/03 15:33:23 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/03 20:15:44 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ char	*expand(char *str, t_env *env, char q, int exit_status)
 			array[1] = fill_from_step(array[1], str, step, i);
 			array[1] = concat_var(env, array, &i, exit_status);
 			if (!array[1])
-				return (free(str), NULL);//error management
+				return (free(str), NULL);
 			step = i;
 		}
 		else

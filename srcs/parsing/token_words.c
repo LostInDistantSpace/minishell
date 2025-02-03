@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 19:43:32 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/28 17:38:18 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/03 20:00:57 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ char	*expand_var(char *str, t_env *env, int exit_status, int *pos)
 	char	*array[2];
 
 	array[0] = str;
-	i = 0;
 	init_expand(&array[1], &quote, &step, &i);
 	while (str[i])
 	{
@@ -84,7 +83,7 @@ char	*expand_var(char *str, t_env *env, int exit_status, int *pos)
 			array[1] = fill_from_step(array[1], str, step, i);
 			array[1] = concat_var(env, array, &i, exit_status);
 			if (!array[1])
-				return (free(str), NULL); //error management
+				return (free(str), NULL);
 			step = i;
 		}
 		else

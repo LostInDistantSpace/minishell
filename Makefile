@@ -6,7 +6,7 @@
 #    By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/10 16:41:52 by bmouhib           #+#    #+#              #
-#    Updated: 2025/02/03 19:38:43 by bmouhib          ###   ########.fr        #
+#    Updated: 2025/02/03 19:59:08 by bmouhib          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,6 @@ SRC			+=	$(PARS_PATH)syntax.c
 SRC			+=	$(PARS_PATH)token_utils.c
 SRC			+=	$(PARS_PATH)token_words.c
 SRC			+=	$(PARS_PATH)tokenization.c
-SRC			+=	TESTS.c
 SRC			+=	$(EXEC_PATH)built_ins.c
 SRC			+=	$(EXEC_PATH)built_in_utils.c
 SRC			+=	$(EXEC_PATH)export.c

@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:32:10 by lemarian          #+#    #+#             */
-/*   Updated: 2025/02/03 18:48:13 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/03 19:49:01 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	*create_heredoc(char *delim, t_env *env, int exit_status)
 			return (heredoc_exit(input, &name, delim, heredoc));
 		input = expand(input, env, 0, exit_status);
 		if (!input)
-			return (NULL);
+			return (free(name), NULL);
 		ft_putstr_fd(input, heredoc);
 		write(heredoc, "\n", 1);
 		free(input);

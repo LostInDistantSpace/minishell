@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 17:23:24 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/02/03 15:53:13 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/03 19:57:51 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,14 @@ t_ast	*new_node(t_token *token)
 	return (node);
 }
 
-void	place_word(t_ast *head, t_ast *node)
+void	place_word(t_ast **head, t_ast *node)
 {
 	t_ast	*ptr;
 
-	ptr = head;
-	if (ptr->type == PIPE)
+	ptr = *head;
+	if (!ptr)
+		*head = node;
+	else if (ptr->type == PIPE)
 	{
 		while (ptr->right && ptr->right->type == PIPE)
 			ptr = ptr->right;
@@ -48,14 +50,19 @@ void	place_word(t_ast *head, t_ast *node)
 		ptr->left = node;
 }
 
-void	place_redir(t_ast *head, t_ast *node)
+void	place_redir(t_ast **head, t_ast *node)
 {
 	t_ast	*ptr;
 
-	ptr = head;
-	while (ptr->right)
-		ptr = ptr->right;
-	ptr->right = node;
+	ptr = *head;
+	if (!ptr)
+		*head = node;
+	else
+	{
+		while (ptr->right)
+			ptr = ptr->right;
+		ptr->right = node;
+	}
 }
 
 void	place_pipe(t_ast **head, t_ast *node)
@@ -64,7 +71,9 @@ void	place_pipe(t_ast **head, t_ast *node)
 	t_ast	*ptr;
 
 	ptr = *head;
-	if (ptr->type == PIPE)
+	if (!ptr)
+		*head = node;
+	else if (ptr->type == PIPE)
 	{
 		while (ptr->right && ptr->right->type == PIPE)
 			ptr = ptr->right;
@@ -90,7 +99,7 @@ Iterates through the tokens,
 building an abstract syntax tree (AST) 
 that represents the input string.
 */
-t_ast	*parse_tokens(t_token *token) //have env to free if failure
+t_ast	*parse_tokens(t_token *token)
 {
 	t_ast	*head;
 	t_ast	*node;
@@ -100,20 +109,16 @@ t_ast	*parse_tokens(t_token *token) //have env to free if failure
 	while (token)
 	{
 		node = new_node(token);
-		// protect
+		if (!node)
+			return (NULL);
 		next = token->next;
 		free(token);
-		if (!head)
-			head = node;
-		else
-		{
-			if (node->type == PIPE)
-				place_pipe(&head, node);
-			if (node->type >= REDIR_IN && node->type <= APPEND)
-				place_redir(head, node);
-			if (node->type == WORD)
-				place_word(head, node);
-		}
+		if (node->type == PIPE)
+			place_pipe(&head, node);
+		if (node->type >= REDIR_IN && node->type <= APPEND)
+			place_redir(&head, node);
+		if (node->type == WORD)
+			place_word(&head, node);
 		token = next;
 	}
 	return (head);
