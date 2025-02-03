@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:43:30 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/02/02 16:45:25 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/03 19:02:53 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,8 @@ t_token	*tokenize_input(char *input, t_env *env, int exit_status)
 
 	i = 0;
 	head = NULL;
-	data = create_data(env, exit_status);
+	data.env = env;
+	data.exit_status = exit_status;
 	while (input[i])
 	{
 		handle_redirs(&input, i, &head, data);
@@ -117,7 +118,6 @@ t_token	*tokenize_input(char *input, t_env *env, int exit_status)
 			add_token(&head, new_token("|", PIPE));
 			i++;
 		}
-
 	}
 	return (head);
 }

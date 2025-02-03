@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 17:12:55 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/02/01 14:52:56 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/03 19:03:10 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct s_parse_data
 	int		exit_status;
 }	t_parse;
 
-t_token	*parse(t_env *env, int *exit_status, char *home);
+t_token	*parse(t_env **env, int *exit_status, char *home);
 
 int		syntax_checker(char *line);
 int		syntax_init(char *line, char *q, int *i);
@@ -60,13 +60,11 @@ t_sigac	init_sigaction(void);
 t_env	*new_env(char *str);
 t_env	*empty_env(char *str);
 t_env	*add_env(t_env *head, t_env *var);
-t_parse	create_data(t_env *env, int exit_status);
 
-void	handle_heredocs(t_token *token, t_env *env, int exit_status);
+void	handle_heredocs(t_token **token, t_env *env, int *exit_status);
 
 void	init_expand(char **result, char *quote, int *step, int *i);
 char	*copy_key(char *str, int *i);
-void	clean_tokens(t_token **tok, t_env *env, int exit_status);
 char	*expand(char *str, t_env *env, char q, int exit_status);
 char	*get_var_from_key(t_env *env, char *raw, int *i);
 char	*concat_var(t_env *env, char **array, int *i, int exit_status);

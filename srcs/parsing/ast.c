@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 17:23:24 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/02/02 16:56:47 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/03 15:53:13 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ t_ast	*new_node(t_token *token)
 	t_ast	*node;
 
 	node = malloc(sizeof(t_ast));
+	if (!node)
+		return (NULL);
 	node->left = NULL;
 	node->right = NULL;
 	node->args = token->value;
@@ -88,7 +90,7 @@ Iterates through the tokens,
 building an abstract syntax tree (AST) 
 that represents the input string.
 */
-t_ast	*parse_tokens(t_token *token)
+t_ast	*parse_tokens(t_token *token) //have env to free if failure
 {
 	t_ast	*head;
 	t_ast	*node;
@@ -98,6 +100,7 @@ t_ast	*parse_tokens(t_token *token)
 	while (token)
 	{
 		node = new_node(token);
+		// protect
 		next = token->next;
 		free(token);
 		if (!head)

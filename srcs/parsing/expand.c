@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:18:08 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/02/02 16:45:25 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/03 15:33:23 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,26 +102,4 @@ char	*expand(char *str, t_env *env, char q, int exit_status)
 	}
 	array[1] = fill_from_step(array[1], str, step, i);
 	return (free(str), array[1]);
-}
-
-void	clean_tokens(t_token **token, t_env *env, int exit_status)
-{
-	int		i;
-	char	**array;
-	t_token	*tok;
-
-	tok = *token;
-	while (tok)
-	{
-		i = 0;
-		array = tok->value;
-		while (array[i])
-		{
-			if (tok->type != WORD && tok->type != HEREDOC
-				&& tok->type != PIPE)
-				array[i] = expand(array[i], env, '\'', exit_status);
-			i++;
-		}
-		tok = tok->next;
-	}
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+         #
+#    By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/10 16:41:52 by bmouhib           #+#    #+#              #
-#    Updated: 2025/01/27 14:44:53 by lemarian         ###   ########.fr        #
+#    Updated: 2025/02/03 19:02:59 by bmouhib          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,6 @@ SRC			+=	$(PARS_PATH)env.c
 SRC			+=	$(PARS_PATH)expand_utils.c
 SRC			+=	$(PARS_PATH)expand.c
 SRC			+=	$(PARS_PATH)heredoc.c
-SRC			+=	$(PARS_PATH)init.c
 SRC			+=	$(PARS_PATH)parsing.c
 SRC			+=	$(PARS_PATH)prompt.c
 SRC			+=	$(PARS_PATH)signal.c

@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 22:05:21 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/02/02 16:54:59 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/03 18:55:53 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,29 +31,29 @@ t_env	*new_env(char *str)
 {
 	int		i;
 	int		len;
-	t_env	*var;
+	t_env	*env;
 
 	if (!str)
 		return (NULL);
 	len = 0;
-	var = malloc(sizeof(t_env));
-	if (!var)
+	env = malloc(sizeof(t_env));
+	if (!env)
 		return (NULL);
-	var->next = NULL;
+	env->next = NULL;
 	while (str[len] && str[len] != '=')
 		len++;
-	var->key = malloc((len + 1) * sizeof(char));
-	if (!var->key)
-		return (free(var), NULL);
-	var->key[len] = 0;
+	env->key = malloc((len + 1) * sizeof(char));
+	if (!env->key)
+		return (free(env), NULL);
+	env->key[len] = 0;
 	i = -1;
 	while (++i < len)
-		var->key[i] = str[i];
+		env->key[i] = str[i];
 	i++;
-	var->value = ft_strdup(str + i);
-	if (!var->value)
-		return (free(var->key), free(var), NULL);
-	return (var);
+	env->value = ft_strdup(str + i);
+	if (!env->value)
+		return (free(env->key), free(env), NULL);
+	return (env);
 }
 
 t_env	*empty_env(char *str)

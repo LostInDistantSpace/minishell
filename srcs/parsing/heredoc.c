@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:32:10 by lemarian          #+#    #+#             */
-/*   Updated: 2025/02/02 16:53:05 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/03 18:48:13 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,24 +75,25 @@ char	*create_heredoc(char *delim, t_env *env, int exit_status)
 	return (free(input), name);
 }
 
-void	handle_heredocs(t_token *token, t_env *env, int exit_status)
+void	handle_heredocs(t_token **head, t_env *env, int *exit_status)
 {
 	char	*name;
+	t_token	*token;
 
+	token = *head;
 	while (token)
 	{
 		if (token->type == HEREDOC)
 		{
-			name = create_heredoc(token->value[0], env, exit_status);
+			name = create_heredoc(token->value[0], env, *exit_status);
 			if (!name)
+			{
+				free_tokens(head);
+				*exit_status = 3;
 				return ;
+			}
 			free(token->value[0]);
 			token->value[0] = name;
-			if (!token->value[0])
-			{
-				// free every heredoc (delete their files)
-				// put exit status to 3
-			}
 		}
 		token = token->next;
 	}

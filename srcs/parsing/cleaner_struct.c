@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 15:22:52 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/02/02 16:56:29 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/03 19:05:24 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,17 @@ void	free_env(t_env **env)
 
 void	free_tokens(t_token **token)
 {
-	int		size;
 	t_token	*tmp_token;
 
 	while (*token)
 	{
-		size = 0;
 		tmp_token = *token;
 		if ((*token)->next)
 			*token = (*token)->next;
 		else
 			*token = NULL;
-		while (tmp_token->value[size])
-			size++;
+		if (tmp_token->type == HEREDOC)
+			unlink(tmp_token->value[0]);
 		free_array(&tmp_token->value);
 		free(tmp_token);
 	}
