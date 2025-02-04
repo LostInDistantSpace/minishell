@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 19:43:32 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/02/03 20:00:57 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/04 13:47:24 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*get_words(char *input, int pos)
 {
 	int		i;
 	char	quote;
-	char	*tmp;
+	char	*final;
 	char	*result;
 
 	i = 0;
@@ -61,8 +61,8 @@ char	*get_words(char *input, int pos)
 		pos++;
 	}
 	result[i] = 0;
-	tmp = ft_strdup(result);
-	return (free(result), tmp);
+	final = ft_strdup(result);
+	return (free(result), final);
 }
 
 char	*expand_var(char *str, t_env *env, int exit_status, int *pos)
@@ -76,9 +76,9 @@ char	*expand_var(char *str, t_env *env, int exit_status, int *pos)
 	init_expand(&array[1], &quote, &step, &i);
 	while (str[i])
 	{
-		if (str[i] == '\'')
+		if ((str[i] == '\'' || str[i] == '"') && (!quote || str[i] == quote))
 			quote = str[i] - quote;
-		if (!quote && str[i] == '$')
+		if (quote != '\'' && str[i] == '$')
 		{
 			array[1] = fill_from_step(array[1], str, step, i);
 			array[1] = concat_var(env, array, &i, exit_status);
@@ -131,6 +131,9 @@ int	handle_words(char *input, int *pos, t_token **head, t_parse data)
 	char	**array;
 
 	i = 0;
+	/*
+	** PROBLEM WITH QUOTES INSIDE QUOTES
+	*/
 	input = expand_var(get_words(input, *pos), data.env, data.exit_status, pos);
 	num_word = word_num(input);
 	if (!num_word)
