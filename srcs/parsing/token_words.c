@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 19:43:32 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/02/04 13:47:24 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/04 14:01:48 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,9 +131,6 @@ int	handle_words(char *input, int *pos, t_token **head, t_parse data)
 	char	**array;
 
 	i = 0;
-	/*
-	** PROBLEM WITH QUOTES INSIDE QUOTES
-	*/
 	input = expand_var(get_words(input, *pos), data.env, data.exit_status, pos);
 	num_word = word_num(input);
 	if (!num_word)
