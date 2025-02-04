@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:36:54 by lemarian          #+#    #+#             */
-/*   Updated: 2025/02/03 18:06:11 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/02/04 18:06:28 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,11 @@ void	find_command(t_ast *node, t_data *data)
 		path = get_path(node->args[0], data);
 	if (!path)
 	{
-		if (data->is_child == true)
-			exit(EXIT_FAILURE);
 		*data->exit_status = 127;
+		restore_in_out(data);//nope
+		printf("%s : command not found\n", node->args[0]);
+		if (data->is_child == true)
+			exit_child(data);
 		return ;
 	}
 	env = get_env(data->env, data);
@@ -75,7 +77,7 @@ void	find_command(t_ast *node, t_data *data)
 		fork_command(node, data, path, env);
 	else
 		exec_command(node, data, path, env);
-}
+}//too long
 
 void	handle_commands(t_ast *node, t_data *data)
 {

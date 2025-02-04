@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:29:22 by lemarian          #+#    #+#             */
-/*   Updated: 2025/02/03 15:44:47 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/02/04 17:46:00 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	go_home(t_env **env, t_data *data, char *old_pwd)
 			if (chdir(current->value) == -1)
 			{
 				*data->exit_status = 1;
-				return (perror(NULL));
+				return (perror("cd"));
 			}
 			update_old_pwd(env, old_pwd);
 			update_pwd(env);

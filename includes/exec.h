@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:22:40 by lemarian          #+#    #+#             */
-/*   Updated: 2025/02/03 19:58:54 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/04 18:06:09 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ typedef struct s_data
 	int			save_in;
 	int			save_out;
 	bool		is_child;
-	bool		piped;
 	t_ast		**ast;
 	t_env		**env;
 }	t_data;
@@ -34,10 +33,10 @@ void			ft_ast(t_ast *node, t_data *data);
 void			exec(t_ast **head, t_env **start, int *e_status);
 void			fork_pipe(t_ast *node, t_data *data);
 
-void			ft_redirect(t_ast *node, t_data *data);
-int				change_input(t_ast *node);
-int				change_output(t_ast *node);
-void			restore_in_out(t_data *data);
+void	ft_redirect(t_ast *node, t_data *data);
+int		change_input(t_ast *node, t_data *data);
+int		change_output(t_ast *node, t_data *data);
+void	restore_in_out(t_data *data);
 
 char			**get_env(t_env **env, t_data *data);
 
@@ -68,5 +67,6 @@ char			*get_value(char *var);
 int				check_key_name(char *key, t_data *data);
 
 unsigned int	ft_atoui(const char *nptr);
+void	exit_child(t_data *data);
 
 #endif
