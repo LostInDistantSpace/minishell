@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 18:52:05 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/02/05 15:43:47 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/05 18:35:39 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	rl_end_event(void)
 
 void	sigquit_message(int signum)
 {
-	(void)signum;
+	g_signal = signum;
 	printf("Quit (core dumped)\n");
 }
 
