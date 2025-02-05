@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 18:52:05 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/02/03 19:39:38 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/05 15:43:47 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,25 @@ int	rl_end_event(void)
 	return (0);
 }
 
+void	sigquit_message(int signum)
+{
+	(void)signum;
+	printf("Quit (core dumped)\n");
+}
+
+void	sigquit_manager(int status)
+{
+	struct sigaction	sa;
+
+	sa.sa_flags = 0;
+	sigemptyset(&sa.sa_mask);
+	if (!status)
+		sa.sa_handler = SIG_IGN;
+	else
+		sa.sa_handler = sigquit_message;
+	sigaction(SIGQUIT, &sa, NULL);
+}
+
 struct sigaction	init_sigaction(void)
 {
 	struct sigaction	sa;
@@ -43,6 +62,5 @@ struct sigaction	init_sigaction(void)
 	sigemptyset(&sa.sa_mask);
 	sigaction(SIGPIPE, &sa, NULL);
 	sigaction(SIGQUIT, &sa, NULL);
-	sigaction(SIGPIPE, &sa, NULL);
 	return (sa);
 }
