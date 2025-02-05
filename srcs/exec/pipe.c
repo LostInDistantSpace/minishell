@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 13:16:52 by lemarian          #+#    #+#             */
-/*   Updated: 2025/02/04 18:14:51 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/02/05 14:36:24 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	child_right(t_ast *node, t_data *data)
 {
 	int	status;
-	
+
 	data->is_child = true;
 	ft_ast(node->right, data);
 	status = *data->exit_status;
@@ -25,7 +25,7 @@ void	child_right(t_ast *node, t_data *data)
 void	child_left(t_ast *node, int pipe[2], t_data *data)
 {
 	int	status;
-	
+
 	data->is_child = true;
 	close(pipe[0]);
 	if (dup2(pipe[1], STDOUT_FILENO) == -1)
@@ -49,16 +49,22 @@ void	fork_pipe(t_ast *node, t_data *data)
 
 	pipe(fd);
 	left = fork();
+	if (left == -1)
+		ft_error(data);
 	if (left == 0)
 		child_left(node, fd, data);
-	dup2(fd[0], STDIN_FILENO);
-	close(fd[0]);
-	close(fd[1]);
+	if (dup2(fd[0], STDIN_FILENO) == -1)
+	{
+		close(fd[1]);
+		ft_error(data);
+	}
+	(close(fd[0]), close(fd[1]));
 	right = fork();
+	if (right == -1)
+		ft_error(data);
 	if (right == 0)
 		child_right(node, data);
-	waitpid(left, &status, 0);
-	waitpid(right, &status, 0);
+	(waitpid(left, &status, 0), waitpid(right, &status, 0));
 	if (WIFEXITED(status))
 		*data->exit_status = WEXITSTATUS(status);
 }

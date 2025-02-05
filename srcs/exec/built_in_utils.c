@@ -6,13 +6,13 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:29:22 by lemarian          #+#    #+#             */
-/*   Updated: 2025/02/04 17:46:00 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/02/05 14:25:08 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-int	check_exit(char *arg)
+int	check_exit(char *arg, t_data *data)
 {
 	int	i;
 
@@ -25,6 +25,7 @@ int	check_exit(char *arg)
 	{
 		if (!ft_isdigit(arg[i]))
 		{	
+			restore_in_out(data);
 			printf("exit : %s : numeric argument required\n", arg);
 			return (0);
 		}

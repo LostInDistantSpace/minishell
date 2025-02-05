@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:22:40 by lemarian          #+#    #+#             */
-/*   Updated: 2025/02/04 18:13:58 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/02/05 14:33:47 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ void			ft_ast(t_ast *node, t_data *data);
 void			exec(t_ast **head, t_env **start, int *e_status);
 void			fork_pipe(t_ast *node, t_data *data);
 
-void	ft_redirect(t_ast *node, t_data *data);
-int		change_input(t_ast *node, t_data *data);
-int		change_output(t_ast *node, t_data *data);
-void	restore_in_out(t_data *data);
+void			ft_redirect(t_ast *node, t_data *data);
+int				change_input(t_ast *node, t_data *data);
+int				change_output(t_ast *node, t_data *data);
+void			restore_in_out(t_data *data);
 
 char			**get_env(t_env **env, t_data *data);
 
@@ -59,7 +59,7 @@ void			go_home(t_env **env, t_data *data, char *old_pwd);
 void			update_pwd(t_env **env);
 void			update_old_pwd(t_env **env, char *old_pwd);
 void			ft_exit(t_ast *node, t_data *data);
-int				check_exit(char *arg);
+int				check_exit(char *arg, t_data *data);
 
 void			ft_export(t_ast *node, t_data *data);
 char			*get_key(char *var);
@@ -67,6 +67,8 @@ char			*get_value(char *var);
 int				check_key_name(char *key, t_data *data);
 
 unsigned int	ft_atoui(const char *nptr);
-void	exit_child(t_data *data);
+void			exit_child(t_data *data);
+void			print_error(char *src, char *error, t_data *data);
+char			*exit_command(t_data *data);
 
 #endif

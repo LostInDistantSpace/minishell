@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:36:54 by lemarian          #+#    #+#             */
-/*   Updated: 2025/02/04 18:14:29 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/02/05 14:19:51 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,19 +57,17 @@ void	find_command(t_ast *node, t_data *data)
 	char	**env;
 	char	*path;
 
-	if (access(node->args[0], F_OK) == 0)
+	if (node->args[0][0] == 0)
+	{	
+		path = NULL;
+		print_error(node->args[0], "command not found", data);
+	}
+	else if ((access(node->args[0], F_OK) == 0))
 		path = check_command(node->args[0], data);
 	else
 		path = get_path(node->args[0], data);
 	if (!path)
-	{
-		*data->exit_status = 127;
-		restore_in_out(data);//nope
-		printf("%s : command not found\n", node->args[0]);
-		if (data->is_child == true)
-			exit_child(data);
-		return ;
-	}
+		return (exit_child(data));
 	env = get_env(data->env, data);
 	if (!env)
 		return (ft_error(data));
@@ -77,7 +75,7 @@ void	find_command(t_ast *node, t_data *data)
 		fork_command(node, data, path, env);
 	else
 		exec_command(node, data, path, env);
-}//too long
+}
 
 void	handle_commands(t_ast *node, t_data *data)
 {

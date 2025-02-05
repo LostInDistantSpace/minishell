@@ -6,15 +6,16 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:29:59 by lemarian          #+#    #+#             */
-/*   Updated: 2025/02/04 18:14:43 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/02/05 14:18:32 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "exec.h"
 
 void	restore_in_out(t_data *data)
 {
+	if (data->save_in == -42)
+		return ;
 	if (dup2(data->save_in, STDIN_FILENO) == -1)
 	{	
 		close(data->save_out);
@@ -27,6 +28,8 @@ void	restore_in_out(t_data *data)
 	}
 	close(data->save_in);
 	close(data->save_out);
+	data->save_in = -42;
+	data->save_out = -42;
 }
 
 int	change_input(t_ast *node, t_data *data)
@@ -84,20 +87,12 @@ void	ft_redirect(t_ast *node, t_data *data)
 		if (node->type == REDIR_IN || node->type == HEREDOC)
 		{	
 			if (!change_input(node, data))
-			{	
-				if (data->is_child)
-					exit_child(data);
-				return;
-			}
+				return (exit_child(data));
 		}
 		else if (node->type == REDIR_OUT || node->type == APPEND)
 		{	
 			if (!change_output(node, data))
-			{	
-				if (data->is_child)
-					exit_child(data);
-				return;
-			}
+				return (exit_child(data));
 		}
 		node = node->right;
 	}

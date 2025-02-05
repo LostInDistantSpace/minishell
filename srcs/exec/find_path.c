@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:33:19 by lemarian          #+#    #+#             */
-/*   Updated: 2025/02/04 17:14:12 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/02/05 14:11:19 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,27 @@
 char	*check_command(char *command, t_data *data)
 {
 	struct stat	stats;
-	char		*path;
 
 	stat(command, &stats);
 	if (S_ISDIR(stats.st_mode))
 	{	
-		printf("%s : is a directory\n", command);
+		print_error(command, "is a directory", data);
 		*data->exit_status = 126;
-		return (NULL);
+		return (exit_command(data));
+	}
+	if (ft_strncmp(command, "./", 2) != 0)
+	{
+		print_error(command, "command not found", data);
+		*data->exit_status = 127;
+		return (exit_command(data));
 	}
 	if (access(command, X_OK) == -1)
 	{
-		printf("%s : permission denied\n", command);
+		print_error(command, "permission denied", data);
 		*data->exit_status = 126;
-		return (NULL);
+		return (exit_command(data));
 	}
-	path = ft_strdup(command);
-	if (!path)
-		ft_error(data);
-	return (path);
+	return (command);
 }
 
 char	*test_path(char *path, char *cmd, t_data *data)
@@ -71,10 +73,28 @@ char	*find_cmd_path(char *cmd, char **paths, t_data *data)
 	return (cmd_path);
 }
 
+char	*get_cmd(char *cmd, char *path_str, t_data *data)
+{
+	char	**paths;
+	char	*correct_path;
+
+	paths = ft_split(path_str, ':');
+	if (!paths)
+		ft_error(data);
+	correct_path = find_cmd_path(cmd, paths, data);
+	free_array(&paths);
+	if (!correct_path)
+	{	
+		*data->exit_status = 127;
+		print_error(cmd, "command not found", data);
+		return (NULL);
+	}
+	return (correct_path);
+}
+
 char	*get_path(char *cmd, t_data *data)
 {
 	char	*path_str;
-	char	**paths;
 	char	*correct_path;
 	t_env	*current;
 
@@ -88,12 +108,10 @@ char	*get_path(char *cmd, t_data *data)
 	}
 	if (!path_str)
 	{
-		printf("%s : No such file or directory\n", cmd);
+		print_error(cmd, "No such file or directory", data);
+		*data->exit_status = 127;
 		return (NULL);
 	}
-	paths = ft_split(path_str, ':');
-	if (!paths)
-		return (ft_error(data), NULL);
-	correct_path = find_cmd_path(cmd, paths, data);
-	return (free_array(&paths), correct_path);
+	correct_path = get_cmd(cmd, path_str, data);
+	return (correct_path);
 }
