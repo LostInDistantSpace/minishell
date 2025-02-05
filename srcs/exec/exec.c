@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:23:12 by lemarian          #+#    #+#             */
-/*   Updated: 2025/02/05 18:29:03 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/05 19:01:51 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ int	init_data(t_data *data, t_ast **head, t_env **start, int *e_status)
 	data->save_in = dup(STDIN_FILENO);
 	if (data->save_in == -1)
 	{	
-		printf("Minishell: %s\n", strerror(errno));
+		ft_print_error("Minishell: %s\n", strerror(errno));
 		return (0);
 	}
 	data->save_out = dup(STDOUT_FILENO);
 	if (data->save_out == -1)
 	{	
-		printf("Minishell: %s\n", strerror(errno));
+		ft_print_error("Minishell: %s\n", strerror(errno));
 		return (0);
 	}
 	data->exit_status = e_status;
@@ -54,7 +54,7 @@ void	exec(t_ast **head, t_env **start, int *e_status)
 	{
 		free_ast(head);
 		free_env(start);
-		printf("Minishell : malloc error\n ");
+		ft_print_error("Minishell : malloc error\n ");
 		exit(EXIT_FAILURE);
 	}
 	if (!init_data(data, head, start, e_status))

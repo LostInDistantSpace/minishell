@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 14:43:00 by lemarian          #+#    #+#             */
-/*   Updated: 2025/02/05 15:10:27 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/02/05 17:48:30 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ int	check_key_name(char *key, t_data *data)
 	i = 0;
 	if (key[0] == '=' || ft_isdigit(key[0]))
 	{	
-		restore_in_out(data);
-		printf("export: '%s': not a valid identifier\n", key);
+		ft_print_error("export: '%s': not a valid identifier\n", key);
 		*data->exit_status = 1;
 		free(key);
 		return (0);
@@ -43,8 +42,7 @@ int	check_key_name(char *key, t_data *data)
 	{
 		if (!ft_isalnum(key[i]) && key[i] != '_')
 		{	
-			restore_in_out(data);
-			printf("export: '%s': not a valid identifier\n", key);
+			ft_print_error("export: '%s': not a valid identifier\n", key);
 			*data->exit_status = 1;
 			free(key);
 			return (0);
@@ -54,7 +52,7 @@ int	check_key_name(char *key, t_data *data)
 	return (1);
 }
 
-char	*get_key(char *var, t_data *data)
+char	*get_key(char *var)
 {
 	int		i;
 	char	*key;
@@ -74,9 +72,6 @@ char	*get_key(char *var, t_data *data)
 	}
 	key[i] = 0;
 	if (key[0] == 0)
-	{	
-		restore_in_out(data);
-		printf("export : '%s' not a valid identifier\n", var);
-	}
+		ft_print_error("export : '%s' : not a valid identifier\n", var);
 	return (key);
 }

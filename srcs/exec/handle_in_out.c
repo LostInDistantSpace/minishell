@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:29:59 by lemarian          #+#    #+#             */
-/*   Updated: 2025/02/05 14:18:32 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/02/05 17:59:47 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	change_input(t_ast *node, t_data *data)
 	fd_in = open(node->args[0], O_RDONLY);
 	if (fd_in < 0)
 	{	
-		perror(node->args[0]);
+		ft_print_error("%s : %s\n", node->args[0], strerror(errno));
 		*data->exit_status = 1;
 		return (0);
 	}
@@ -64,7 +64,7 @@ int	change_output(t_ast *node, t_data *data)
 		fd_out = open(node->args[0], O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd_out < 0)
 	{	
-		perror(NULL);
+		ft_print_error("%s : %s\n", node->args[0], strerror(errno));
 		*data->exit_status = 1;
 		return (0);
 	}

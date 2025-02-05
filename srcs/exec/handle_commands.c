@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:36:54 by lemarian          #+#    #+#             */
-/*   Updated: 2025/02/05 14:19:51 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/02/05 17:36:22 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	exec_command(t_ast *node, t_data *data, char *path, char **env)
 	close(data->save_out);
 	if (execve(path, node->args, env) == -1)
 	{
-		perror(NULL);
+		ft_print_error("%s : %s\n", node->args[0], strerror(errno));
 		free_array(&env);
 		free(path);
 		free_data(data);
@@ -34,7 +34,7 @@ void	fork_command(t_ast *node, t_data *data, char *path, char **env)
 	child = fork();
 	status = 0;
 	if (child == -1)
-		return (perror(NULL));
+		ft_error(data);
 	if (child == 0)
 	{
 		data->is_child = true;
@@ -60,7 +60,7 @@ void	find_command(t_ast *node, t_data *data)
 	if (node->args[0][0] == 0)
 	{	
 		path = NULL;
-		print_error(node->args[0], "command not found", data);
+		ft_print_error("%s : command not found\n", node->args[0]);
 	}
 	else if ((access(node->args[0], F_OK) == 0))
 		path = check_command(node->args[0], data);

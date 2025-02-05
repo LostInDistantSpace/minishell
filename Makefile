@@ -6,7 +6,7 @@
 #    By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/10 16:41:52 by bmouhib           #+#    #+#              #
-#    Updated: 2025/02/04 18:13:17 by lemarian         ###   ########.fr        #
+#    Updated: 2025/02/05 17:53:31 by lemarian         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,7 @@ SRC			+=	$(EXEC_PATH)unset.c
 SRC			+=	$(EXEC_PATH)exec.c
 SRC			+=	$(EXEC_PATH)free_exec.c
 SRC			+=	$(EXEC_PATH)ft_atoui.c
+SRC			+=	$(EXEC_PATH)ft_print_error.c
 
 
 # --------------------------------- COMMANDS --------------------------------- #
