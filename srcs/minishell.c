@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:27:25 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/02/05 15:42:02 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/05 18:40:19 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@ void	executor(t_env **env, int *exit_status)
 			sigquit_manager(1);
 			exec(&ast_root, env, exit_status);
 			free_ast(&ast_root);
+			if (g_signal)
+				*exit_status = 128 + g_signal;
+			g_signal = 0;
 			sigquit_manager(0);
 		}
 	}
