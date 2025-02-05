@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 17:12:55 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/02/05 12:07:44 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/05 15:41:19 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int		is_spechar(char c);
 char	*substr_del(char *s, unsigned int start, size_t len);
 
 t_sigac	init_sigaction(void);
+void	sigquit_manager(int status);
 
 t_env	*new_env(char *str);
 t_env	*empty_env(char *str);
@@ -71,13 +72,5 @@ char	*fill_from_step(char *prev, char *str, int start, int stop);
 int		char_not_handled(char c);
 int		unclosed_quote(void);
 int		unexpected_token(char *token);
-
-/******************/
-/* TESTS FUNCTIONS*/
-/******************/
-void	print_env(t_env *env);
-void	print_type(t_token_type type);
-void	print_tokens(t_token *token);
-void	print_ast_tree(t_ast *ast);
 
 #endif
