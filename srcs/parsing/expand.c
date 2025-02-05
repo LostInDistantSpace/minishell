@@ -6,11 +6,26 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:18:08 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/02/03 20:15:44 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/05 12:28:56 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	*special_var(char var, char *previous, int exit_status)
+{
+	char	*num;
+	char	*result;
+
+	if (var == '?')
+	{
+		num = ft_itoa(exit_status);
+		result = ft_strjoin(previous, num);
+		return (free(num), result);
+	}
+	else
+		return (ft_strdup(previous));
+}
 
 /*
 ** Concatenates the variable if it exists to previous
@@ -19,7 +34,6 @@
 char	*concat_var(t_env *env, char **array, int *i, int exit_status)
 {
 	char	*var;
-	char	*num;
 	char	*result;
 	char	*previous;
 
@@ -32,12 +46,8 @@ char	*concat_var(t_env *env, char **array, int *i, int exit_status)
 	{
 		if (*var < 0)
 			result = ft_strjoin(previous, "$");
-		else if (*var == '?')
-		{
-			num = ft_itoa(exit_status);
-			result = ft_strjoin(previous, num);
-			free(num);
-		}
+		else if (*var == '?' || (*var >= '0' && *var <= '9'))
+			result = special_var(*var, previous, exit_status);
 		else
 			result = ft_strjoin(previous, var);
 		return (free(previous), free(var), result);
