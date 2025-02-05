@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 17:12:55 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/02/03 19:03:10 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/05 12:07:44 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ t_token	*new_token(char *value, int type);
 void	add_token(t_token **first, t_token *token);
 int		seek_spe_char(char *input, int pos);
 int		handle_words(char *input, int *pos, t_token **head, t_parse p);
-char	*handle_word(char **s, int *pos);
 
 int		ft_strcmp(char *s1, char *s2);
 char	*ft_double_join(char *l, char *m, char *r);
@@ -54,7 +53,6 @@ int		is_quotes(char c);
 int		is_spechar(char c);
 char	*substr_del(char *s, unsigned int start, size_t len);
 
-void	sig_handler(int signum);
 t_sigac	init_sigaction(void);
 
 t_env	*new_env(char *str);
@@ -64,7 +62,7 @@ t_env	*add_env(t_env *head, t_env *var);
 void	handle_heredocs(t_token **token, t_env *env, int *exit_status);
 
 void	init_expand(char **result, char *quote, int *step, int *i);
-char	*copy_key(char *str, int *i);
+char	*special_var(char var, char *previous, int exit_status);
 char	*expand(char *str, t_env *env, char q, int exit_status);
 char	*get_var_from_key(t_env *env, char *raw, int *i);
 char	*concat_var(t_env *env, char **array, int *i, int exit_status);

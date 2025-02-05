@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:32:10 by lemarian          #+#    #+#             */
-/*   Updated: 2025/02/03 19:49:01 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/05 11:47:18 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*heredoc_exit(char *input, char **name, char *delim, int heredoc)
 	}
 	if (!input)
 	{
-		printf("minishell: warning: ");
+		printf("warning: ");
 		printf("here-document delimited by end-of-file (wanted `%s')\n", delim);
 	}
 	return (*name);
