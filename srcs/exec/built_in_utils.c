@@ -6,13 +6,13 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:29:22 by lemarian          #+#    #+#             */
-/*   Updated: 2025/02/05 15:58:20 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/02/05 17:58:50 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-int	check_exit(char *arg, t_data *data)
+int	check_exit(char *arg)
 {
 	int	i;
 
@@ -25,8 +25,7 @@ int	check_exit(char *arg, t_data *data)
 	{
 		if (!ft_isdigit(arg[i]))
 		{	
-			restore_in_out(data);
-			printf("exit : %s : numeric argument required\n", arg);
+			ft_print_error("exit : %s : numeric argument required\n", arg);
 			return (0);
 		}
 		i++;
@@ -62,7 +61,7 @@ void	update_old_pwd(t_env **env, char *old_pwd)
 			if (current->value)
 				free(current->value);
 			current->value = old_pwd;
-			return;
+			return ;
 		}
 		current = current->next;
 	}
@@ -103,8 +102,8 @@ void	go_home(t_env **env, t_data *data, char *old_pwd)
 			if (chdir(current->value) == -1)
 			{
 				*data->exit_status = 1;
-				free(old_pwd);
-				return (print_error("cd", strerror(errno), data));
+				ft_print_error("cd: %s : ", current->value);
+				return (free(old_pwd), ft_print_error("%s\n", strerror(errno)));
 			}
 			update_old_pwd(env, old_pwd);
 			update_pwd(env);
@@ -113,8 +112,7 @@ void	go_home(t_env **env, t_data *data, char *old_pwd)
 		}
 		current = current->next;
 	}
-	print_error("cd", "HOME not set", data);
-	free(old_pwd);
+	ft_print_error("cd: HOME not set\n");
 	*data->exit_status = 1;
-	return ;
+	return (free(old_pwd));
 }

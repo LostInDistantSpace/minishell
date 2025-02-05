@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 17:01:13 by lemarian          #+#    #+#             */
-/*   Updated: 2025/02/05 15:25:29 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/02/05 17:57:50 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,13 @@ char	*exit_command(t_data *data)
 	return (NULL);
 }
 
-void	print_error(char *src, char *error, t_data *data)
-{
-	restore_in_out(data);
-	printf("%s : %s\n", src, error);
-}
-
 void	ft_error(t_data *data)
 {
 	restore_in_out(data);
 	free_env(data->env);
 	free_ast(data->ast);
 	free(data);
-	printf("Minishell : %s", strerror(errno));
+	ft_print_error("Minishell : %s\n", strerror(errno));
 	exit(EXIT_FAILURE);
 }
 
