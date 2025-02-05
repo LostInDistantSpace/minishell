@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:23:12 by lemarian          #+#    #+#             */
-/*   Updated: 2025/02/03 19:40:17 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/04 18:14:06 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int	init_data(t_data *data, t_ast **head, t_env **start, int *e_status)
 	}
 	data->exit_status = e_status;
 	data->is_child = false;
-	data->piped = false;
 	data->ast = head;
 	data->env = start;
 	return (1);

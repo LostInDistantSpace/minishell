@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:33:19 by lemarian          #+#    #+#             */
-/*   Updated: 2025/02/03 15:44:18 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/02/04 17:14:12 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,5 @@ char	*get_path(char *cmd, t_data *data)
 	if (!paths)
 		return (ft_error(data), NULL);
 	correct_path = find_cmd_path(cmd, paths, data);
-	if (!correct_path)
-		printf("%s : command not found\n", cmd);
 	return (free_array(&paths), correct_path);
 }

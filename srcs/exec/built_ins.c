@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:04:27 by lemarian          #+#    #+#             */
-/*   Updated: 2025/02/03 15:40:45 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/02/04 15:00:07 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_exit(t_ast *node, t_data *data)
 {
 	int	final_exit;
 
-	if (data->is_child == true || data->piped == true)
+	if (data->is_child == true)
 		return ;
 	if (!node->args[1] || !check_exit(node->args[1]))
 		final_exit = *data->exit_status;
@@ -66,6 +66,7 @@ void	ft_echo(t_ast *node, t_data *data)
 	if (line == 0)
 		ft_putstr_fd("\n", STDOUT_FILENO);
 	*data->exit_status = 0;
+	return;
 }
 
 void	ft_pwd(t_data *data)
