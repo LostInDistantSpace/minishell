@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:27:25 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/02/03 19:00:53 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/05 15:42:02 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,10 @@ void	executor(t_env **env, int *exit_status)
 		ast_root = parse_tokens(token);
 		if (ast_root)
 		{
+			sigquit_manager(1);
 			exec(&ast_root, env, exit_status);
 			free_ast(&ast_root);
+			sigquit_manager(0);
 		}
 	}
 }
@@ -37,7 +39,6 @@ int	main(int ac, char **av, char **envp)
 {
 	int					i;
 	int					exit_status;
-	struct sigaction	sa;
 	t_env				*env;
 
 	(void)av;
@@ -46,8 +47,8 @@ int	main(int ac, char **av, char **envp)
 	i = 0;
 	g_signal = 0;
 	exit_status = 0;
-	sa = init_sigaction();
 	env = NULL;
+	init_sigaction();
 	while (envp && envp[i])
 		env = add_env(env, new_env(envp[i++]));
 	if (!env)
