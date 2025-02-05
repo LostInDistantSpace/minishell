@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:04:27 by lemarian          #+#    #+#             */
-/*   Updated: 2025/02/05 14:25:25 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/02/05 15:03:04 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_exit(t_ast *node, t_data *data)
 		final_exit = *data->exit_status;
 	else if (node->args[2] != NULL)
 	{
-		printf("exit : too many arguments\n");
+		print_error("exit", "too many arguments", data);
 		*data->exit_status = 1;
 		return ;
 	}
@@ -120,14 +120,15 @@ void	ft_cd(t_ast *node, t_env **env, t_data *data)
 		return (go_home(env, data, old_pwd));
 	if (node->args[2])
 	{
-		printf("cd : too may arguments\n");
+		print_error("cd", "too may arguments", data);
 		*data->exit_status = 1;
 		return ;
 	}
 	if (chdir(node->args[1]) == -1)
 	{	
 		*data->exit_status = 1;
-		return (perror(NULL));
+		print_error("cd", strerror(errno), data);
+		return ;
 	}
 	update_old_pwd(env, old_pwd);
 	update_pwd(env);

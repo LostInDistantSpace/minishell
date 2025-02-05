@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:22:40 by lemarian          #+#    #+#             */
-/*   Updated: 2025/02/05 14:33:47 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/02/05 15:09:48 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void			ft_exit(t_ast *node, t_data *data);
 int				check_exit(char *arg, t_data *data);
 
 void			ft_export(t_ast *node, t_data *data);
-char			*get_key(char *var);
+char			*get_key(char *var, t_data *data);
 char			*get_value(char *var);
 int				check_key_name(char *key, t_data *data);
 

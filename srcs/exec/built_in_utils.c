@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:29:22 by lemarian          #+#    #+#             */
-/*   Updated: 2025/02/05 14:25:08 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/02/05 14:39:21 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void	go_home(t_env **env, t_data *data, char *old_pwd)
 		}
 		current = current->next;
 	}
-	printf("cd : HOME not set\n");
+	print_error("cd", "HOME not set", data);
 	*data->exit_status = 1;
 	return ;
 }
