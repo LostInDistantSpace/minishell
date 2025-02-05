@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:49:05 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/02/03 18:49:15 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/05 18:27:20 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ t_token	*parse(t_env **env, int *exit_status, char *home)
 	if (!syntax)
 	{
 		token_list = tokenize_input(line, *env, *exit_status);
+		if (token_list->type < 0)
+			return (token_list);
 		handle_heredocs(&token_list, *env, exit_status);
 		if (g_signal == SIGINT)
 		{

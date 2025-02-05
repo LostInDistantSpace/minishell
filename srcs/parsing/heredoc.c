@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:32:10 by lemarian          #+#    #+#             */
-/*   Updated: 2025/02/05 11:47:18 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/05 18:51:12 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ void	handle_heredocs(t_token **head, t_env *env, int *exit_status)
 			if (!name)
 			{
 				free_tokens(head);
+				*head = new_token(NULL, -1);
 				*exit_status = 3;
 				return ;
 			}

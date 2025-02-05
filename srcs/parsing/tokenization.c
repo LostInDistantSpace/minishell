@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:43:30 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/02/03 20:14:52 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/05 18:23:39 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*handle_delim(char **s, int *pos)
 	return (value);
 }
 
-void	handle_redirs(char **input, int pos, t_token **head, t_parse data)
+int	handle_redirs(char **input, int pos, t_token **head, t_parse data)
 {
 	int		type;
 	char	*value;
@@ -75,21 +75,21 @@ void	handle_redirs(char **input, int pos, t_token **head, t_parse data)
 	{
 		pos = seek_spe_char(*input, pos);
 		if (!(*input)[pos] || (*input)[pos] == '|')
-			return ;
+			return (0);
 		type = handle_redir(*input, &pos);
-		if (type == -1)
-			return ;
 		while ((*input)[pos] && ft_iswhitespace((*input)[pos]))
 			pos++;
 		value = handle_delim(input, &pos);
 		if (!value)
-			;
+			return (1);
 		if (type != HEREDOC)
 			value = expand(value, data.env, '\'', data.exit_status);
 		token = new_token(value, type);
-		free(value);
+		if (!token)
+			return (1);
 		add_token(head, token);
 	}
+	return (0);
 }
 
 /*
@@ -108,16 +108,16 @@ t_token	*tokenize_input(char *input, t_env *env, int exit_status)
 	data.exit_status = exit_status;
 	while (input[i])
 	{
-		handle_redirs(&input, i, &head, data);
+		if (handle_redirs(&input, i, &head, data))
+			return (new_token(NULL, -1));
 		words_num = handle_words(input, &i, &head, data);
-		if (!words_num)
-			while (input[i] && input[i] != '|')
-				i++;
-		else if (words_num < 0)
-			return (free_tokens(&head), NULL);
+		if (words_num < 0)
+			return (free_tokens(&head), new_token(NULL, -1));
+		while (!words_num && input[i] && input[i] != '|')
+			i++;
 		if (input[i] == '|')
 		{
-			add_token(&head, new_token("|", PIPE));
+			add_token(&head, new_token(ft_strdup("|"), PIPE));
 			i++;
 		}
 	}

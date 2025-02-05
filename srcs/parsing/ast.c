@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 17:23:24 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/02/03 19:57:51 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/05 18:54:09 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ t_ast	*parse_tokens(t_token *token)
 	{
 		node = new_node(token);
 		if (!node)
-			return (NULL);
+			return (free_ast(&head), new_node(new_token(NULL, -1)));
 		next = token->next;
 		free(token);
 		if (node->type == PIPE)
