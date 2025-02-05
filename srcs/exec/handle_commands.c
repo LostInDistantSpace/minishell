@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:36:54 by lemarian          #+#    #+#             */
-/*   Updated: 2025/02/05 14:19:51 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/02/05 15:47:01 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	exec_command(t_ast *node, t_data *data, char *path, char **env)
 	close(data->save_out);
 	if (execve(path, node->args, env) == -1)
 	{
-		perror(NULL);
+		print_error(node->args[0], strerror(errno), data);
 		free_array(&env);
 		free(path);
 		free_data(data);
@@ -34,7 +34,7 @@ void	fork_command(t_ast *node, t_data *data, char *path, char **env)
 	child = fork();
 	status = 0;
 	if (child == -1)
-		return (perror(NULL));
+		ft_error(data);
 	if (child == 0)
 	{
 		data->is_child = true;

@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:29:22 by lemarian          #+#    #+#             */
-/*   Updated: 2025/02/05 14:39:21 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/02/05 15:58:20 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,11 @@ void	update_old_pwd(t_env **env, char *old_pwd)
 			if (current->value)
 				free(current->value);
 			current->value = old_pwd;
+			return;
 		}
 		current = current->next;
 	}
+	free(old_pwd);
 }
 
 void	update_pwd(t_env **env)
@@ -97,11 +99,12 @@ void	go_home(t_env **env, t_data *data, char *old_pwd)
 		if (ft_strcmp(current->key, "HOME") == 0)
 		{
 			if (!current->value || current->value[0] == 0)
-				return ;
+				return (free(old_pwd));
 			if (chdir(current->value) == -1)
 			{
 				*data->exit_status = 1;
-				return (perror("cd"));
+				free(old_pwd);
+				return (print_error("cd", strerror(errno), data));
 			}
 			update_old_pwd(env, old_pwd);
 			update_pwd(env);
@@ -111,6 +114,7 @@ void	go_home(t_env **env, t_data *data, char *old_pwd)
 		current = current->next;
 	}
 	print_error("cd", "HOME not set", data);
+	free(old_pwd);
 	*data->exit_status = 1;
 	return ;
 }
