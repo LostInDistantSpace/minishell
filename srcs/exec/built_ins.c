@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:04:27 by lemarian          #+#    #+#             */
-/*   Updated: 2025/02/06 11:16:35 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/02/06 12:41:09 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,12 @@ void	ft_exit(t_ast *node, t_data *data)
 void	ft_echo(t_ast *node, t_data *data)
 {
 	int	i;
-	int	line;
 
 	i = 1;
-	line = 0;
 	if (node->args[1] != NULL)
 	{
-		if (ft_strncmp(node->args[1], "-n", 2) == 0)
-		{
-			line = 1;
-			while (node->args[i] && check_echo_flag(node->args[i]))
-				i++;
-		}
+		while (node->args[i] && check_echo_flag(node->args[i]))
+			i++;
 	}
 	while (node->args[i])
 	{
@@ -63,7 +57,7 @@ void	ft_echo(t_ast *node, t_data *data)
 			ft_putstr_fd(" ", STDOUT_FILENO);
 		i++;
 	}
-	if (line == 0)
+	if (!check_echo_flag(node->args[1]))
 		ft_putstr_fd("\n", STDOUT_FILENO);
 	*data->exit_status = 0;
 	return ;
