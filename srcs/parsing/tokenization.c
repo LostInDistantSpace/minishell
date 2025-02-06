@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:43:30 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/02/06 11:12:15 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/06 14:09:50 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,26 @@ int	handle_redirs(char **input, int pos, t_token **head, t_parse data)
 	return (0);
 }
 
+int	skip_to_pipe(char *str, int i)
+{
+	char	quote;
+
+	quote = 0;
+	while (str[i] && str[i] != '|')
+	{
+		if ((str[i] == '\'' || str[i] == '"') && (str[i] == quote || !quote))
+			quote = str[i] - quote;
+		while (quote)
+		{
+			i++;
+			if (is_quotes(str[i]) && (!quote || str[i] == quote))
+				quote = str[i] - quote;
+		}
+		i++;
+	}
+	return (i);
+}
+
 /*
  Iterates through the input, creating tokens for words separated by spaces.
 */
@@ -113,8 +133,7 @@ t_token	*tokenize_input(char *input, t_env *env, int exit_status)
 		words_num = handle_words(input, i, &head, data);
 		if (words_num < 0)
 			return (free_tokens(&head), new_token(NULL, -1));
-		while (input[i] && input[i] != '|')
-			i++;
+		i = skip_to_pipe(input, i);
 		if (input[i] == '|')
 		{
 			add_token(&head, new_token(ft_strdup("|"), PIPE));
