@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:49:05 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/02/06 13:02:48 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/06 13:57:00 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ t_token	*parse(t_env **env, int *exit_status, char *home)
 			return (free_tokens(&token_list), free(line), NULL);
 		}
 	}
-	else
+	else if (syntax != 1)
 		*exit_status = 2;
 	return (free(line), token_list);
 }
