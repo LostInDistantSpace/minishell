@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:29:22 by lemarian          #+#    #+#             */
-/*   Updated: 2025/02/05 17:58:50 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/02/06 11:18:18 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int	check_echo_flag(char *flag)
 
 	i = 1;
 	if (flag[0] != '-')
+		return (0);
+	if (flag[2] != 'n' && (flag[2] != ' ' && flag[2] != '\0'))
 		return (0);
 	while (flag[i])
 	{
