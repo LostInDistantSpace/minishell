@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:04:27 by lemarian          #+#    #+#             */
-/*   Updated: 2025/02/05 17:39:31 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/02/06 11:16:35 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	ft_echo(t_ast *node, t_data *data)
 	line = 0;
 	if (node->args[1] != NULL)
 	{
-		if (ft_strncmp(node->args[1], "-n", 2) == 0 && node->args[1][2] == ' ')
+		if (ft_strncmp(node->args[1], "-n", 2) == 0)
 		{
 			line = 1;
 			while (node->args[i] && check_echo_flag(node->args[i]))
