@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:43:30 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/02/05 18:23:39 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/06 11:12:15 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,10 +110,10 @@ t_token	*tokenize_input(char *input, t_env *env, int exit_status)
 	{
 		if (handle_redirs(&input, i, &head, data))
 			return (new_token(NULL, -1));
-		words_num = handle_words(input, &i, &head, data);
+		words_num = handle_words(input, i, &head, data);
 		if (words_num < 0)
 			return (free_tokens(&head), new_token(NULL, -1));
-		while (!words_num && input[i] && input[i] != '|')
+		while (input[i] && input[i] != '|')
 			i++;
 		if (input[i] == '|')
 		{

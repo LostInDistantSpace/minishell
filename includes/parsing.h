@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 17:12:55 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/02/05 15:41:19 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/06 11:11:26 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_ast	*parse_tokens(t_token *token);
 t_token	*new_token(char *value, int type);
 void	add_token(t_token **first, t_token *token);
 int		seek_spe_char(char *input, int pos);
-int		handle_words(char *input, int *pos, t_token **head, t_parse p);
+int		handle_words(char *input, int pos, t_token **head, t_parse p);
 
 int		ft_strcmp(char *s1, char *s2);
 char	*ft_double_join(char *l, char *m, char *r);

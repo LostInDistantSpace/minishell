@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 19:43:32 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/02/04 14:01:48 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/06 11:12:57 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	*get_words(char *input, int pos)
 	return (free(result), final);
 }
 
-char	*expand_var(char *str, t_env *env, int exit_status, int *pos)
+char	*expand_var(char *str, t_env *env, int exit_status)
 {
 	int		i;
 	int		step;
@@ -90,7 +90,6 @@ char	*expand_var(char *str, t_env *env, int exit_status, int *pos)
 			i++;
 	}
 	array[1] = fill_from_step(array[1], str, step, i);
-	(*pos) += i;
 	return (free(str), array[1]);
 }
 
@@ -123,7 +122,7 @@ char	*handle_word(char **s, int *pos)
 	return (value);
 }
 
-int	handle_words(char *input, int *pos, t_token **head, t_parse data)
+int	handle_words(char *input, int pos, t_token **head, t_parse data)
 {
 	int		i;
 	int		cur_word;
@@ -131,7 +130,7 @@ int	handle_words(char *input, int *pos, t_token **head, t_parse data)
 	char	**array;
 
 	i = 0;
-	input = expand_var(get_words(input, *pos), data.env, data.exit_status, pos);
+	input = expand_var(get_words(input, pos), data.env, data.exit_status);
 	num_word = word_num(input);
 	if (!num_word)
 		return (free (input), 0);
