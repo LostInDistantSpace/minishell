@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:27:25 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/02/05 18:56:33 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/06 10:36:23 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	executor(t_env **env, int *exit_status)
 		else if (ast_root->type < 0)
 			return (free_tokens(&token), free_ast(&ast_root), 1);
 	}
-	else if (token->type < 0)
+	else if (token && token->type < 0)
 		return (free(token), free_env(env), 1);
 	return (0);
 }
