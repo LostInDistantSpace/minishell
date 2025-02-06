@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 18:39:29 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/02/05 12:28:20 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/06 13:19:15 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ char	*copy_key(char *str, int *i)
 	len = 0;
 	if (str[*i] == '?' || (str[*i] >= '0' && str[*i] <= '9'))
 		return (ft_substr(str, (*i)++, 1));
+	else if (str[*i] == '\'' || str[*i] == '"')
+		return (NULL);
 	while (str[*i + len] && (ft_isalnum(str[*i + len]) || str[*i + len] == '_'))
 		len++;
 	if (!len)
