@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:49:05 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/02/05 18:27:20 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/06 12:47:58 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,11 @@ char	*get_input(char *prompt)
 	return (line);
 }
 
-int	check_input(t_env **env, char *line, int exit_status)
+int	check_input(t_env **env, char *line, int *exit_status)
 {
 	if (g_signal == SIGINT)
 	{
+		*exit_status = 128 + g_signal;
 		g_signal = 0;
 		return (1);
 	}
@@ -34,7 +35,7 @@ int	check_input(t_env **env, char *line, int exit_status)
 	{
 		free_env(env);
 		write(STDOUT_FILENO, "exit\n", 5);
-		exit(exit_status);
+		exit(*exit_status);
 	}
 	return (0);
 }
@@ -47,7 +48,7 @@ t_token	*parse(t_env **env, int *exit_status, char *home)
 
 	token_list = NULL;
 	line = get_input(prompt(*env, home));
-	if (check_input(env, line, *exit_status))
+	if (check_input(env, line, exit_status))
 		return (NULL);
 	syntax = syntax_checker(line);
 	if (!syntax)
