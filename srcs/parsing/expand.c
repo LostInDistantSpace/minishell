@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:18:08 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/02/06 15:08:58 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/06 18:27:33 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,10 @@ char	*expand(char *str, t_env *env, char q, int exit_status)
 	{
 		if ((str[i] == '\'' || str[i] == '"') && (!quote || str[i] == quote))
 			quote = str[i] - quote;
-		if (quote != q && str[i] == '$')
+		if ((!q || quote != q) && str[i] == '$')
 		{
 			array[1] = fill_from_step(array[1], str, step, i++);
-			if (q && !is_quotes(str[i]))
+			if (!q || (q && !is_quotes(str[i])))
 				array[1] = concat_var(env, array, &i, exit_status);
 			if (!array[1])
 				return (free(str), NULL);
