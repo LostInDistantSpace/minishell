@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:18:08 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/02/06 13:41:11 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/06 15:08:58 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ char	*concat_var(t_env *env, char **array, int *i, int exit_status)
 	char	*result;
 	char	*previous;
 
+	if (array[0][*i] == '?' || (array[0][*i] >= '0' && array[0][*i] <= '9'))
+		return (special_var(array[0][(*i)++], array[1], exit_status));
 	var = get_var_from_key(env, array[0], i);
 	previous = array[1];
 	if (!previous)
@@ -45,8 +47,6 @@ char	*concat_var(t_env *env, char **array, int *i, int exit_status)
 	{
 		if (*var < 0)
 			result = ft_strjoin(previous, "$");
-		else if (*var == '?' || (*var >= '0' && *var <= '9'))
-			result = special_var(*var, previous, exit_status);
 		else
 			result = ft_strjoin(previous, var);
 		return (free(previous), free(var), result);
@@ -95,12 +95,12 @@ char	*expand(char *str, t_env *env, char q, int exit_status)
 	init_expand(&array[1], &quote, &step, &i);
 	while (str[i])
 	{
-		if (str[i] == q)
+		if ((str[i] == '\'' || str[i] == '"') && (!quote || str[i] == quote))
 			quote = str[i] - quote;
-		if (!quote && str[i] == '$')
+		if (quote != q && str[i] == '$')
 		{
-			array[1] = fill_from_step(array[1], str, step, i);
-			if (q && !is_quotes(str[++i]))
+			array[1] = fill_from_step(array[1], str, step, i++);
+			if (q && !is_quotes(str[i]))
 				array[1] = concat_var(env, array, &i, exit_status);
 			if (!array[1])
 				return (free(str), NULL);

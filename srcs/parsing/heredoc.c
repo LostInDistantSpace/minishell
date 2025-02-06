@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:32:10 by lemarian          #+#    #+#             */
-/*   Updated: 2025/02/05 18:51:12 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/06 15:15:00 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,10 @@ char	*heredoc_exit(char *input, char **name, char *delim, int heredoc)
 	}
 	if (!input)
 	{
-		printf("warning: ");
-		printf("here-document delimited by end-of-file (wanted `%s')\n", delim);
+		ft_putstr_fd("warning: here-document delimited ", STDERR_FILENO);
+		ft_putstr_fd("by end-of-file (wanted '", STDERR_FILENO);
+		ft_putstr_fd(delim, STDERR_FILENO);
+		ft_putstr_fd("')\n", STDERR_FILENO);
 	}
 	return (*name);
 }
