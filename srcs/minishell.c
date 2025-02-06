@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:27:25 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/02/06 10:54:56 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/06 15:37:09 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ int	executor(t_env **env, int *exit_status)
 			free_ast(&ast_root);
 			if (g_signal)
 				*exit_status = 128 + g_signal;
-			g_signal = 0;
 			sigquit_manager(0);
 		}
 		else if (ast_root->type < 0)
