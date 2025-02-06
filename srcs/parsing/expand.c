@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:18:08 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/02/05 12:28:56 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/06 13:41:11 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ char	*concat_var(t_env *env, char **array, int *i, int exit_status)
 	char	*result;
 	char	*previous;
 
-	(*i)++;
 	var = get_var_from_key(env, array[0], i);
 	previous = array[1];
 	if (!previous)
@@ -93,7 +92,6 @@ char	*expand(char *str, t_env *env, char q, int exit_status)
 	char	*array[2];
 
 	array[0] = str;
-	i = 0;
 	init_expand(&array[1], &quote, &step, &i);
 	while (str[i])
 	{
@@ -102,7 +100,8 @@ char	*expand(char *str, t_env *env, char q, int exit_status)
 		if (!quote && str[i] == '$')
 		{
 			array[1] = fill_from_step(array[1], str, step, i);
-			array[1] = concat_var(env, array, &i, exit_status);
+			if (q && !is_quotes(str[++i]))
+				array[1] = concat_var(env, array, &i, exit_status);
 			if (!array[1])
 				return (free(str), NULL);
 			step = i;
