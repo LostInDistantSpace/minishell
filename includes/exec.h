@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:22:40 by lemarian          #+#    #+#             */
-/*   Updated: 2025/02/05 17:57:44 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/02/06 14:47:17 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,6 @@ unsigned int	ft_atoui(const char *nptr);
 void			exit_child(t_data *data);
 char			*exit_command(t_data *data);
 void			ft_print_error(const char *str, ...);
+char			*dup_path(char *command, t_data *data);
 
 #endif

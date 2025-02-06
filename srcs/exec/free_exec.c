@@ -6,11 +6,21 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 17:01:13 by lemarian          #+#    #+#             */
-/*   Updated: 2025/02/05 17:57:50 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/02/06 14:47:13 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
+
+char	*dup_path(char *command, t_data *data)
+{
+	char	*path;
+
+	path = ft_strdup(command);
+	if (!path)
+		ft_error(data);
+	return (path);
+}
 
 char	*exit_command(t_data *data)
 {

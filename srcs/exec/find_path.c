@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:33:19 by lemarian          #+#    #+#             */
-/*   Updated: 2025/02/05 17:34:50 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/02/06 14:46:56 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*check_command(char *command, t_data *data)
 		*data->exit_status = 126;
 		return (exit_command(data));
 	}
-	if (ft_strncmp(command, "./", 2) != 0)
+	if (ft_strncmp(command, "./", 2) != 0 && command[0] != '/')
 	{
 		ft_print_error("%s : command not found\n", command);
 		*data->exit_status = 127;
@@ -35,7 +35,7 @@ char	*check_command(char *command, t_data *data)
 		*data->exit_status = 126;
 		return (exit_command(data));
 	}
-	return (command);
+	return (dup_path(command, data));
 }
 
 char	*test_path(char *path, char *cmd, t_data *data)
