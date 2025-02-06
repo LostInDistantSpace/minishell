@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:04:27 by lemarian          #+#    #+#             */
-/*   Updated: 2025/02/06 12:41:09 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/02/06 13:05:13 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	ft_echo(t_ast *node, t_data *data)
 			ft_putstr_fd(" ", STDOUT_FILENO);
 		i++;
 	}
-	if (!check_echo_flag(node->args[1]))
+	if (!node->args[1] || !check_echo_flag(node->args[1]))
 		ft_putstr_fd("\n", STDOUT_FILENO);
 	*data->exit_status = 0;
 	return ;
