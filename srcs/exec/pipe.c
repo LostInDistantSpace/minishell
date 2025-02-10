@@ -6,39 +6,42 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 13:16:52 by lemarian          #+#    #+#             */
-/*   Updated: 2025/02/05 14:36:24 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/02/10 13:57:30 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-void	child_right(t_ast *node, t_data *data)
+void	init_right(t_ast *node, t_data *data, int fd[2])
 {
-	int	status;
-
 	data->is_child = true;
-	ft_ast(node->right, data);
-	status = *data->exit_status;
-	exit_child(data);
-}
-
-void	child_left(t_ast *node, int pipe[2], t_data *data)
-{
-	int	status;
-
-	data->is_child = true;
-	close(pipe[0]);
-	if (dup2(pipe[1], STDOUT_FILENO) == -1)
+	close(fd[1]);
+	if (dup2(fd[0], STDIN_FILENO) == -1)
 	{
-		close(pipe[1]);
-		free_data(data);
-		exit(EXIT_FAILURE);
+		close(fd[0]);
+		*data->exit_status = 1;
+		exit_child(data);
 	}
-	close(pipe[1]);
-	ft_ast(node->left, data);
-	status = *data->exit_status;
+	close(fd[0]);
+	ft_ast(node->right, data);
 	exit_child(data);
 }
+
+void	init_left(t_ast *node, t_data *data, int fd[2])
+{
+	data->is_child = true;
+	close(fd[0]);
+	if (dup2(fd[1], STDOUT_FILENO) == -1)
+	{
+		close(fd[1]);
+		*data->exit_status = 1;
+		exit_child(data);
+	}
+	close(fd[1]);
+	ft_ast(node->left, data);
+	exit_child(data);
+}
+
 
 void	fork_pipe(t_ast *node, t_data *data)
 {
@@ -47,23 +50,20 @@ void	fork_pipe(t_ast *node, t_data *data)
 	int		fd[2];
 	int		status;
 
-	pipe(fd);
+	if (pipe(fd) == -1)
+		ft_error(data);
 	left = fork();
 	if (left == -1)
 		ft_error(data);
 	if (left == 0)
-		child_left(node, fd, data);
-	if (dup2(fd[0], STDIN_FILENO) == -1)
-	{
-		close(fd[1]);
-		ft_error(data);
-	}
-	(close(fd[0]), close(fd[1]));
+		init_left(node, data, fd);
 	right = fork();
 	if (right == -1)
 		ft_error(data);
 	if (right == 0)
-		child_right(node, data);
+		init_right(node, data, fd);
+	close(fd[0]);
+	close(fd[1]);
 	(waitpid(left, &status, 0), waitpid(right, &status, 0));
 	if (WIFEXITED(status))
 		*data->exit_status = WEXITSTATUS(status);

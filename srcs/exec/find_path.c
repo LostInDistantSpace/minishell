@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:33:19 by lemarian          #+#    #+#             */
-/*   Updated: 2025/02/06 14:46:56 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/02/10 13:57:56 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,6 @@ char	*check_command(char *command, t_data *data)
 	{	
 		ft_print_error("%s : is a directory\n", command);
 		*data->exit_status = 126;
-		return (exit_command(data));
-	}
-	if (ft_strncmp(command, "./", 2) != 0 && command[0] != '/')
-	{
-		ft_print_error("%s : command not found\n", command);
-		*data->exit_status = 127;
 		return (exit_command(data));
 	}
 	if (access(command, X_OK) == -1)
