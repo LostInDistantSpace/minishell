@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:32:10 by lemarian          #+#    #+#             */
-/*   Updated: 2025/02/06 15:15:00 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/10 19:51:35 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*heredoc_exit(char *input, char **name, char *delim, int heredoc)
 	return (*name);
 }
 
-char	*create_heredoc(char *delim, t_env *env, int exit_status)
+char	*create_heredoc(char *delim, t_env *env, int exit_status, int quoted)
 {
 	int		heredoc;
 	char	*input;
@@ -65,7 +65,8 @@ char	*create_heredoc(char *delim, t_env *env, int exit_status)
 	{
 		if (g_signal || !input)
 			return (heredoc_exit(input, &name, delim, heredoc));
-		input = expand(input, env, 0, exit_status);
+		if (!quoted)
+			input = expand(input, env, 0, exit_status);
 		if (!input)
 			return (free(name), NULL);
 		ft_putstr_fd(input, heredoc);
@@ -79,6 +80,7 @@ char	*create_heredoc(char *delim, t_env *env, int exit_status)
 
 void	handle_heredocs(t_token **head, t_env *env, int *exit_status)
 {
+	int		quoted;
 	char	*name;
 	t_token	*token;
 
@@ -87,11 +89,12 @@ void	handle_heredocs(t_token **head, t_env *env, int *exit_status)
 	{
 		if (token->type == HEREDOC)
 		{
-			name = create_heredoc(token->value[0], env, *exit_status);
+			quoted = token->quoted;
+			name = create_heredoc(token->value[0], env, *exit_status, quoted);
 			if (!name)
 			{
 				free_tokens(head);
-				*head = new_token(NULL, -1);
+				*head = new_token(NULL, -1, 0);
 				*exit_status = 3;
 				return ;
 			}

@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:43:30 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/02/06 14:09:50 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/10 19:47:58 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	handle_redir(char *input, int *pos)
 	return (type);
 }
 
-char	*handle_delim(char **s, int *pos)
+char	*handle_delim(char **s, int *pos, int *quoted)
 {
 	int		i;
 	char	quote;
@@ -59,7 +59,8 @@ char	*handle_delim(char **s, int *pos)
 		}
 		i++;
 	}
-	value = substr_del(*s, *pos, i - *pos);
+	*quoted = 0;
+	value = substr_del(*s, *pos, i - *pos, quoted);
 	*pos = i;
 	return (value);
 }
@@ -67,6 +68,7 @@ char	*handle_delim(char **s, int *pos)
 int	handle_redirs(char **input, int pos, t_token **head, t_parse data)
 {
 	int		type;
+	int		quoted;
 	char	*value;
 	t_token	*token;
 
@@ -79,12 +81,12 @@ int	handle_redirs(char **input, int pos, t_token **head, t_parse data)
 		type = handle_redir(*input, &pos);
 		while ((*input)[pos] && ft_iswhitespace((*input)[pos]))
 			pos++;
-		value = handle_delim(input, &pos);
+		value = handle_delim(input, &pos, &quoted);
 		if (!value)
 			return (1);
 		if (type != HEREDOC)
 			value = expand(value, data.env, '\'', data.exit_status);
-		token = new_token(value, type);
+		token = new_token(value, type, quoted);
 		if (!token)
 			return (1);
 		add_token(head, token);
@@ -129,14 +131,14 @@ t_token	*tokenize_input(char *input, t_env *env, int exit_status)
 	while (input[i])
 	{
 		if (handle_redirs(&input, i, &head, data))
-			return (new_token(NULL, -1));
+			return (new_token(NULL, -1, 0));
 		words_num = handle_words(input, i, &head, data);
 		if (words_num < 0)
-			return (free_tokens(&head), new_token(NULL, -1));
+			return (free_tokens(&head), new_token(NULL, -1, 0));
 		i = skip_to_pipe(input, i);
 		if (input[i] == '|')
 		{
-			add_token(&head, new_token(ft_strdup("|"), PIPE));
+			add_token(&head, new_token(ft_strdup("|"), PIPE, 0));
 			i++;
 		}
 	}

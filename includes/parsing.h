@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 17:12:55 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/02/06 11:11:26 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/10 19:46:41 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,11 @@ typedef struct s_parse_data
 	int		exit_status;
 }	t_parse;
 
+/*
+** TESTS FUNCTIONS **
+*/
+void	print_tokens(t_token *token);
+
 t_token	*parse(t_env **env, int *exit_status, char *home);
 
 int		syntax_checker(char *line);
@@ -39,7 +44,7 @@ int		is_forbiddenchar(char c);
 t_token	*word_token(char ***value, int num_word);
 t_token	*tokenize_input(char *input, t_env *env, int exit_status);
 t_ast	*parse_tokens(t_token *token);
-t_token	*new_token(char *value, int type);
+t_token	*new_token(char *value, int type, int quoted);
 void	add_token(t_token **first, t_token *token);
 int		seek_spe_char(char *input, int pos);
 int		handle_words(char *input, int pos, t_token **head, t_parse p);
@@ -51,10 +56,10 @@ char	*get_var(t_env *env, char *key);
 
 int		is_quotes(char c);
 int		is_spechar(char c);
-char	*substr_del(char *s, unsigned int start, size_t len);
+char	*substr_del(char *s, unsigned int start, size_t len, int *quoted);
 
-t_sigac	init_sigaction(void);
 void	sigquit_manager(int status);
+t_sigac	init_sigaction(void);
 
 t_env	*new_env(char *str);
 t_env	*empty_env(char *str);

@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 22:51:25 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/27 17:41:48 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/10 21:47:20 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,22 @@ void	copy_between_quote(char *str, char *copy, int *i, int *j)
 {
 	char	quote;
 
-	quote = str[(*i)++];
+	quote = str[*i];
+	str[(*i)++] = -1;
 	while (str[*i] != quote && str[*i])
-		copy[(*j)++] = str[(*i)++];
+	{
+		copy[(*j)++] = str[*i];
+		str[(*i)++] = -1;
+	}
 }
 
-char	*copy_del(char *str, int len)
+int	handle_quoted_word(char *str, char *copy, int *i, int *j)
+{
+	copy_between_quote(str, copy, i, j);
+	return (1);
+}
+
+char	*copy_del(char *str, int len, int *quoted)
 {
 	int		i;
 	int		j;
@@ -35,12 +45,14 @@ char	*copy_del(char *str, int len)
 		return (NULL);
 	while (i < len && str[i])
 	{
-		if (str[i] == -2)
-			copy[j++] = str[++i];
-		else if (str[i] == '"' || str[i] == '\'')
-			copy_between_quote(str, copy, &i, &j);
+		if (str[i] == '"' || str[i] == '\'')
+			*quoted = handle_quoted_word(str, copy, &i, &j);
 		else
+		{
+			if (str[i] == -2)
+				str[i++] = -1;
 			copy[j++] = str[i];
+		}
 		str[i++] = -1;
 	}
 	copy[j] = 0;
@@ -48,7 +60,7 @@ char	*copy_del(char *str, int len)
 	return (free(copy), result);
 }
 
-char	*substr_del(char *str, unsigned int start, size_t len)
+char	*substr_del(char *str, unsigned int start, size_t len, int *quoted)
 {
 	if (!str)
 		return (NULL);
@@ -56,5 +68,5 @@ char	*substr_del(char *str, unsigned int start, size_t len)
 		return (ft_strdup(""));
 	if (ft_strlen(str + start) < len)
 		len = ft_strlen(str + start);
-	return (copy_del(str + start, len));
+	return (copy_del(str + start, len, quoted));
 }

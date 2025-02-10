@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 19:43:32 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/02/10 15:49:36 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/10 21:54:13 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ Handles the words in the input string.
 char	*handle_word(char **s, int *pos)
 {
 	int		i;
-	char	quote;
+	int		quote;
 	char	*value;
 
 	i = *pos;
@@ -89,7 +89,7 @@ char	*handle_word(char **s, int *pos)
 		}
 		i++;
 	}
-	value = substr_del(*s, *pos, i - *pos);
+	value = substr_del(*s, *pos, i - *pos, &quote);
 	*pos = i;
 	return (value);
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+         #
+#    By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/10 16:41:52 by bmouhib           #+#    #+#              #
-#    Updated: 2025/02/05 17:53:31 by lemarian         ###   ########.fr        #
+#    Updated: 2025/02/10 18:19:50 by bmouhib          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ EXEC_PATH	:=	exec/
 # --------------------------------- SOURCES ---------------------------------- #
 
 SRC			:=	minishell.c
+SRC			+=	TESTS.c
 SRC			+=	$(PARS_PATH)ast.c
 SRC			+=	$(PARS_PATH)cleaner_ptr.c
 SRC			+=	$(PARS_PATH)cleaner_struct.c
