@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:18:08 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/02/06 18:27:33 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/10 16:06:56 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,10 @@ char	*concat_var(t_env *env, char **array, int *i, int exit_status)
 	char	*previous;
 
 	if (array[0][*i] == '?' || (array[0][*i] >= '0' && array[0][*i] <= '9'))
-		return (special_var(array[0][(*i)++], array[1], exit_status));
+	{
+		result = special_var(array[0][(*i)++], array[1], exit_status);
+		return (free(array[1]), result);
+	}
 	var = get_var_from_key(env, array[0], i);
 	previous = array[1];
 	if (!previous)

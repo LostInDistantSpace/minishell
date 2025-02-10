@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 19:43:32 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/02/06 13:34:05 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/10 15:49:36 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,25 +99,26 @@ int	handle_words(char *input, int pos, t_token **head, t_parse data)
 	int		i;
 	int		cur_word;
 	int		num_word;
+	char	*str;
 	char	**array;
 
 	i = 0;
-	input = expand(get_words(input, pos), data.env, '\'', data.exit_status);
-	num_word = word_num(input);
+	str = expand(get_words(input, pos), data.env, '\'', data.exit_status);
+	num_word = word_num(str);
 	if (!num_word)
-		return (free (input), 0);
+		return (free (str), 0);
 	array = malloc((num_word + 1) * sizeof(char *));
 	if (!array)
-		return (-1);
+		return (free(str), -1);
 	cur_word = 0;
-	while (input[i] && input[i] != '|')
+	while (str[i] && str[i] != '|')
 	{
-		if ((input[i] > 0 || input[i] == -2) && !ft_iswhitespace(input[i]))
-			array[cur_word++] = handle_word(&input, &i);
+		if ((str[i] > 0 || str[i] == -2) && !ft_iswhitespace(str[i]))
+			array[cur_word++] = handle_word(&str, &i);
 		else
 			i++;
 	}
 	array[num_word] = NULL;
 	add_token(head, word_token(&array, num_word));
-	return (free(input), num_word);
+	return (free(str), num_word);
 }

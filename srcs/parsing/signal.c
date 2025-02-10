@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 18:52:05 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/02/10 13:57:45 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/02/10 14:49:23 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	sigquit_manager(int status)
 	struct sigaction	sa;
 
 	sa.sa_flags = 0;
+	//change sighandler for sigint here to remove newline nd add it at the end
 	sigemptyset(&sa.sa_mask);
 	if (!status)
 	{
