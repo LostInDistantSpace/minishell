@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:04:27 by lemarian          #+#    #+#             */
-/*   Updated: 2025/02/06 13:05:13 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/02/11 14:29:08 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	ft_pwd(t_data *data)
 	dir = getcwd(dir, PATH_MAX);
 	if (!dir)
 	{
-		ft_print_error("pwd : %s\n", strerror(errno));
+		ft_print_error("pwd : getcwd: %s\n", strerror(errno));
 		*data->exit_status = 1;
 	}
 	else
@@ -109,7 +109,7 @@ void	ft_cd(t_ast *node, t_env **env, t_data *data)
 	old_pwd = NULL;
 	old_pwd = getcwd(old_pwd, PATH_MAX);
 	if (!old_pwd)
-		ft_print_error("cd : %s\n", strerror(errno));
+		ft_print_error("cd : getcwd: %s\n", strerror(errno));
 	if (!node->args[1] || ft_strcmp(node->args[1], "~") == 0)
 		return (go_home(env, data, old_pwd));
 	if (node->args[2])

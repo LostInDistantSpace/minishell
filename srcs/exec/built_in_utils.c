@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:29:22 by lemarian          #+#    #+#             */
-/*   Updated: 2025/02/06 13:05:27 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/02/11 14:30:37 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ void	update_pwd(t_env **env)
 			if (current->value)
 				free(current->value);
 			current->value = getcwd(buff, PATH_MAX);
+			if (!buff)
+				perror(NULL);
 			free(buff);
 		}
 		current = current->next;
