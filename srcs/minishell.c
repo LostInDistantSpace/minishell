@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:27:25 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/02/06 15:37:09 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/11 18:47:37 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,28 @@ int	g_signal;
 t_env	*init_env(char **envp)
 {
 	int		i;
+	char	*tmp;
+	char	*var;
 	t_env	*env;
 
 	i = 0;
 	env = NULL;
 	while (envp && envp[i])
 		env = add_env(env, new_env(envp[i++]));
-	if (!env)
+	var = get_var(env, "PWD");
+	if (!var)
 	{
-		env = add_env(env, new_env(ft_strjoin("PWD=", getcwd(NULL, 0))));
-		env = add_env(env, empty_env("OLDPWD"));
-		env = add_env(env, new_env("SHLVL=1"));
+		var = getcwd(NULL, 0);
+		tmp = ft_strjoin("PWD=", var);
+		env = add_env(env, new_env(tmp));
+		free(tmp);
 	}
+	free (var);
+	var = get_var(env, "OLDPWD");
+	if (!var)
+		env = add_env(env, empty_env("OLDPWD"));
+	else
+		free (var);
 	return (env);
 }
 
