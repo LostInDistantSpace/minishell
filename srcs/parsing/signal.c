@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 18:52:05 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/02/10 17:41:19 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/11 14:25:28 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,12 @@ void	sigquit_manager(int status)
 	sigemptyset(&sa.sa_mask);
 	if (!status)
 	{
-		if (g_signal == SIGQUIT)
-			printf("Quit (core dumped)\n");
+		if (g_signal)
+		{
+			if (g_signal == SIGQUIT)
+				printf("Quit (core dumped)");
+			printf("\n");
+		}
 		g_signal = 0;
 		sa.sa_handler = SIG_IGN;
 		sigaction(SIGQUIT, &sa, NULL);
