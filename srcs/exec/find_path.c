@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:33:19 by lemarian          #+#    #+#             */
-/*   Updated: 2025/02/10 13:57:56 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/02/11 18:23:21 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,11 @@ char	*get_path(char *cmd, t_data *data)
 
 	path_str = NULL;
 	current = *data->env;
+	if (cmd[0] == '/')
+	{
+		*data->exit_status = 127;
+		return (ft_print_error("%s : No such file or directory\n", cmd), NULL);
+	}
 	while (current)
 	{
 		if (ft_strcmp(current->key, "PATH") == 0)
