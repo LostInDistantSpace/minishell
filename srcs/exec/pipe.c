@@ -6,7 +6,7 @@
 /*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 13:16:52 by lemarian          #+#    #+#             */
-/*   Updated: 2025/02/10 13:57:30 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/02/11 12:26:52 by lemarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	init_left(t_ast *node, t_data *data, int fd[2])
 	ft_ast(node->left, data);
 	exit_child(data);
 }
-
 
 void	fork_pipe(t_ast *node, t_data *data)
 {
