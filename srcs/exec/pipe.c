@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lemarian <lemarian@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 13:16:52 by lemarian          #+#    #+#             */
-/*   Updated: 2025/02/11 12:26:52 by lemarian         ###   ########.fr       */
+/*   Updated: 2025/02/11 17:43:55 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	fork_pipe(t_ast *node, t_data *data)
 	int		fd[2];
 	int		status;
 
+	status = 0;
 	if (pipe(fd) == -1)
 		ft_error(data);
 	left = fork();
