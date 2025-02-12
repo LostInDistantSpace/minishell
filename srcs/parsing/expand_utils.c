@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 18:39:29 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/02/12 14:44:27 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/12 15:22:30 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*copy_key(char *str, int *i)
 	if (!len)
 	{
 		var = malloc(sizeof(char) * 2);
-		var[0] = -1;
+		var[0] = -3;
 		var[1] = '\0';
 	}
 	else
