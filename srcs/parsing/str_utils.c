@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 22:04:20 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/01/23 22:51:19 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/12 13:38:06 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ int	seek_spe_char(char *input, int i)
 				i++;
 			quote = 0;
 		}
-		else
-			i++;
+		i++;
 	}
 	return (i);
 }
