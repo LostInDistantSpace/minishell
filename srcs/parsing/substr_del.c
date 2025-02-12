@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 22:51:25 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/02/10 21:47:20 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/12 14:34:38 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	copy_between_quote(char *str, char *copy, int *i, int *j)
 	str[(*i)++] = -1;
 	while (str[*i] != quote && str[*i])
 	{
+		if (str[*i] == -2)
+			str[(*i)++] = -1;
 		copy[(*j)++] = str[*i];
 		str[(*i)++] = -1;
 	}
