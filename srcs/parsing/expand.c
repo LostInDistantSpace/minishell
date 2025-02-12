@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:18:08 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/02/12 12:18:28 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/12 14:49:52 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,7 @@ char	*concat_var(t_env *env, char **array, int *i, int exit_status)
 		return (free(var), NULL);
 	if (var)
 	{
-		if (*var < 0)
-			result = ft_strjoin(previous, "$");
-		else
-			result = ft_strjoin(previous, var);
+		result = ft_strjoin(previous, var);
 		return (free(previous), free(var), result);
 	}
 	return (previous);

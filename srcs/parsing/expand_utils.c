@@ -6,7 +6,7 @@
 /*   By: bmouhib <bmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 18:39:29 by bmouhib           #+#    #+#             */
-/*   Updated: 2025/02/06 13:26:06 by bmouhib          ###   ########.fr       */
+/*   Updated: 2025/02/12 14:44:27 by bmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ char	*get_var_from_key(t_env *env, char *raw, int *i)
 	if (!var)
 		return (NULL);
 	result = malloc(sizeof(char) * (ft_strlen(var) * 2 + 1));
+	if (!result)
+		return (NULL);
 	idx = -1;
 	j = 0;
 	while (var[++idx])
